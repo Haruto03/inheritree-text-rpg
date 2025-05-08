@@ -1,5 +1,23 @@
+/**
+ * The main class to setup and run the game.
+ * @author Adrian Kristanto
+ */
 package game;
 
+import edu.monash.fit2099.engine.actions.Action;
+import game.actors.Player;
+import game.actors.creatures.SpiritGoat;
+import game.actors.creatures.OmenSheep;
+import game.grounds.Blight;
+import game.grounds.Floor;
+import game.grounds.Soil;
+import game.grounds.Wall;
+import game.healing.items.Talisman;
+import game.plants.BloodroseSeed;
+import game.plants.InheritreeSeed;
+import game.ui.FancyMessage;
+import game.weapons.BareFist;
+import game.weapons.actions.AttackAction;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,18 +26,19 @@ import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 
-/**
- * The main class to setup and run the game.
- * @author Adrian Kristanto
- */
 public class Application {
 
+    /**
+     * Main method to run the game application.
+     * Sets up the game world, map, player, NPCs, and items.
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
 
-        World world = new World(new Display());
+        World world = new ValleyWorld(new Display()); //
 
-        FancyGroundFactory groundFactory = new FancyGroundFactory(new Blight(),
-                new Wall(), new Floor(), new Soil());
+        FancyGroundFactory groundFactory = new FancyGroundFactory(new Blight(), //
+                new Wall(), new Floor(), new Soil()); //
 
         List<String> map = Arrays.asList(
                 "xxxx...xxxxxxxxxxxxxxxxxxxxxxx........xx",
@@ -36,14 +55,14 @@ public class Application {
                 "..xxxx...xxxxxxxxx...#___#....xx........",
                 "xxxxx...xxxxxxxxxx...##_##...xxx.......x",
                 "xxxxx..xxxxxxxxxxx.........xxxxx......xx",
-                "xxxxx..xxxxxxxxxxxx.......xxxxxx......xx");
+                "xxxxx..xxxxxxxxxxxx.......xxxxxx......xx"); //
 
-        GameMap gameMap = new GameMap("Valley of the Inheritree", groundFactory, map);
-        world.addGameMap(gameMap);
+        GameMap gameMap = new GameMap("Valley of the Inheritree", groundFactory, map); //
+        world.addGameMap(gameMap); //
 
         // BEHOLD, ELDEN THING!
-        for (String line : FancyMessage.TITLE.split("\n")) {
-            new Display().println(line);
+        for (String line : FancyMessage.TITLE.split("\n")) { //
+            new Display().println(line); //
             try {
                 Thread.sleep(200);
             } catch (Exception exception) {
@@ -51,12 +70,21 @@ public class Application {
             }
         }
 
-        Player player = new Player("Farmer", '@', 100);
-        world.addPlayer(player, gameMap.at(23, 10));
+        Player player = new Player("Farmer", '@', 100); //
+        world.addPlayer(player, gameMap.at(23, 10)); //
+
+        player.addItemToInventory(new BloodroseSeed());
+        player.addItemToInventory(new InheritreeSeed());
+
+        // initialize the NPC
+        SpiritGoat spiritGoat = new SpiritGoat(); //
+        OmenSheep omenSheep = new OmenSheep(); //
 
         // game setup
-        gameMap.at(24, 11).addItem(new Talisman());
-
-        world.run();
+        gameMap.addActor(spiritGoat, gameMap.at(24, 13)); //
+        gameMap.addActor(omenSheep, gameMap.at(24, 12)); //
+        gameMap.at(24, 11).addItem(new Talisman()); //
+        Action a = new AttackAction(player,"aa",new BareFist());
+        world.run(); //
     }
 }

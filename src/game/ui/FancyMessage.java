@@ -1,4 +1,4 @@
-package game;
+package game.ui;
 
 /**
  * Fancy messages used to print the game title
