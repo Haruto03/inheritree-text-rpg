@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.capabilities.GeneralCapability;
 import game.grounds.GroundCapability;
 import game.grounds.Soil;
 
@@ -32,7 +33,11 @@ public class Inheritree extends Plant {
      */
     public Inheritree() {
         super('t', "Inherit tree");
+        // Inside Inheritree constructor
+        this.addCapability(GeneralCapability.BLESSED);
     }
+
+
 
     /**
      * Executes the instant effects that occur when the Inheritree is planted. It checks all
