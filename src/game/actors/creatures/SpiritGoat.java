@@ -5,8 +5,10 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.OffspringProducer;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
@@ -25,7 +27,7 @@ import game.weapons.actions.AttackAction;
  * This class implements both {@link Curable} to define its reaction to being cured and
  * {@link Rotatable} to manage its rot countdown.
  */
-public class SpiritGoat extends Creature implements Curable, Rotatable {
+public class SpiritGoat extends Creature implements Curable, Rotatable, OffspringProducer {
 
     /**
      * The initial number of turns the Spirit Goat survives with Crimson Rot before becoming unconscious.
@@ -82,6 +84,15 @@ public class SpiritGoat extends Creature implements Curable, Rotatable {
         if (this.isRotExpired()) {
             return new DoNothingAction(); // Actor is unconscious, cannot act
         }
+        // Inside SpiritGoat.playTurn, after any A1 rot logic
+        if (this.canProduceOffspring(this, map)) {
+            String productionMsg = this.produceOffspring(this, map);
+            if (productionMsg != null && !productionMsg.isEmpty()) {
+                display.println(productionMsg);
+            }
+        }
+// Then proceed with existing A1 behaviour logic
+// return super.playTurn(actions, lastAction, map, display);
         // Otherwise, proceed with normal behaviour selection
         return super.playTurn(actions, lastAction, map, display);
     }
@@ -211,4 +222,62 @@ public class SpiritGoat extends Creature implements Curable, Rotatable {
     public int getCurrentRotCountdown() {
         return this.currentRotCountdown;
     }
+
+
+    @Override
+    public boolean canProduceOffspring(Actor producer, GameMap map) {
+        Location currentLocation = map.locationOf(producer);
+        if (currentLocation == null) {
+            return false;
+        }
+
+        for (Exit exit : currentLocation.getExits()) {
+            Location adjacentLocation = exit.getDestination();
+            // adjacentLocation obtained from an exit on 'map' is presumed to be on 'map'
+            // and within its defined boundaries. No further map.contains(adjacentLocation) is needed.
+
+            // Check ground at adjacent location for BLESSED capability
+            if (adjacentLocation.getGround().hasCapability(GeneralCapability.BLESSED)) {
+                return true;
+            }
+            // Check items at adjacent location
+            for (Item itemOnGround : adjacentLocation.getItems()) {
+                if (itemOnGround.hasCapability(GeneralCapability.BLESSED)) {
+                    return true;
+                }
+            }
+            // Check actor at adjacent location
+            if (map.isAnActorAt(adjacentLocation)) { // This checks if an ACTOR is at the location on THIS map
+                Actor adjacentActor = map.getActorAt(adjacentLocation);
+                if (adjacentActor != null && adjacentActor.hasCapability(GeneralCapability.BLESSED)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String produceOffspring(Actor producer, GameMap map) {
+        Location producerLocation = map.locationOf(producer);
+        if (producerLocation == null) {
+            return producer.toString() + " is lost and cannot produce offspring.";
+        }
+
+        for (Exit exit : producerLocation.getExits()) {
+            Location destination = exit.getDestination();
+            // destination obtained from an exit on 'map' is presumed to be on 'map'.
+
+            // Check if destination is suitable for spawning
+            if (!map.isAnActorAt(destination) && // Check if another Actor is already there on THIS map
+                    destination.getGround().canActorEnter(producer)) { // Can the SpiritGoat type enter this ground?
+
+                SpiritGoat newGoat = new SpiritGoat();
+                map.addActor(newGoat, destination); // Add it to the map at the destination
+                return producer.toString() + " feels the grace and a new Spirit Goat appears nearby at (" + destination.x() + "," + destination.y() + ")!";
+            }
+        }
+        return producer.toString() + " feels blessed but cannot find a spot for new life.";
+    }
+
 }
