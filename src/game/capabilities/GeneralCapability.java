@@ -18,5 +18,7 @@ public enum GeneralCapability {
     /**
      * Capability indicating an entity have cure ability.
      */
-    CAN_CURED
-}
+    CAN_CURED,
+
+    BLESSED;
+    }
