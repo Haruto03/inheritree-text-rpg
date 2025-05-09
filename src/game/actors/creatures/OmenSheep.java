@@ -8,6 +8,8 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.OffspringProducer;
+import game.SheepEgg;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
@@ -25,7 +27,7 @@ import game.weapons.actions.AttackAction;
  * When targeted by a "cure" action (via the {@link Curable} interface and {@link CureAction}),
  * instead of having their rot timer reset, they cause {@link Inheritree} plants to grow on adjacent tiles.
  */
-public class OmenSheep extends Creature implements Curable, Rotatable {
+public class OmenSheep extends Creature implements Curable, Rotatable , OffspringProducer {
 
     /**
      * Display character representing the Omen Sheep on the game map.
@@ -48,6 +50,9 @@ public class OmenSheep extends Creature implements Curable, Rotatable {
      * Tracks the remaining turns before the rot effect expires.
      */
     private int currentRotCountdown;
+
+    private int turnsSinceEggProduced = 0;
+    private static final int EGG_PRODUCTION_INTERVAL = 7;
 
     /**
      * Constructor for the OmenSheep.
@@ -81,6 +86,16 @@ public class OmenSheep extends Creature implements Curable, Rotatable {
         if (this.isRotExpired()) {
             return new DoNothingAction(); // Actor is unconscious, cannot act
         }
+        // Inside OmenSheep.playTurn, after any A1 rot logic
+        this.turnsSinceEggProduced++;
+        if (this.canProduceOffspring(this, map)) {
+            String productionMsg = this.produceOffspring(this, map);
+            if (productionMsg != null && !productionMsg.isEmpty()) {
+                display.println(productionMsg);
+            }
+        }
+// Then proceed with existing A1 behaviour logic (e.g., from Creature superclass or WanderBehaviour)
+// return super.playTurn(actions, lastAction, map, display); // If it inherits from your Creature base
         // Otherwise, proceed with normal behaviour selection
         return super.playTurn(actions, lastAction, map, display);
     }
@@ -169,6 +184,31 @@ public class OmenSheep extends Creature implements Curable, Rotatable {
                 this.unconscious(map); // Call the existing unconscious method inherited from Actor
             }
         }
+    }
+
+    // In OmenSheep.java
+    @Override
+    public boolean canProduceOffspring(Actor producer, GameMap map) {
+        return this.turnsSinceEggProduced >= EGG_PRODUCTION_INTERVAL;
+    }
+
+    @Override
+    public String produceOffspring(Actor producer, GameMap map) {
+        Location producerLocation = map.locationOf(producer);
+        if (producerLocation == null) return producer.toString() + " is lost and cannot lay an egg.";
+
+        for (Exit exit : producerLocation.getExits()) {
+            Location destination = exit.getDestination();
+            if (!map.isAnActorAt(destination) &&
+                    destination.getGround().canActorEnter(producer) && // Check if ground is passable for an egg
+                    destination.getItems().isEmpty()) {
+
+                destination.addItem(new SheepEgg());
+                this.turnsSinceEggProduced = 0; // Reset counter
+                return producer.toString() + " lays a Sheep Egg at (" + destination.x() + "," + destination.y() + ")!";
+            }
+        }
+        return producer.toString() + " couldn't find a suitable spot to lay an egg.";
     }
 
     /**
