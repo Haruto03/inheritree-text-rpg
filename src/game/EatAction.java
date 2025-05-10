@@ -23,14 +23,10 @@ public class EatAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        // Ensure the actor still possesses the item (it's an Item to be in inventory)
-        Item itemInstance = (Item) this.eatableItem;
-        if (actor.getItemInventory().contains(itemInstance)) {
-            // Delegate the eating logic to the Eatable item itself
-            return this.eatableItem.eatenBy(actor, map);
+        return this.eatableItem.eatenBy(actor, map);
         }
-        return actor.toString() + " no longer has the " + itemInstance + " to eat.";
-    }
+
+
 
     @Override
     public String menuDescription(Actor actor) {

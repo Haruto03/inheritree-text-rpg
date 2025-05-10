@@ -4,14 +4,14 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.actions.ActionList; // Added for getAllowableActions
+import edu.monash.fit2099.engine.actions.ActionList;
 
 /**
  * Abstract class representing an egg in the game.
  * Implements Eatable (potentially for default behavior or to enforce the contract)
  * and Hatchable (for hatching logic).
  */
-public abstract class Egg extends Item implements Eatable, Hatchable {
+public abstract class Egg extends Item implements Eatable, ItemProducible {
 
     protected int turnsToHatch;
     protected int turnsOnGroundCounter;
@@ -40,12 +40,10 @@ public abstract class Egg extends Item implements Eatable, Hatchable {
     public void tick(Location currentLocation) {
         super.tick(currentLocation);
         turnsOnGroundCounter++;
-        if (this.canHatch(currentLocation)) {
+        if (this.canproduce(currentLocation)) {
             GameMap map = currentLocation.map();
-            String hatchMessage = this.hatch(currentLocation, map);
+            String hatchMessage = this.produce(currentLocation, map);
             if (hatchMessage != null && !hatchMessage.isEmpty()) {
-                // Message display should ideally be handled by the game loop or caller of tick.
-                // For now, a system out, but this isn't ideal for engine purity.
                 System.out.println(hatchMessage);
             }
         }
@@ -72,17 +70,9 @@ public abstract class Egg extends Item implements Eatable, Hatchable {
     @Override
     public ActionList allowableActions(Actor owner, GameMap map) {
         ActionList actions = super.allowableActions(owner, map);
-        // Concrete eggs that are Eatable should add their specific EatAction here
-        // The UML shows EatAction taking an Eatable (which this Egg is).
-        // If this specific egg type is eatable, add its EatAction.
-        // This is often done in the concrete class's constructor or here if a general EatAction applies.
-        actions.add(new EatAction(this)); // Assuming 'this' egg is the target for eating
+        actions.add(new EatAction(this));
         return actions;
     }
-
-    // Eatable and Hatchable methods will be implemented by concrete subclasses
-    // or can have default/abstract behavior here.
-    // Based on UML, Egg implements Eatable and Hatchable.
 
     // Abstract Eatable methods (or provide default if some eggs are not special when eaten)
     @Override
@@ -91,10 +81,10 @@ public abstract class Egg extends Item implements Eatable, Hatchable {
     @Override
     public abstract String getEatMenuDescription(Actor actor);
 
-    // Abstract Hatchable methods (as hatching is very specific)
-    @Override
-    public abstract boolean canHatch(Location currentLocation);
 
     @Override
-    public abstract String hatch(Location currentLocation, GameMap map);
+    public abstract boolean canproduce(Location currentLocation);
+
+    @Override
+    public abstract String produce(Location currentLocation, GameMap map);
 }

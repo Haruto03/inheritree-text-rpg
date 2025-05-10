@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 /**
  * Interface for Actors that can produce offspring or lay eggs.
  */
-public interface OffspringProducer {
+public interface ActorProducible {
     /**
      * Checks if the Actor can produce offspring/egg in the current turn.
      * @param producer The producing actor.
