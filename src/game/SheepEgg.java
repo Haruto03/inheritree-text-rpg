@@ -31,14 +31,14 @@ public class SheepEgg extends Egg {
 
     // --- Hatchable Implementation ---
     @Override
-    public boolean canHatch(Location currentLocation) {
+    public boolean canproduce(Location currentLocation) {
         // Hatches only if on the ground and turnsOnGroundCounter met
         // (currentLocation.getActor() == null) is implicitly handled by Item.tick(Location) being called for ground items.
         return turnsOnGroundCounter >= turnsToHatch;
     }
 
     @Override
-    public String hatch(Location currentLocation, GameMap map) {
+    public String produce(Location currentLocation, GameMap map) {
         if (map.isAnActorAt(currentLocation)) {
             return this.toString() + " at (" + currentLocation.x() + "," + currentLocation.y() + ") cannot hatch: location occupied.";
         }
@@ -58,7 +58,6 @@ public class SheepEgg extends Egg {
             // This relies on Player (Farmer) having its health managed by BaseActorAttributes.HEALTH
             // and supporting modification of its maximum.
             eater.modifyAttributeMaximum(BaseActorAttributes.HEALTH, ActorAttributeOperations.INCREASE, MAX_HEALTH_BOOST);
-            eater.heal(MAX_HEALTH_BOOST); // Also heal up to the new maximum
             message += " and feels invigorated. Max HP increased by " + MAX_HEALTH_BOOST + "!";
         eater.removeItemFromInventory(this); // Egg is consumed
         return message;

@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.OffspringProducer;
+import game.ActorProducible;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
@@ -27,7 +27,7 @@ import game.weapons.actions.AttackAction;
  * This class implements both {@link Curable} to define its reaction to being cured and
  * {@link Rotatable} to manage its rot countdown.
  */
-public class SpiritGoat extends Creature implements Curable, Rotatable, OffspringProducer {
+public class SpiritGoat extends Creature implements Curable, Rotatable, ActorProducible {
 
     /**
      * The initial number of turns the Spirit Goat survives with Crimson Rot before becoming unconscious.
@@ -227,9 +227,6 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, Offsprin
     @Override
     public boolean canProduceOffspring(Actor producer, GameMap map) {
         Location currentLocation = map.locationOf(producer);
-        if (currentLocation == null) {
-            return false;
-        }
 
         for (Exit exit : currentLocation.getExits()) {
             Location adjacentLocation = exit.getDestination();
@@ -260,9 +257,6 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, Offsprin
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
         Location producerLocation = map.locationOf(producer);
-        if (producerLocation == null) {
-            return producer.toString() + " is lost and cannot produce offspring.";
-        }
 
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
