@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
+import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
@@ -53,6 +54,15 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
     private int currentRotCountdown;
 
     /**
+     * Priority for the {@link ProduceBehaviour}. Ensures producing offspring is checked before wandering.
+     */
+    private static final int PRIORITY_PRODUCE = 1;
+    /**
+     * Priority for the {@link WanderBehaviour}. A lower priority action.
+     */
+    private static final int PRIORITY_WANDER = 10;
+
+    /**
      * Constructor for the SpiritGoat.
      * Initializes the goat with its name, display character, hit points,
      * adds {@link WanderBehaviour}, and sets the initial rot countdown.
@@ -61,6 +71,8 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         super(SpiritGoat.NAME, SpiritGoat.DISPLAY_CHAR, SpiritGoat.HIT_POINTS);
         //this.addBehaviour(999, new WanderBehaviour()); // Add wandering behaviour
         this.currentRotCountdown = this.getInitialRotCountdown(); // Initialize countdown
+        this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
+        this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }
 
     /**
@@ -84,13 +96,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         if (this.isRotExpired()) {
             return new DoNothingAction(); // Actor is unconscious, cannot act
         }
-        // Inside SpiritGoat.playTurn, after any A1 rot logic
-        if (this.canProduceOffspring(this, map)) {
-            String productionMsg = this.produceOffspring(this, map);
-            if (productionMsg != null && !productionMsg.isEmpty()) {
-                display.println(productionMsg);
-            }
-        }
+
 // Then proceed with existing A1 behaviour logic
 // return super.playTurn(actions, lastAction, map, display);
         // Otherwise, proceed with normal behaviour selection
