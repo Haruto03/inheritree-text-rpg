@@ -5,34 +5,41 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.ActorProducible;
 
+/**
+ * An Action that allows a specific ActorProducible creature to produce offspring.
+ */
 public class ProduceAction extends Action {
 
-    // producerActorはexecuteメソッドのactor引数で渡されるため、フィールドとして持つ必要は必ずしもない。
-    // BehaviourがこのActionを返す際に特定の情報（例：生産するアイテムの種類など）を渡したい場合にフィールドを使う。
-    // 今回はActorProducibleインターフェースのメソッドをactor自身が呼び出す形にする。
-
-    public ProduceAction() {
-        // 必要であれば引数を取る
+    protected ActorProducible producerActor;
+    /**
+     * Constructor.
+     * @param producer The creature that will produce offspring. It must implement ActorProducible.
+     * The Actor performing this action must be this producer.
+     */
+    public ProduceAction(ActorProducible producer) {
+        this.producerActor = producer;
     }
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        if (actor instanceof ActorProducible) {
-            ActorProducible producer = (ActorProducible) actor;
-            // produceOffspring メソッドがメッセージを返すことを期待
-            String result = producer.produceOffspring(actor, map);
-            if (result == null || result.isEmpty()) {
-                return actor + " tries to produce offspring.";
-            }
-            return result;
+
+        if (actor != this.producerActor) {
+
+            return actor + " cannot force another to produce offspring.";
         }
-        return actor + " is unable to produce offspring.";
+
+
+        String result = this.producerActor.produceOffspring(actor, map);
+
+        if (result == null || result.isEmpty()){
+            return actor + " attempts to produce offspring."; // Default message
+        }
+        return result;
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        // このアクションは通常、ビヘイビアによって自動的に実行されるため、
-        // プレイヤーメニューには表示されないことが多い。
+        // This action is typically not chosen from a menu by the creature itself.
         return actor + " produces offspring";
     }
 }
