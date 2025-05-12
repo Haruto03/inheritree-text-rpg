@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
 import game.SheepEgg;
+import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
@@ -55,14 +56,27 @@ public class OmenSheep extends Creature implements Curable, Rotatable , ActorPro
     private static final int EGG_PRODUCTION_INTERVAL = 7;
 
     /**
+     * Priority for the {@link ProduceBehaviour}. Higher priority means it's considered first.
+     */
+    private static final int PRIORITY_PRODUCE = 1; // High priority
+    /**
+     * Priority for the {@link WanderBehaviour}. Lower priority than producing.
+     */
+    private static final int PRIORITY_WANDER = 10; // Lower priority
+
+    /**
      * Constructor for the OmenSheep.
      * Initializes the sheep with its name, display character, hit points,
-     * adds {@link WanderBehaviour}, and sets the initial rot countdown.
+     * adds {@link WanderBehaviour} and {@link ProduceBehaviour} , and sets the initial rot countdown.
      */
     public OmenSheep() {
         super(OmenSheep.NAME, OmenSheep.DISPLAY_CHAR, OmenSheep.HIT_POINTS);
         //this.addBehaviour(999, new WanderBehaviour());
         this.currentRotCountdown = this.getInitialRotCountdown();
+        // ADDED SECTION: Initialize behaviours
+        this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
+        this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
+
     }
 
     /**

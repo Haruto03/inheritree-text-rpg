@@ -20,7 +20,7 @@ public class ProduceBehaviour implements Behaviour {
         if (actor != this.producer) return null;
 
         if (producer.canProduceOffspring(actor, map)) {
-            return new ProduceAction(producer); // ProduceActionもActorProducibleを引数に取るように変更
+            return new ProduceAction(producer);
         }
         return null;
     }
