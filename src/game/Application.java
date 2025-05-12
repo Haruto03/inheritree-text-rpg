@@ -6,6 +6,7 @@ package game;
 
 import edu.monash.fit2099.engine.actions.Action;
 import game.actors.Player;
+import game.actors.creatures.GoldenBeetle;
 import game.actors.creatures.SpiritGoat;
 import game.actors.creatures.OmenSheep;
 import game.grounds.Blight;
@@ -79,10 +80,12 @@ public class Application {
         // initialize the NPC
         SpiritGoat spiritGoat = new SpiritGoat(); //
         OmenSheep omenSheep = new OmenSheep(); //
+        GoldenBeetle goldenBeetle = new GoldenBeetle();
 
         // game setup
         gameMap.addActor(spiritGoat, gameMap.at(24, 13)); //
         gameMap.addActor(omenSheep, gameMap.at(24, 12)); //
+        gameMap.addActor(goldenBeetle, gameMap.at(24,14));
         gameMap.at(24, 11).addItem(new Talisman()); //
         Action a = new AttackAction(player,"aa",new BareFist());
         world.run(); //
