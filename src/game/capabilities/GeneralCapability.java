@@ -32,3 +32,4 @@ public enum GeneralCapability {
     CONSUMABLE_ON_MAP;
 
     }
+    //test commit
