@@ -91,7 +91,7 @@ public class OmenSheep extends Creature implements Curable, Rotatable , ActorPro
         if (this.canProduceOffspring(this, map)) {
             String productionMsg = this.produceOffspring(this, map);
             display.println(productionMsg);
-
+            //return DoNothingAction;
         }
 // Then proceed with existing A1 behaviour logic (e.g., from Creature superclass or WanderBehaviour)
 // return super.playTurn(actions, lastAction, map, display); // If it inherits from your Creature base
