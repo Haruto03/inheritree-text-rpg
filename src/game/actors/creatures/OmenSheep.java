@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
@@ -73,7 +74,7 @@ public class OmenSheep extends Creature implements Curable, Rotatable , ActorPro
         super(OmenSheep.NAME, OmenSheep.DISPLAY_CHAR, OmenSheep.HIT_POINTS);
         //this.addBehaviour(999, new WanderBehaviour());
         this.currentRotCountdown = this.getInitialRotCountdown();
-        // ADDED SECTION: Initialize behaviours
+
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
 
@@ -92,26 +93,20 @@ public class OmenSheep extends Creature implements Curable, Rotatable , ActorPro
      * @return The Action to be performed, or {@link DoNothingAction} if unconscious.
      */
     @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, edu.monash.fit2099.engine.displays.Display display) {
-        // Tick the internal rot countdown first
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         this.tickRotCountdown(map);
-
-        // If the sheep became unconscious due to rot, don't get another action
         if (this.isRotExpired()) {
-            return new DoNothingAction(); // Actor is unconscious, cannot act
+            return new DoNothingAction();
         }
+
 
         this.turnsSinceEggProduced++;
-        if (this.canProduceOffspring(this, map)) {
-            String productionMsg = this.produceOffspring(this, map);
-            display.println(productionMsg);
-            //return DoNothingAction;
-        }
-// Then proceed with existing A1 behaviour logic (e.g., from Creature superclass or WanderBehaviour)
-// return super.playTurn(actions, lastAction, map, display); // If it inherits from your Creature base
-        // Otherwise, proceed with normal behaviour selection
+
+
         return super.playTurn(actions, lastAction, map, display);
+
     }
+
 
     /**
      * Returns a list of actions that the {@code otherActor} can perform on this OmenSheep.
