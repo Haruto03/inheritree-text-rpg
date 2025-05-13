@@ -20,5 +20,17 @@ public enum GeneralCapability {
      */
     CAN_CURED,
 
-    BLESSED;
+    BLESSED,
+
+    /**
+     * Capability indicating an actor can be followed
+     */
+    FOLLOWABLE,
+    /**
+     * Capability indicating an actor can be consumed directly from the map
+     */
+    CONSUMABLE_ON_MAP,
+    CURSED_AURA;
+
     }
+    //test commit

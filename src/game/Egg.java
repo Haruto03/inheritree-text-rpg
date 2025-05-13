@@ -87,4 +87,7 @@ public abstract class Egg extends Item implements Eatable, ItemProducible {
 
     @Override
     public abstract String produce(Location currentLocation, GameMap map);
+
+    public int getTurnsOnGroundCounter() {  return turnsOnGroundCounter;
+    }
 }
