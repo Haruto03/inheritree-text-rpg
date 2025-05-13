@@ -3,27 +3,26 @@ package game;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.items.Item; // To ensure eatableItem is an Item
 
 /**
- * An Action that allows an Actor to eat an Eatable item from their inventory.
+ * An Action that allows an Actor to eat an Eatable target.
  */
 public class EatAction extends Action {
 
-    private Eatable eatableItem; // The Eatable item itself
+    private final Eatable target;
 
     /**
      * Constructor.
      *
-     * @param item The Eatable item to be eaten. Must also be an instance of Item.
+     * @param target The Eatable target to be eaten.
      */
-    public EatAction(Eatable item) {
-        this.eatableItem = item;
+    public EatAction(Eatable target) {
+        this.target = target;
     }
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        return this.eatableItem.eatenBy(actor, map);
+        return this.target.eatenBy(actor, map);
         }
 
 
@@ -31,6 +30,6 @@ public class EatAction extends Action {
     @Override
     public String menuDescription(Actor actor) {
         // Get the specific menu description from the Eatable item
-        return this.eatableItem.getEatMenuDescription(actor);
+        return this.target.getEatMenuDescription(actor);
     }
 }

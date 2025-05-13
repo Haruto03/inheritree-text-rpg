@@ -3,23 +3,21 @@ package game.actors.creatures;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
-// Behaviour is inherited from Creature
-// import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-
 import game.ActorProducible;
+import game.EatAction;
+import game.Eatable;
 import game.GoldenEgg;
-import game.ConsumeBeetleAction;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.weapons.actions.AttackAction;
 
-public class GoldenBeetle extends Creature implements ActorProducible {
+public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
     private static final char DISPLAY_CHAR = 'b';
     private static final int HIT_POINTS = 25;
@@ -38,7 +36,6 @@ public class GoldenBeetle extends Creature implements ActorProducible {
         super(NAME, DISPLAY_CHAR, HIT_POINTS);
         this.addCapability(GeneralCapability.CONSUMABLE_ON_MAP);
 
-
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_FOLLOW, new FollowBehaviour());
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
@@ -47,7 +44,6 @@ public class GoldenBeetle extends Creature implements ActorProducible {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         this.turnsSinceEggProduced++;
-
 
         return super.playTurn(actions, lastAction, map, display);
     }
@@ -62,12 +58,12 @@ public class GoldenBeetle extends Creature implements ActorProducible {
         Location producerLocation = map.locationOf(producer);
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
-            if (!map.isAnActorAt(destination) &&
-                    destination.getGround().canActorEnter(producer) &&
-                    destination.getItems().isEmpty()) {
+            if (!map.isAnActorAt(destination) && destination.getGround().canActorEnter(producer)
+                    && destination.getItems().isEmpty()) {
                 destination.addItem(new GoldenEgg());
                 this.turnsSinceEggProduced = 0; // Reset counter
-                return producer + " lays a Golden Egg at (" + destination.x() + "," + destination.y() + ")!";
+                return producer + " lays a Golden Egg at (" + destination.x() + ","
+                        + destination.y() + ")!";
             }
         }
         return producer + " couldn't find a suitable spot to lay an egg.";
@@ -78,10 +74,30 @@ public class GoldenBeetle extends Creature implements ActorProducible {
         ActionList actionsList = super.allowableActions(otherActor, direction, map);
         if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
             actionsList.add(new AttackAction(this, direction));
-            if (this.hasCapability(GeneralCapability.CONSUMABLE_ON_MAP)) {
-                actionsList.add(new ConsumeBeetleAction(this));
-            }
         }
+        if (this.hasCapability(GeneralCapability.CONSUMABLE_ON_MAP)) {
+            actionsList.add(new EatAction(this));
+        }
+
         return actionsList;
+    }
+
+    @Override
+    public String eatenBy(Actor eater, GameMap map) {
+
+        int healAmount = 15;
+        int runesGained = 1000;
+
+        eater.heal(healAmount);
+        eater.addBalance(runesGained);
+        map.removeActor(this);
+
+        return eater + " eats " + this + ", healing for " + healAmount + " HP and gaining "
+                + runesGained + " runes.";
+    }
+
+    @Override
+    public String getEatMenuDescription(Actor actor) {
+        return actor + " eat " + this;
     }
 }
