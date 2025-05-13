@@ -47,13 +47,13 @@ public class CursedEnvironmentHatchCondition implements HatchingCondition {
             }
 
             for (Item itemOnTile : adjacentLocation.getItems()) {
-                if (itemOnTile.hasCapability(GeneralCapability.CURSED_AURA)) {
+                if (itemOnTile.hasCapability(GeneralCapability.CURSED)) {
                     return true;
                 }
             }
             if (map.isAnActorAt(adjacentLocation)) {
                 Actor adjacentActor = map.getActorAt(adjacentLocation);
-                if (adjacentActor != null && adjacentActor.hasCapability(GeneralCapability.CURSED_AURA)) {
+                if (adjacentActor != null && adjacentActor.hasCapability(GeneralCapability.CURSED)) {
                     return true;
                 }
             }
