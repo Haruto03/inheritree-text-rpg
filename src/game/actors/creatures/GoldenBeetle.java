@@ -19,15 +19,15 @@ import game.weapons.actions.AttackAction;
 
 public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
+
+    private static final String NAME = "Golden Beetle";
     private static final char DISPLAY_CHAR = 'b';
     private static final int HIT_POINTS = 25;
-    private static final String NAME = "Golden Beetle";
     private static final int EGG_PRODUCTION_INTERVAL = 5;
 
     private int turnsSinceEggProduced = 0;
 
 
-    // Behaviour priorities
     private static final int PRIORITY_PRODUCE = 0;
     private static final int PRIORITY_FOLLOW = 5;
     private static final int PRIORITY_WANDER = 999;

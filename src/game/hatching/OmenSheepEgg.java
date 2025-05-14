@@ -10,14 +10,14 @@ import game.actors.creatures.OmenSheep;
 import game.conditions.TurnBasedCondition;
 import game.conditions.provider.TurnProvider;
 
-public class SheepEgg extends Egg implements TurnProvider {
+public class OmenSheepEgg extends Egg implements TurnProvider {
 
     private static final int HATCH_DURATION = 3;
     private static final int MAX_HEALTH_BOOST = 10;
 
     private int turnOnGround = 0;
 
-    public SheepEgg() {
+    public OmenSheepEgg() {
         super("Sheep Egg");
     }
 
@@ -41,7 +41,7 @@ public class SheepEgg extends Egg implements TurnProvider {
     // --- Eatable Implementation ---
     @Override
     public String eatenBy(Actor eater, GameMap map) {
-        String message = eater.toString() + " eats the " + this.toString();
+        String message = eater + " eats the " + this;
         // Farmer specific effect
             // Increase Farmer's maximum health by 10 points.
             // This relies on Player (Farmer) having its health managed by BaseActorAttributes.HEALTH
@@ -54,7 +54,7 @@ public class SheepEgg extends Egg implements TurnProvider {
 
     @Override
     public String getEatMenuDescription(Actor actor) {
-            return actor.toString() + " eats " + this.toString() + " (Max HP +" + MAX_HEALTH_BOOST + ")";
+            return actor.toString() + " eats " + this + " (Max HP +" + MAX_HEALTH_BOOST + ")";
 
     }
 

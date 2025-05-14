@@ -19,7 +19,7 @@ public class NearbyCapabilityHatchCondition implements Condition {
     @Override
     public boolean check() {
         Location currentlocation = locationProvider.getLocation();
-        return EnvironmentScanner.isEntityWithCapabilityNearby(currentlocation,capability);
+        return EnvironmentScanner.isEntityWithCapabilityNearby(currentlocation, capability);
     }
 
 }

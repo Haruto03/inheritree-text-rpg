@@ -26,7 +26,6 @@ public class EatAction extends Action {
         }
 
 
-
     @Override
     public String menuDescription(Actor actor) {
         // Get the specific menu description from the Eatable item

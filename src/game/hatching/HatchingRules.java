@@ -14,7 +14,7 @@ public class HatchingRules {
         this.creatureSupplier = creatureSupplier;
     }
 
-    public Actor tryHatch(){
+    public Actor tryHatch() {
         if (condition.check()) {
             return creatureSupplier.get();
         }

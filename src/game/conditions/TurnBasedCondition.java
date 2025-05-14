@@ -9,7 +9,7 @@ public class TurnBasedCondition implements Condition {
     private final TurnProvider turnProvider;
     private final int specificTurn;
 
-    public TurnBasedCondition(TurnProvider turnProvider,int specificTurn) {
+    public TurnBasedCondition(TurnProvider turnProvider, int specificTurn) {
         this.turnProvider = turnProvider;
         this.specificTurn = specificTurn;
     }
