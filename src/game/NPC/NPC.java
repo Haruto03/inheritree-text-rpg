@@ -8,7 +8,6 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.behaviours.WanderBehaviour;
-import game.capabilities.GeneralCapability;
 
 import java.util.*;
 
@@ -33,8 +32,6 @@ public abstract class NPC extends Actor {
     public NPC(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
-        this.addCapability(GeneralCapability.CAN_LISTEN_FROM);
-
     }
     /**
      * Returns the actions that other actors can do to this NPC.
@@ -47,7 +44,9 @@ public abstract class NPC extends Actor {
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        return new ActionList();  // No actions by default
+        ActionList actions = super.allowableActions(otherActor, direction, map); // Include default allowable actions if any
+        actions.add(new ListenAction(this));
+        return actions;
     }
 
     /**
@@ -88,11 +87,7 @@ public abstract class NPC extends Actor {
         monologuePool.add(monologue);
     }
 
-    public Optional<String> getRandomMonologue() {
-        if (!monologuePool.isEmpty()) {
-            int i = new Random().nextInt(monologuePool.size());
-            return Optional.of(monologuePool.get(i).message);
-        }
-        return Optional.empty();
+    public List<Monologue> getMonologues() {
+        return monologuePool;
     }
 }
