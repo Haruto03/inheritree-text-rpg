@@ -56,12 +56,12 @@ public class Application {
                 "xxxxx..xxxxxxxxxxx.........xxxxx......xx",
                 "xxxxx..xxxxxxxxxxxx.......xxxxxx......xx"); //
 
-        GameMap gameMap = new GameMap("Valley of the Inheritree", groundFactory, map); //
-        world.addGameMap(gameMap); //
+        GameMap gameMap = new GameMap("Valley of the Inheritree", groundFactory, map);
+        world.addGameMap(gameMap);
 
         // BEHOLD, ELDEN THING!
-        for (String line : FancyMessage.TITLE.split("\n")) { //
-            new Display().println(line); //
+        for (String line : FancyMessage.TITLE.split("\n")) {
+            new Display().println(line);
             try {
                 Thread.sleep(200);
             } catch (Exception exception) {
@@ -69,9 +69,9 @@ public class Application {
             }
         }
 
-        Player player = new Player("Farmer", '@', 100); //
+        Player player = new Player("Farmer", '@', 100);
         player.hurt(50);
-        world.addPlayer(player, gameMap.at(23, 10)); //
+        world.addPlayer(player, gameMap.at(23, 10));
 
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());
@@ -86,6 +86,6 @@ public class Application {
         gameMap.addActor(omenSheep, gameMap.at(24, 12));
         gameMap.addActor(goldenBeetle, gameMap.at(24, 14));
         gameMap.at(24, 11).addItem(new Talisman());
-        world.run(); //
+        world.run();
     }
 }
