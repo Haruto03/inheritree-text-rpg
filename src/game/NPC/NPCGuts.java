@@ -44,7 +44,7 @@ public class NPCGuts extends NPC {
 
         // Define conditions for triggering specific monologues
         Condition defaultCondition = new DefaultCondition();
-        Condition lowHealthCondition = new LowHealthCondition();
+        Condition lowHealthCondition = new LowHealthCondition(this);
 
         // Add monologues based on the conditions
         addMonologue(new Monologue(lowHealthCondition, "WEAK! TOO WEAK TO FIGHT ME!"));
