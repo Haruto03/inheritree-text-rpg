@@ -2,19 +2,42 @@ package game.NPC;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.behaviours.AttackBehaviour;
+import game.conditions.Condition;
+import game.conditions.DefaultCondition;
+import game.conditions.LowHealthCondition;
 
 public class NPCGuts extends NPC {
     /**
-     * The constructor of the Actor class.
-     *
-     * @param name        the name of the Actor
-     * @param displayChar the character that will represent the Actor in the display
-     * @param hitPoints   the Actor's starting hit points
+     * Display character representing the Guts on the game map.
      */
-    public NPCGuts(String name, char displayChar, int hitPoints) {
-        super(name, displayChar, hitPoints);
+    private final static char DISPLAY_CHAR = 'g';
+    /**
+     * Initial hit points (health) of the Guts.
+     */
+    private final static int HIT_POINTS = 500;
+    /**
+     * The name.
+     */
+    private final static String NAME = "Guts";
+
+    private static final int PRIORITY_ATTACK = 5;
+
+    /**
+     * The constructor of the Actor class.
+     */
+    public NPCGuts() {
+        super(NPCGuts.NAME, NPCGuts.DISPLAY_CHAR, NPCGuts.HIT_POINTS );
+        Behaviour AttackBehaviour = new AttackBehaviour();
+        addBehaviour(PRIORITY_ATTACK , AttackBehaviour);
+        Condition defaultCondition = new DefaultCondition();
+        Condition lowHealthCondition = new LowHealthCondition();
+        addMonologue(new Monologue(lowHealthCondition, "WEAK! TOO WEAK TO FIGHT ME!"));
+        addMonologue(new Monologue(defaultCondition, "RAAAAGH!"));
+        addMonologue(new Monologue(defaultCondition, "I’LL CRUSH YOU ALL!"));
     }
 
     @Override

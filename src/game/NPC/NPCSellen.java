@@ -2,24 +2,51 @@ package game.NPC;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.conditions.Condition;
+import game.conditions.DefaultCondition;
+
 
 public class NPCSellen extends NPC {
+
+    /**
+     * Display character representing the Sellen on the game map.
+     */
+    private final static char DISPLAY_CHAR = 's';
+    /**
+     * Initial hit points (health) of the Sellen.
+     */
+    private final static int HIT_POINTS = 150;
+    /**
+     * The name.
+     */
+    private final static String NAME = "Sellen";
+
+
     /**
      * The constructor of the Actor class.
      *
-     * @param name        the name of the Actor
-     * @param displayChar the character that will represent the Actor in the display
-     * @param hitPoints   the Actor's starting hit points
      */
-    public NPCSellen(String name, char displayChar, int hitPoints) {
-        super(name, displayChar, hitPoints);
+    public NPCSellen() {
+        super(NPCSellen.NAME, NPCSellen.DISPLAY_CHAR, NPCSellen.HIT_POINTS );
+        Condition defaultCondition = new DefaultCondition();
+        addMonologue(new Monologue(defaultCondition, "The academy casts out those it fears. Yet knowledge, " +
+                "like the stars, cannot be bound forever."));
+        addMonologue(new Monologue(defaultCondition, "You sense it too, don’t you? The Glintstone hums, even now."));
     }
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        //TODO
-        return null;
+        return new DoNothingAction();
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        // Include default allowable actions if any
+
+        return super.allowableActions(otherActor, direction, map);
     }
 }
