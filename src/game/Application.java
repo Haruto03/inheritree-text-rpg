@@ -5,6 +5,9 @@
 package game;
 
 import edu.monash.fit2099.engine.actions.Action;
+import game.NPC.NPCGuts;
+import game.NPC.NPCKale;
+import game.NPC.NPCSellen;
 import game.actors.Player;
 import game.actors.creatures.GoldenBeetle;
 import game.actors.creatures.SpiritGoat;
@@ -77,15 +80,25 @@ public class Application {
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());
 
-        // initialize the NPC
+        // Initialize the Creatures
         SpiritGoat spiritGoat = new SpiritGoat(); //
         OmenSheep omenSheep = new OmenSheep(); //
         GoldenBeetle goldenBeetle = new GoldenBeetle();
+
+        // Initialize the NPCs
+        NPCSellen NPCSellen = new NPCSellen();
+        NPCKale NPCKale = new NPCKale();
+        NPCGuts NPCGuts = new NPCGuts();
 
         // game setup
         gameMap.addActor(spiritGoat, gameMap.at(24, 13)); //
         gameMap.addActor(omenSheep, gameMap.at(24, 12)); //
         gameMap.addActor(goldenBeetle, gameMap.at(24,14));
+
+        gameMap.addActor(NPCSellen, gameMap.at(10, 5));
+        gameMap.addActor(NPCKale, gameMap.at(35, 12));
+        gameMap.addActor(NPCGuts, gameMap.at(5, 13));
+
         gameMap.at(24, 11).addItem(new Talisman()); //
         Action a = new AttackAction(player,"aa",new BareFist());
         world.run(); //
