@@ -6,12 +6,12 @@ import game.EnvironmentScanner;
 import game.conditions.provider.LocationProvider;
 
 
-public class NearbyCapabilityHatchCondition implements Condition {
+public class NearbyCapabilityCondition implements Condition {
 
     private final LocationProvider locationProvider;
     private final Enum<?> capability;
 
-    public NearbyCapabilityHatchCondition(LocationProvider locationProvider, Enum<?> capability) {
+    public NearbyCapabilityCondition(LocationProvider locationProvider, Enum<?> capability) {
         this.locationProvider = locationProvider;
         this.capability = capability;
     }
