@@ -3,7 +3,6 @@ package game;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.ActorProducible;
 
 /**
  * An Action that allows a specific ActorProducible creature to produce offspring.
@@ -27,7 +26,6 @@ public class ProduceAction extends Action {
 
             return actor + " cannot force another to produce offspring.";
         }
-
 
         String result = this.producerActor.produceOffspring(actor, map);
 

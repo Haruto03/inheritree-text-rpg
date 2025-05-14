@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
 import game.EatAction;
 import game.Eatable;
-import game.GoldenEgg;
+import game.hatching.GoldenBeetleEgg;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
@@ -19,18 +19,18 @@ import game.weapons.actions.AttackAction;
 
 public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
+
+    private static final String NAME = "Golden Beetle";
     private static final char DISPLAY_CHAR = 'b';
     private static final int HIT_POINTS = 25;
-    private static final String NAME = "Golden Beetle";
     private static final int EGG_PRODUCTION_INTERVAL = 5;
 
     private int turnsSinceEggProduced = 0;
 
 
-    // Behaviour priorities
     private static final int PRIORITY_PRODUCE = 0;
     private static final int PRIORITY_FOLLOW = 5;
-    private static final int PRIORITY_WANDER = 10;
+    private static final int PRIORITY_WANDER = 999;
 
     public GoldenBeetle() {
         super(NAME, DISPLAY_CHAR, HIT_POINTS);
@@ -60,7 +60,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
             Location destination = exit.getDestination();
             if (!map.isAnActorAt(destination) && destination.getGround().canActorEnter(producer)
                     && destination.getItems().isEmpty()) {
-                destination.addItem(new GoldenEgg());
+                destination.addItem(new GoldenBeetleEgg());
                 this.turnsSinceEggProduced = 0; // Reset counter
                 return producer + " lays a Golden Egg at (" + destination.x() + ","
                         + destination.y() + ")!";
@@ -88,6 +88,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
         int healAmount = 15;
         int runesGained = 1000;
 
+        // Eaten effect
         eater.heal(healAmount);
         eater.addBalance(runesGained);
         map.removeActor(this);
