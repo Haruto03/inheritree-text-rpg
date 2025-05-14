@@ -5,6 +5,7 @@ import game.behaviours.AttackBehaviour;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.conditions.LowHealthCondition;
+import game.weapons.BareFist;
 
 /**
  * A representation of the "Guts" character in the game.
@@ -34,6 +35,8 @@ public class NPCGuts extends NPC {
      */
     public NPCGuts() {
         super(NPCGuts.NAME, NPCGuts.DISPLAY_CHAR, NPCGuts.HIT_POINTS);
+        // Set the Intrinsic weapon BareFist for Guts
+        this.setIntrinsicWeapon(new BareFist());
 
         // Define and add the Attack behaviour with high priority
         Behaviour attackBehaviour = new AttackBehaviour();
