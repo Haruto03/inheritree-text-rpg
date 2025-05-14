@@ -60,7 +60,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
     /**
      * Priority for the {@link WanderBehaviour}. A lower priority action.
      */
-    private static final int PRIORITY_WANDER = 10;
+    private static final int PRIORITY_WANDER = 999;
 
     /**
      * Constructor for the SpiritGoat.

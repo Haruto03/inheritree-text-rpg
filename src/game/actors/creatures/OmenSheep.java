@@ -10,7 +10,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
-import game.SheepEgg;
+import game.hatching.SheepEgg;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
@@ -63,7 +63,7 @@ public class OmenSheep extends Creature implements Curable, Rotatable , ActorPro
     /**
      * Priority for the {@link WanderBehaviour}. Lower priority than producing.
      */
-    private static final int PRIORITY_WANDER = 10; // Lower priority
+    private static final int PRIORITY_WANDER = 999; // Lower priority
 
     /**
      * Constructor for the OmenSheep.
