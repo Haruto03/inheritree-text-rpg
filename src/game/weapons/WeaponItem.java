@@ -46,4 +46,13 @@ public abstract class WeaponItem extends Item implements Weapon {
 
         return String.format("%s %s %s for %d damage", attacker, verb, target, damage);
     }
+
+
+    public String applyBasePurchaseEffects(Actor buyer, GameMap map) {
+        return "";
+    }
+    
+    public char getWeaponId() {
+        return this.getDisplayChar();
+    }
 }
