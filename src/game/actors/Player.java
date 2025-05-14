@@ -35,6 +35,7 @@ public class Player extends Actor {
     public Player(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addCapability(GeneralCapability.HOSTILE_TO_ENEMY);
+        this.addCapability(GeneralCapability.FOLLOWABLE);
         this.setIntrinsicWeapon(new BareFist());
         // Initialize Stamina attribute
         this.addAttribute(BaseActorAttributes.STAMINA,
@@ -54,7 +55,6 @@ public class Player extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        System.out.println(this);
         // Handle multi-turn Actions first
         if (lastAction.getNextAction() != null) {
             return lastAction.getNextAction();
@@ -80,6 +80,6 @@ public class Player extends Actor {
                 + " Stamina: (" +
                 this.getAttribute(BaseActorAttributes.STAMINA) + "/" +
                 this.getAttributeMaximum(BaseActorAttributes.STAMINA) +
-                ")"; // Return only the name, status is printed in playTurn
+                ")"+" Runes: " + this.getBalance();
     }
 }
