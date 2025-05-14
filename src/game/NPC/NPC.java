@@ -14,12 +14,20 @@ import java.util.*;
 /**
  * An abstract class representing a Non-Player Character (NPC).
  * All NPCs in the game should inherit from this class.
+ *
+ * <p>The {@code NPC} class extends {@link Actor} and provides additional functionality
+ * specific to NPC behavior, including handling monologues, defining NPC-specific behaviors,
+ * and interacting with other actors through actions.</p>
  */
 public abstract class NPC extends Actor {
 
+    /** A pool of monologues that this NPC can say. */
     final List<Monologue> monologuePool = new ArrayList<>();
+
+    /** A map of behaviors for this NPC, keyed by their priority. */
     protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
 
+    /** The priority value used for wandering behavior. */
     private static final int PRIORITY_WANDER = 10;
 
     /**
@@ -33,14 +41,18 @@ public abstract class NPC extends Actor {
         super(name, displayChar, hitPoints);
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }
+
     /**
      * Returns the actions that other actors can do to this NPC.
      * By default, NPCs don't offer any interactions unless overridden.
      *
+     * <p>This method adds the {@link ListenAction} to the list of actions available
+     * to other actors interacting with the NPC.</p>
+     *
      * @param otherActor the actor interacting with this NPC
      * @param direction  the direction of the other actor
      * @param map        the current GameMap
-     * @return an empty ActionList by default
+     * @return an {@link ActionList} containing the actions that can be performed on this NPC
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
@@ -52,6 +64,10 @@ public abstract class NPC extends Actor {
     /**
      * Defines the behavior of the NPC on its turn.
      * Subclasses must implement this to define movement, attack, etc.
+     *
+     * <p>The NPC chooses an action based on its behaviors, prioritizing them
+     * based on their assigned priority values. The action returned by the highest priority
+     * behavior is executed first. If no action is returned by any behavior, the NPC performs no action.</p>
      *
      * @param actions the list of possible actions
      * @param lastAction the action the actor did last turn
@@ -72,6 +88,14 @@ public abstract class NPC extends Actor {
         return new DoNothingAction();
     }
 
+    /**
+     * Adds a new behavior to the NPC.
+     *
+     * <p>Behaviors are added with a priority, where lower numbers indicate higher priority.</p>
+     *
+     * @param priority the priority of the behavior
+     * @param behaviour the behavior to add
+     */
     public void addBehaviour(int priority, Behaviour behaviour) {
         if (behaviour != null) {
             behaviours.put(priority, behaviour);
@@ -79,14 +103,21 @@ public abstract class NPC extends Actor {
     }
 
     /**
-     * Add a monologue string to the NPC's pool.
+     * Adds a monologue to the NPC's pool.
      *
-     * @param monologue the line to add
+     * <p>Monologues are strings that the NPC can say under certain conditions.</p>
+     *
+     * @param monologue the monologue to add to the pool
      */
     public void addMonologue(Monologue monologue) {
         monologuePool.add(monologue);
     }
 
+    /**
+     * Returns the list of monologues available for this NPC.
+     *
+     * @return a list of {@link Monologue}s for this NPC
+     */
     public List<Monologue> getMonologues() {
         return monologuePool;
     }
