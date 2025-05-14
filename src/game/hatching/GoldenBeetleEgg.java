@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actors.creatures.GoldenBeetle;
 import game.capabilities.GeneralCapability;
-import game.conditions.NearbyCapabilityHatchCondition;
+import game.conditions.NearbyCapabilityCondition;
 import game.conditions.provider.LocationProvider;
 
 public class GoldenBeetleEgg extends Egg implements LocationProvider {
@@ -22,7 +22,7 @@ public class GoldenBeetleEgg extends Egg implements LocationProvider {
 
     @Override
     public void initHatchingRules() {
-        this.addHatchingRules(new NearbyCapabilityHatchCondition(this, GeneralCapability.CURSED),
+        this.addHatchingRules(new NearbyCapabilityCondition(this, GeneralCapability.CURSED),
                 GoldenBeetle::new);
     }
 
