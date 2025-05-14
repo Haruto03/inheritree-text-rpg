@@ -2,12 +2,11 @@ package game;
 
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
-import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 
 public class EnvironmentScanner {
 
-    public static boolean isEntityWithCapabilityNearby(Location center, Enum<?> capability, GameMap map) {
+    public static boolean isEntityWithCapabilityNearby(Location center, Enum<?> capability) {
         for (Exit exit : center.getExits()) {
             Location destination = exit.getDestination();
             if (destination.getGround().hasCapability(capability)) return true;
