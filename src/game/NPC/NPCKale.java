@@ -1,9 +1,5 @@
 package game.NPC;
 
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.GameMap;
 import game.conditions.*;
 
 public class NPCKale extends NPC {
@@ -34,11 +30,5 @@ public class NPCKale extends NPC {
         addMonologue(new Monologue(cursedSurroundCondition, "Rest by the flame when you can, friend. These lands will wear you thin."));
         addMonologue(new Monologue(defaultCondition, "A merchant’s life is a lonely one. But the roads… they whisper secrets to those who listen."));
 
-    }
-
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        //TODO
-        return null;
     }
 }

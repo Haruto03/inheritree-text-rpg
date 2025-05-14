@@ -1,10 +1,5 @@
 package game.NPC;
 
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.DoNothingAction;
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.GameMap;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 
@@ -35,10 +30,5 @@ public class NPCSellen extends NPC {
         addMonologue(new Monologue(defaultCondition, "The academy casts out those it fears. Yet knowledge, " +
                 "like the stars, cannot be bound forever."));
         addMonologue(new Monologue(defaultCondition, "You sense it too, don’t you? The Glintstone hums, even now."));
-    }
-
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return new DoNothingAction();
     }
 }

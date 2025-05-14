@@ -1,10 +1,6 @@
 package game.NPC;
 
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Behaviour;
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.GameMap;
 import game.behaviours.AttackBehaviour;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
@@ -38,11 +34,5 @@ public class NPCGuts extends NPC {
         addMonologue(new Monologue(lowHealthCondition, "WEAK! TOO WEAK TO FIGHT ME!"));
         addMonologue(new Monologue(defaultCondition, "RAAAAGH!"));
         addMonologue(new Monologue(defaultCondition, "I’LL CRUSH YOU ALL!"));
-    }
-
-    @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        //TODO
-        return null;
     }
 }
