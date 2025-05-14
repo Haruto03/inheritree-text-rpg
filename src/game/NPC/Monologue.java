@@ -27,4 +27,12 @@ public class Monologue {
         this.condition = condition;
         this.message = message;
     }
+
+    public boolean availability(){
+        return condition.check();
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
