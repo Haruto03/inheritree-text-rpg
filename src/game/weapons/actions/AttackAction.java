@@ -21,13 +21,13 @@ public class AttackAction extends Action {
     /**
      * The {@link Actor} that is the target of this attack action.
      */
-    private Actor target;
+    private final Actor target;
 
     /**
      * A {@link String} describing the direction of the attack (e.g., "North", "West").
      * Primarily used for display purposes in the menu description.
      */
-    private String direction;
+    private final String direction;
 
     /**
      * The {@link Weapon} used for this specific attack instance.

@@ -9,15 +9,13 @@ import game.ProduceAction;
 
 public class ProduceBehaviour implements Behaviour {
 
-    private ActorProducible producer;
+    private final ActorProducible producer;
     public ProduceBehaviour(ActorProducible producerActor) {
         this.producer = producerActor;
     }
 
     @Override
     public Action getAction(Actor actor, GameMap map) {
-
-        if (actor != this.producer) return null;
 
         if (producer.canProduceOffspring(actor, map)) {
             return new ProduceAction(producer);

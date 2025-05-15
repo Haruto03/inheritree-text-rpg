@@ -10,27 +10,28 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
 import game.EatAction;
 import game.Eatable;
-import game.GoldenEgg;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
+import game.hatching.GoldenBeetleEgg;
 import game.weapons.actions.AttackAction;
+import java.util.ArrayList;
 
 public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
+
+    private static final String NAME = "Golden Beetle";
     private static final char DISPLAY_CHAR = 'b';
     private static final int HIT_POINTS = 25;
-    private static final String NAME = "Golden Beetle";
     private static final int EGG_PRODUCTION_INTERVAL = 5;
 
     private int turnsSinceEggProduced = 0;
 
 
-    // Behaviour priorities
     private static final int PRIORITY_PRODUCE = 0;
     private static final int PRIORITY_FOLLOW = 5;
-    private static final int PRIORITY_WANDER = 10;
+    private static final int PRIORITY_WANDER = 999;
 
     public GoldenBeetle() {
         super(NAME, DISPLAY_CHAR, HIT_POINTS);
@@ -56,13 +57,18 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
         Location producerLocation = map.locationOf(producer);
+        ArrayList<Location> locations = new ArrayList<>();
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
-            if (!map.isAnActorAt(destination) && destination.getGround().canActorEnter(producer)
-                    && destination.getItems().isEmpty()) {
-                destination.addItem(new GoldenEgg());
+            locations.add(destination);
+        }
+        locations.add(producerLocation);
+
+        for (Location destination : locations){
+            if (destination.getGround().canActorEnter(producer)) {
+                destination.addItem(new GoldenBeetleEgg());
                 this.turnsSinceEggProduced = 0; // Reset counter
-                return producer + " lays a Golden Egg at (" + destination.x() + ","
+                return producer + " lays a GoldenBeetleEgg at (" + destination.x() + ","
                         + destination.y() + ")!";
             }
         }
@@ -75,7 +81,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
         if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
             actionsList.add(new AttackAction(this, direction));
         }
-        if (this.hasCapability(GeneralCapability.CONSUMABLE_ON_MAP)) {
+        if (otherActor.hasCapability(GeneralCapability.CONSUMER)) {
             actionsList.add(new EatAction(this));
         }
 
@@ -88,6 +94,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
         int healAmount = 15;
         int runesGained = 1000;
 
+        // Eaten effect
         eater.heal(healAmount);
         eater.addBalance(runesGained);
         map.removeActor(this);

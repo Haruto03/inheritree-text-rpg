@@ -12,10 +12,10 @@ import game.conditions.Condition;
 public class Monologue {
 
     /** The condition under which this monologue is available. */
-    Condition condition;
+    private final Condition condition;
 
     /** The message to be displayed when the condition is satisfied. */
-    String message;
+    private final String message;
 
     /**
      * Constructs a {@code Monologue} with the given condition and message.
@@ -26,5 +26,13 @@ public class Monologue {
     public Monologue(Condition condition, String message) {
         this.condition = condition;
         this.message = message;
+    }
+
+    public boolean availability(){
+        return condition.check();
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

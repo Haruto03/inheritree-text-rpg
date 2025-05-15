@@ -42,13 +42,13 @@ public class ListenAction extends Action {
         List<Monologue> monologues = target.getMonologues();
         List<Monologue> availableMonologues = new ArrayList<>();
         for (Monologue monologue : monologues) {
-            if (monologue.condition.check(target, actor, map)) {
+            if (monologue.availability()) {
                 availableMonologues.add(monologue);
             }
         }
         if (!availableMonologues.isEmpty()) {
             int randomIndex = new Random().nextInt(availableMonologues.size());
-            return availableMonologues.get(randomIndex).message;
+            return availableMonologues.get(randomIndex).getMessage();
         }
         return "It says nothing...";
     }
