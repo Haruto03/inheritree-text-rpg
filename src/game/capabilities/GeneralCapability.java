@@ -32,6 +32,7 @@ public enum GeneralCapability {
     CONSUMABLE_ON_MAP,
 
     CONSUMER,
-    CURSED
+    CURSED,
+    CAN_SELL
 
     }

@@ -1,7 +1,23 @@
 package game.NPC;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import game.MerchantOffer;
+import game.actors.creatures.GoldenBeetle;
+import game.actors.creatures.OmenSheep;
+import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import game.effects.DamageEffect;
+import game.effects.Effect;
+import game.effects.HealEffect;
+import game.effects.IncreaseMaxHealthEffect;
+import game.effects.IncreaseMaxStaminaEffect;
+import game.effects.SpawnActorEffect;
+import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
+import game.weapons.Katana;
 
 /**
  * A representation of the "Sellen" NPC in the game. Sellen is a character associated with the
@@ -35,7 +51,7 @@ public class NPCSellen extends NPC {
      */
     public NPCSellen() {
         super(NPCSellen.NAME, NPCSellen.DISPLAY_CHAR, NPCSellen.HIT_POINTS);
-
+         this.addCapability(GeneralCapability.CAN_SELL);
         // Define the default condition for triggering monologues
         Condition defaultCondition = new DefaultCondition();
 
@@ -45,5 +61,26 @@ public class NPCSellen extends NPC {
                         "like the stars, cannot be bound forever."));
         addMonologue(new Monologue(defaultCondition,
                 "You sense it too, don’t you? The Glintstone hums, even now."));
+
+        // Define offers
+        // Broadsword
+        List<Effect> broadswordEffects = new ArrayList<>();
+        broadswordEffects.add(new HealEffect(10));
+        broadswordEffects.add(new IncreaseMaxHealthEffect(20));
+        offers.add(new MerchantOffer(new Broadsword(), 100, broadswordEffects));
+
+        // Dragonslayer Greatsword
+        List<Effect> dragonslayerEffects = new ArrayList<>();
+        dragonslayerEffects.add(new IncreaseMaxHealthEffect(15));
+        // dragonslayerEffects.add(new SpawnActorEffect(new GoldenBeetle(), Location location));
+        offers.add(new MerchantOffer(new DragonslayerGreatsword(), 1500, dragonslayerEffects));
+
+        // Katana
+        List<Effect> katanaEffects = new ArrayList<>();
+        katanaEffects.add(new DamageEffect(25));
+        katanaEffects.add(new HealEffect(10));
+        katanaEffects.add(new IncreaseMaxStaminaEffect(20));
+        // katanaEffects.add(new SpawnActorEffect(new OmenSheep(), Location location));
+        offers.add(new MerchantOffer(new Katana(), 500, katanaEffects));
     }
 }

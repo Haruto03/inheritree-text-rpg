@@ -7,6 +7,9 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.capabilities.GeneralCapability;
+import game.PurchaseAction;
+import game.MerchantOffer;
 import game.behaviours.WanderBehaviour;
 
 import java.util.*;
@@ -29,6 +32,8 @@ public abstract class NPC extends Actor {
 
     /** The priority value used for wandering behavior. */
     private static final int PRIORITY_WANDER = 10;
+
+    protected final List<MerchantOffer> offers = new ArrayList<>();
 
     /**
      * Constructor for an NPC.
@@ -58,6 +63,12 @@ public abstract class NPC extends Actor {
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = super.allowableActions(otherActor, direction, map); // Include default allowable actions if any
         actions.add(new ListenAction(this));
+
+        if (this.hasCapability(GeneralCapability.CAN_SELL)) {
+            for (MerchantOffer offer: offers) {
+                actions.add(new PurchaseAction(offer.getItem(), offer.getPrice(), this, offer.getEffects()));
+            }
+        }
         return actions;
     }
 
