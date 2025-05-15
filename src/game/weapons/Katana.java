@@ -2,8 +2,9 @@ package game.weapons;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.Purchasable;
 
-public class Katana extends WeaponItem {
+public class Katana extends WeaponItem implements Purchasable {
     public Katana() {
         super("Katana", 'j', 50, "slashes", 60);
     }
