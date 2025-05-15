@@ -4,15 +4,18 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
-import game.EnvironmentScanner;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
+import game.conditions.Condition;
+import game.conditions.NearbyCapabilityCondition;
+import game.conditions.providers.LocationProvider;
 import game.effects.Rotatable;
 import game.healing.Curable;
 import game.healing.CureAction;
@@ -29,7 +32,8 @@ import game.weapons.actions.AttackAction;
  * {@link Curable} to define its reaction to being cured and {@link Rotatable} to manage its rot
  * countdown.
  */
-public class SpiritGoat extends Creature implements Curable, Rotatable, ActorProducible {
+public class SpiritGoat extends Creature implements Curable, Rotatable, ActorProducible,
+        LocationProvider {
 
     /**
      * The initial number of turns the Spirit Goat survives with Crimson Rot before becoming
@@ -64,13 +68,14 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      */
     private static final int PRIORITY_WANDER = 999;
 
+    private Location currentLocation;
+
     /**
      * Constructor for the SpiritGoat. Initializes the goat with its name, display character, hit
      * points, adds {@link WanderBehaviour}, and sets the initial rot countdown.
      */
     public SpiritGoat() {
         super(SpiritGoat.NAME, SpiritGoat.DISPLAY_CHAR, SpiritGoat.HIT_POINTS);
-        //this.addBehaviour(999, new WanderBehaviour()); // Add wandering behaviour
         this.currentRotCountdown = this.getInitialRotCountdown(); // Initialize countdown
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
@@ -90,7 +95,8 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map,
-            edu.monash.fit2099.engine.displays.Display display) {
+            Display display) {
+        this.currentLocation = map.locationOf(this);
         // Tick the internal rot countdown first
         this.tickRotCountdown(map);
 
@@ -126,7 +132,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         }
 
         // Allow cure if the other actor has a curable item and the goat's rot is still active
-        if (!this.isRotExpired()) { // Check if rot timer is still running
+        if (!this.isRotExpired()) { // Check if the rot timer is still running
             for (Item item : otherActor.getItemInventory()) {
                 if (item.hasCapability(GeneralCapability.CAN_CURED)) {
                     // CureAction targets this goat at its current location
@@ -231,19 +237,16 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
 
     @Override
     public boolean canProduceOffspring(Actor producer, GameMap map) {
-        Location currentLocation = map.locationOf(producer);
-        return EnvironmentScanner.isEntityWithCapabilityNearby(currentLocation,
-                GeneralCapability.BLESSED);
+        Condition nearbyBlessed = new NearbyCapabilityCondition(this, GeneralCapability.BLESSED);
+        return nearbyBlessed.check();
     }
 
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
         Location producerLocation = map.locationOf(producer);
-
+        Actor newGoat = new SpiritGoat();
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
-            // destination obtained from an exit on 'map' is presumed to be on 'map'.
-            Actor newGoat = new SpiritGoat();
             // Check if destination is suitable for spawning
             if (!destination.canActorEnter(newGoat)) {
                 map.addActor(newGoat, destination); // Add it to the map at the destination
@@ -254,4 +257,8 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         return producer + " feels blessed but cannot find a spot for new life.";
     }
 
+    @Override
+    public Location getLocation() {
+        return currentLocation;
+    }
 }

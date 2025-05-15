@@ -4,7 +4,6 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
@@ -16,7 +15,6 @@ import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.hatching.GoldenBeetleEgg;
 import game.weapons.actions.AttackAction;
-import java.util.ArrayList;
 
 public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
@@ -56,23 +54,14 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
-        Location producerLocation = map.locationOf(producer);
-        ArrayList<Location> locations = new ArrayList<>();
-        for (Exit exit : producerLocation.getExits()) {
-            Location destination = exit.getDestination();
-            locations.add(destination);
-        }
-        locations.add(producerLocation);
 
-        for (Location destination : locations){
-            if (destination.getGround().canActorEnter(producer)) {
-                destination.addItem(new GoldenBeetleEgg());
-                this.turnsSinceEggProduced = 0; // Reset counter
-                return producer + " lays a GoldenBeetleEgg at (" + destination.x() + ","
-                        + destination.y() + ")!";
-            }
-        }
-        return producer + " couldn't find a suitable spot to lay an egg.";
+        Location producerLocation = map.locationOf(producer);
+        producerLocation.addItem(new GoldenBeetleEgg());
+        this.turnsSinceEggProduced = 0; // Reset counter
+        return producer + " lays a GoldenBeetleEgg at (" + producerLocation.x() + ","
+                + producerLocation.y() + ")!";
+
+
     }
 
     @Override
