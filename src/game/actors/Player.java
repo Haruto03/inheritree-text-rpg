@@ -41,6 +41,8 @@ public class Player extends Actor {
         // Initialize Stamina attribute
         this.addAttribute(BaseActorAttributes.STAMINA,
                 new BaseActorAttribute(Player.MAXIMUM_STAMINA_POINT)); // Example starting stamina
+
+        this.addBalance(1000);
     }
 
     /**
