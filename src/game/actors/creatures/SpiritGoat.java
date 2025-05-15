@@ -14,7 +14,6 @@ import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.NearbyCapabilityCondition;
-import game.conditions.providers.LocationProvider;
 import game.effects.Rotatable;
 import game.healing.Curable;
 import game.healing.CureAction;
@@ -31,8 +30,7 @@ import game.weapons.actions.AttackAction;
  * {@link Curable} to define its reaction to being cured and {@link Rotatable} to manage its rot
  * countdown.
  */
-public class SpiritGoat extends Creature implements Curable, Rotatable, ActorProducible,
-        LocationProvider {
+public class SpiritGoat extends Creature implements Curable, Rotatable, ActorProducible {
 
     /**
      * The initial number of turns the Spirit Goat survives with Crimson Rot before becoming
@@ -40,7 +38,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      */
     public static final int INITIAL_ROT_COUNTDOWN = 10;
     /**
-     * Display character representing the Spirit Goat on the game map.
+     * Display a character representing the Spirit Goat on the game map.
      */
     private final static char DISPLAY_CHAR = 'y';
     /**
@@ -67,7 +65,6 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      */
     private static final int PRIORITY_WANDER = 999;
 
-    private Location currentLocation;
 
     /**
      * Constructor for the SpiritGoat. Initializes the goat with its name, display character, hit
@@ -93,9 +90,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      * @return The Action to be performed, or {@link DoNothingAction} if unconscious.
      */
     @Override
-    public Action playTurn(ActionList actions, Action lastAction, GameMap map,
-            Display display) {
-        this.currentLocation = map.locationOf(this);
+    public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         // Tick the internal rot countdown first
         this.tickRotCountdown(map);
 
@@ -236,7 +231,8 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
 
     @Override
     public boolean canProduceOffspring(Actor producer, GameMap map) {
-        Condition nearbyBlessed = new NearbyCapabilityCondition(this, GeneralCapability.BLESSED);
+        Condition nearbyBlessed = new NearbyCapabilityCondition(map.locationOf(this),
+                GeneralCapability.BLESSED);
         return nearbyBlessed.check();
     }
 
@@ -247,7 +243,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
             // Check if destination is suitable for spawning
-            if (!destination.canActorEnter(newGoat)) {
+            if (destination.canActorEnter(newGoat)) {
                 map.addActor(newGoat, destination); // Add it to the map at the destination
                 return producer + " feels the grace and a new Spirit Goat appears nearby at ("
                         + destination.x() + "," + destination.y() + ")!";
@@ -256,8 +252,4 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         return producer + " feels blessed but cannot find a spot for new life.";
     }
 
-    @Override
-    public Location getLocation() {
-        return currentLocation;
-    }
 }

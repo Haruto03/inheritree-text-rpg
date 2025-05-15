@@ -21,9 +21,6 @@ import java.util.*;
  */
 public abstract class Npc extends Actor {
 
-    /** A pool of monologues that this NPC can say. */
-    final List<Monologue> monologuePool = new ArrayList<>();
-
     /** A map of behaviors for this NPC, keyed by their priority. */
     protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
 
@@ -102,23 +99,5 @@ public abstract class Npc extends Actor {
         }
     }
 
-    /**
-     * Adds a monologue to the NPC's pool.
-     *
-     * <p>Monologues are strings that the NPC can say under certain conditions.</p>
-     *
-     * @param monologue the monologue to add to the pool
-     */
-    public void addMonologue(Monologue monologue) {
-        monologuePool.add(monologue);
-    }
-
-    /**
-     * Returns the list of monologues available for this NPC.
-     *
-     * @return a list of {@link Monologue}s for this NPC
-     */
-    public List<Monologue> getMonologues() {
-        return monologuePool;
-    }
+    public abstract ArrayList<Monologue> getMonologues(Actor listener,GameMap map);
 }

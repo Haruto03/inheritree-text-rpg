@@ -1,11 +1,14 @@
 package game.actors.npc;
 
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
+import edu.monash.fit2099.engine.positions.GameMap;
 import game.behaviours.AttackBehaviour;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.conditions.LowHealthCondition;
 import game.weapons.BareFist;
+import java.util.ArrayList;
 
 /**
  * A representation of the "Guts" character in the game.
@@ -41,14 +44,19 @@ public class NpcGuts extends Npc {
         // Define and add the Attack behaviour with high priority
         Behaviour attackBehaviour = new AttackBehaviour();
         addBehaviour(PRIORITY_ATTACK, attackBehaviour);
+    }
 
+    @Override
+    public ArrayList<Monologue> getMonologues(Actor listener, GameMap map) {
         // Define conditions for triggering specific monologues
         Condition defaultCondition = new DefaultCondition();
-        Condition lowHealthCondition = new LowHealthCondition(this);
+        Condition lowHealthCondition = new LowHealthCondition(listener);
 
-        // Add monologues based on the conditions
-        addMonologue(new Monologue(lowHealthCondition, "WEAK! TOO WEAK TO FIGHT ME!"));
-        addMonologue(new Monologue(defaultCondition, "RAAAAGH!"));
-        addMonologue(new Monologue(defaultCondition, "I’LL CRUSH YOU ALL!"));
+        ArrayList<Monologue> monologues = new ArrayList<>();
+        monologues.add(new Monologue(lowHealthCondition, "WEAK! TOO WEAK TO FIGHT ME!"));
+        monologues.add(new Monologue(defaultCondition, "RAAAAGH!"));
+        monologues.add(new Monologue(defaultCondition, "I’LL CRUSH YOU ALL!"));
+
+        return monologues;
     }
 }

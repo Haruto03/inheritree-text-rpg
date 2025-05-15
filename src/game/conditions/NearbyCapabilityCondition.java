@@ -3,17 +3,16 @@ package game.conditions;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
-import game.conditions.providers.LocationProvider;
 import java.util.ArrayList;
 
 
 public class NearbyCapabilityCondition implements Condition {
 
-    private final LocationProvider locationProvider;
+    private final Location centerLocation;
     private final Enum<?> capability;
 
-    public NearbyCapabilityCondition(LocationProvider locationProvider, Enum<?> capability) {
-        this.locationProvider = locationProvider;
+    public NearbyCapabilityCondition(Location centerLocation, Enum<?> capability) {
+        this.centerLocation = centerLocation;
         this.capability = capability;
     }
 
@@ -21,8 +20,7 @@ public class NearbyCapabilityCondition implements Condition {
     public boolean check() {
 
         ArrayList<Location> locations = new ArrayList<>();
-        Location centerLocation = locationProvider.getLocation();
-        locations.add(locationProvider.getLocation());
+        locations.add(centerLocation);
         for (Exit exit : centerLocation.getExits()) {
             Location destination = exit.getDestination();
             locations.add(destination);

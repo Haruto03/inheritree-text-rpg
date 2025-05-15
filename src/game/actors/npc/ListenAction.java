@@ -39,7 +39,7 @@ public class ListenAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        List<Monologue> monologues = target.getMonologues();
+        List<Monologue> monologues = target.getMonologues(actor,map);
         List<Monologue> availableMonologues = new ArrayList<>();
         for (Monologue monologue : monologues) {
             if (monologue.availability()) {
