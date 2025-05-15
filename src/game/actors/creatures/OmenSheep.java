@@ -14,11 +14,13 @@ import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
+import game.hatching.GoldenBeetleEgg;
 import game.hatching.OmenSheepEgg;
 import game.healing.Curable;
 import game.healing.CureAction;
 import game.plants.Inheritree;
 import game.weapons.actions.AttackAction;
+import java.util.ArrayList;
 
 /**
  * Represents an Omen Sheep monster in the game. Omen Sheep wander around the map using
@@ -203,17 +205,22 @@ public class OmenSheep extends Creature implements Curable, Rotatable, ActorProd
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
         Location producerLocation = map.locationOf(producer);
+        ArrayList<Location> locations = new ArrayList<>();
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
-            if (!map.isAnActorAt(destination) && destination.getGround().canActorEnter(producer)) {
+            locations.add(destination);
+        }
+        locations.add(producerLocation);
 
+        for (Location destination : locations){
+            if (destination.getGround().canActorEnter(producer)) {
                 destination.addItem(new OmenSheepEgg());
-                this.turnsSinceEggProduced = 0;
-                return producer.toString() + " lays a Sheep Egg at (" + destination.x() + ","
+                this.turnsSinceEggProduced = 0; // Reset counter
+                return producer + " lays a OmenSheepEgg at (" + destination.x() + ","
                         + destination.y() + ")!";
             }
         }
-        return producer.toString() + " couldn't find a suitable spot to lay an egg.";
+        return producer + " couldn't find a suitable spot to lay an egg.";
     }
 
     /**

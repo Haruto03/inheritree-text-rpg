@@ -10,12 +10,13 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.ActorProducible;
 import game.EatAction;
 import game.Eatable;
-import game.hatching.GoldenBeetleEgg;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
+import game.hatching.GoldenBeetleEgg;
 import game.weapons.actions.AttackAction;
+import java.util.ArrayList;
 
 public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
 
@@ -56,13 +57,18 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
         Location producerLocation = map.locationOf(producer);
+        ArrayList<Location> locations = new ArrayList<>();
         for (Exit exit : producerLocation.getExits()) {
             Location destination = exit.getDestination();
-            if (!map.isAnActorAt(destination) && destination.getGround().canActorEnter(producer)
-                    && destination.getItems().isEmpty()) {
+            locations.add(destination);
+        }
+        locations.add(producerLocation);
+
+        for (Location destination : locations){
+            if (destination.getGround().canActorEnter(producer)) {
                 destination.addItem(new GoldenBeetleEgg());
                 this.turnsSinceEggProduced = 0; // Reset counter
-                return producer + " lays a Golden Egg at (" + destination.x() + ","
+                return producer + " lays a GoldenBeetleEgg at (" + destination.x() + ","
                         + destination.y() + ")!";
             }
         }
