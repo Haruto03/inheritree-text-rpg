@@ -1,4 +1,4 @@
-package game.plants;
+package game.plants.actions;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.grounds.GroundCapability; // Import necessary for linking
+import game.plants.Plant;
+import game.plants.Seed;
 
 /**
  * An {@link Action} that allows an {@link Actor} to plant a {@link Seed} at their current location,

@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -15,7 +15,7 @@ import game.conditions.providers.LocationProvider;
  * triggered by specific conditions like low runes, empty inventory, and cursed surroundings.
  * <p>The Kale character is a traveler who shares his wisdom in response to certain game conditions.</p>
  */
-public class NPCKale extends NPC implements LocationProvider {
+public class NpcKale extends Npc implements LocationProvider {
 
     /** Display character representing Kale on the game map. */
     private final static char DISPLAY_CHAR = 'k';
@@ -34,8 +34,8 @@ public class NPCKale extends NPC implements LocationProvider {
      * <p>This constructor sets up the Kale NPC with its name, display character, and initial health.
      * It also defines a set of monologues that are triggered by different conditions in the game world.</p>
      */
-    public NPCKale() {
-        super(NPCKale.NAME, NPCKale.DISPLAY_CHAR, NPCKale.HIT_POINTS);
+    public NpcKale() {
+        super(NpcKale.NAME, NpcKale.DISPLAY_CHAR, NpcKale.HIT_POINTS);
 
         // Define conditions for triggering specific monologues
         Condition defaultCondition = new DefaultCondition();

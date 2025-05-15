@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -19,7 +19,7 @@ import java.util.*;
  * specific to NPC behavior, including handling monologues, defining NPC-specific behaviors,
  * and interacting with other actors through actions.</p>
  */
-public abstract class NPC extends Actor {
+public abstract class Npc extends Actor {
 
     /** A pool of monologues that this NPC can say. */
     final List<Monologue> monologuePool = new ArrayList<>();
@@ -28,7 +28,7 @@ public abstract class NPC extends Actor {
     protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
 
     /** The priority value used for wandering behavior. */
-    private static final int PRIORITY_WANDER = 10;
+    private static final int PRIORITY_WANDER = 999;
 
     /**
      * Constructor for an NPC.
@@ -37,7 +37,7 @@ public abstract class NPC extends Actor {
      * @param displayChar the character to represent the NPC on the map
      * @param hitPoints   initial and maximum health of the NPC
      */
-    public NPC(String name, char displayChar, int hitPoints) {
+    public Npc(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }

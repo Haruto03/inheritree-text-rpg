@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import java.util.*;
 
 /**
- * An {@link Action} that allows an {@link Actor} to listen to an {@link NPC}
+ * An {@link Action} that allows an {@link Actor} to listen to an {@link Npc}
  * and possibly hear a monologue if any condition is satisfied.
  *
  * <p>The {@code ListenAction} checks the list of {@link Monologue}s associated
@@ -17,14 +17,14 @@ import java.util.*;
 public class ListenAction extends Action {
 
     /** The NPC this action is listening to. */
-    private final NPC target;
+    private final Npc target;
 
     /**
      * Constructs a new {@code ListenAction} targeting the given NPC.
      *
      * @param target the NPC to listen to
      */
-    public ListenAction(NPC target) {
+    public ListenAction(Npc target) {
         this.target = target;
     }
 

@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import edu.monash.fit2099.engine.actors.Behaviour;
 import game.behaviours.AttackBehaviour;
@@ -13,7 +13,7 @@ import game.weapons.BareFist;
  * <p>The Guts character performs an attack behavior when given the chance and has specific monologues
  * triggered by certain conditions, such as low health.</p>
  */
-public class NPCGuts extends NPC {
+public class NpcGuts extends Npc {
 
     /** Display character representing the Guts on the game map. */
     private final static char DISPLAY_CHAR = 'g';
@@ -33,8 +33,8 @@ public class NPCGuts extends NPC {
      * <p>This constructor sets up the Guts NPC with its name, display character, and initial health.
      * It also adds an attack behavior with a priority and defines a set of monologues triggered by certain conditions.</p>
      */
-    public NPCGuts() {
-        super(NPCGuts.NAME, NPCGuts.DISPLAY_CHAR, NPCGuts.HIT_POINTS);
+    public NpcGuts() {
+        super(NpcGuts.NAME, NpcGuts.DISPLAY_CHAR, NpcGuts.HIT_POINTS);
         // Set the Intrinsic weapon BareFist for Guts
         this.setIntrinsicWeapon(new BareFist());
 

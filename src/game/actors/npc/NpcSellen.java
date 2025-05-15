@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
@@ -8,7 +8,7 @@ import game.conditions.DefaultCondition;
  * academy and glintstone magic.
  * <p>This NPC shares philosophical thoughts and insight about the academy's ways and magic.</p>
  */
-public class NPCSellen extends NPC {
+public class NpcSellen extends Npc {
 
     /**
      * Display character representing Sellen on the game map.
@@ -33,8 +33,8 @@ public class NPCSellen extends NPC {
      * It also defines a set of philosophical monologues that Sellen will share with the
      * player.</p>
      */
-    public NPCSellen() {
-        super(NPCSellen.NAME, NPCSellen.DISPLAY_CHAR, NPCSellen.HIT_POINTS);
+    public NpcSellen() {
+        super(NpcSellen.NAME, NpcSellen.DISPLAY_CHAR, NpcSellen.HIT_POINTS);
 
         // Define the default condition for triggering monologues
         Condition defaultCondition = new DefaultCondition();

@@ -56,6 +56,10 @@ public class Player extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        display.print(this + " Health: (" + this.getAttribute(BaseActorAttributes.HEALTH) + "/"
+                + this.getAttributeMaximum(BaseActorAttributes.HEALTH) + ")" + " Stamina: ("
+                + this.getAttribute(BaseActorAttributes.STAMINA) + "/" + this.getAttributeMaximum(
+                BaseActorAttributes.STAMINA) + ")" + " Runes: " + this.getBalance() + " ");
         // Handle multi-turn Actions first
         if (lastAction.getNextAction() != null) {
             return lastAction.getNextAction();
@@ -74,13 +78,8 @@ public class Player extends Actor {
      */
     @Override
     public String toString() {
-        return this.name + " Health: (" +
-                this.getAttribute(BaseActorAttributes.HEALTH) + "/" +
-                this.getAttributeMaximum(BaseActorAttributes.HEALTH) +
-                ")"
-                + " Stamina: (" +
-                this.getAttribute(BaseActorAttributes.STAMINA) + "/" +
-                this.getAttributeMaximum(BaseActorAttributes.STAMINA) +
-                ")"+" Runes: " + this.getBalance();
+        return this.name;
     }
+
+
 }
