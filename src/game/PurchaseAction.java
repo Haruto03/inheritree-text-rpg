@@ -6,15 +6,15 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.items.Item;
-import game.effects.Effects;
+import game.effects.Effect;
 
 public class PurchaseAction extends Action {
     private final Item itemToPurchase; 
     private final int runePrice;
     private final Actor merchant;
-    private final List<Effects> purchaseEffects; 
+    private final List<Effect> purchaseEffects; 
 
-    public PurchaseAction(Item itemToPurchase, int runePrice, Actor merchant, List<Effects> purchaseEffects) {
+    public PurchaseAction(Item itemToPurchase, int runePrice, Actor merchant, List<Effect> purchaseEffects) {
         this.itemToPurchase = itemToPurchase;
         this.runePrice = runePrice;
         this.merchant = merchant;
@@ -34,7 +34,7 @@ public class PurchaseAction extends Action {
         actor.addItemToInventory(itemToPurchase);
 
         // Apply all stored purchase effects
-        for (Effects effect : purchaseEffects) {
+        for (Effect effect : purchaseEffects) {
             effect.applyEffect(actor, map); // Pass actor and map to apply method
         }
 
