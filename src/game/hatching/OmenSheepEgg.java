@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import game.actors.creatures.OmenSheep;
 
 import game.conditions.TurnBasedCondition;
-import game.conditions.provider.TurnProvider;
+import game.conditions.providers.TurnProvider;
 
 public class OmenSheepEgg extends Egg implements TurnProvider {
 

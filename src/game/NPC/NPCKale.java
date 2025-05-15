@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.capabilities.GeneralCapability;
 import game.conditions.*;
-import game.conditions.provider.LocationProvider;
+import game.conditions.providers.LocationProvider;
 
 /**
  * A representation of the "Kale" character in the game.

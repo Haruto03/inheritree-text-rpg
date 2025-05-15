@@ -2,7 +2,7 @@
 package game.conditions;
 
 
-import game.conditions.provider.TurnProvider;
+import game.conditions.providers.TurnProvider;
 
 public class TurnBasedCondition implements Condition {
 

@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actors.creatures.GoldenBeetle;
 import game.capabilities.GeneralCapability;
 import game.conditions.NearbyCapabilityCondition;
-import game.conditions.provider.LocationProvider;
+import game.conditions.providers.LocationProvider;
 
 public class GoldenBeetleEgg extends Egg implements LocationProvider {
 

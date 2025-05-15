@@ -3,7 +3,7 @@ package game.conditions;
 
 import edu.monash.fit2099.engine.positions.Location;
 import game.EnvironmentScanner;
-import game.conditions.provider.LocationProvider;
+import game.conditions.providers.LocationProvider;
 
 
 public class NearbyCapabilityCondition implements Condition {
