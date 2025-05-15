@@ -1,4 +1,4 @@
-package game.conditions.provider;
+package game.conditions.providers;
 
 public interface TurnProvider {
 
