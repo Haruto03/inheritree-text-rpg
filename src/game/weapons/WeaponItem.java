@@ -1,9 +1,13 @@
 package game.weapons;
 
+import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.*;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.capabilities.GeneralCapability;
+import game.weapons.actions.AttackAction;
 
 import java.util.Random;
 
@@ -33,6 +37,7 @@ public abstract class WeaponItem extends Item implements Weapon {
         this.verb = verb;
         this.hitRate = hitRate;
         this.damageMultiplier = DEFAULT_DAMAGE_MULTIPLIER;
+
     }
 
     @Override
@@ -47,12 +52,11 @@ public abstract class WeaponItem extends Item implements Weapon {
         return String.format("%s %s %s for %d damage", attacker, verb, target, damage);
     }
 
+    @Override
+    public ActionList allowableActions(Actor otherActor, Location location) {
+        ActionList actions = new ActionList();
+        actions.add(new AttackAction(otherActor, "", this));
 
-    public String applyBasePurchaseEffects(Actor buyer, GameMap map) {
-        return "";
-    }
-    
-    public char getWeaponId() {
-        return this.getDisplayChar();
+        return actions;
     }
 }

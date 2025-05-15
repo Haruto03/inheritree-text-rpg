@@ -56,8 +56,8 @@ public class AttackAction extends Action {
      * @param direction The direction from which the attack originates (for display).
      */
     public AttackAction(Actor target, String direction) {
-        this.target = target; //
-        this.direction = direction; //
+        this.target = target; 
+        this.direction = direction; 
         // weapon is implicitly null, will use intrinsic weapon in execute()
     }
 
@@ -96,18 +96,20 @@ public class AttackAction extends Action {
         return result;
     }
 
-    /**
+/**
      * Provides a description of the attack action suitable for display in a menu.
-     * Specifies the attacker, target, direction, and the weapon being used
+     * Specifies the attacker, target, and the weapon being used
      * (either the specific weapon's name or "Intrinsic Weapon").
+     * Includes the direction only if it’s non-empty.
      *
      * @param actor The actor performing the action.
-     * @return A string describing the action, e.g., "Player attacks Goblin at North with Sword".
+     * @return A string describing the action, e.g., "Player attacks Goblin with Sword".
      */
     @Override
     public String menuDescription(Actor actor) {
         // Determine weapon name for description
-        String weaponName = (weapon != null ? weapon.toString() : "Intrinsic Weapon"); // Fallback to "Intrinsic Weapon"
-        return actor + " attacks " + target + " at " + direction + " with " + weaponName;
+        String weaponName = (weapon != null ? weapon.toString() : "Intrinsic Weapon");
+        String directionText = direction.isEmpty() ? "" : " at " + direction;
+        return actor + " attacks " + target + directionText + " with " + weaponName;
     }
 }
