@@ -30,7 +30,8 @@ public enum GeneralCapability {
      * Capability indicating an actor can be consumed directly from the map
      */
     CONSUMABLE_ON_MAP,
-    CURSED;
+
+    CONSUMER,
+    CURSED
 
     }
-    //test commit

@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.EatAction;
 import game.Eatable;
+import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import java.util.ArrayList;
 import java.util.Random;
@@ -75,7 +76,10 @@ public abstract class Egg extends Item implements Eatable {
     @Override
     public ActionList allowableActions(Actor owner, GameMap map) {
         ActionList actions = super.allowableActions(owner, map);
-        actions.add(new EatAction(this));
+        if (owner.hasCapability(GeneralCapability.CONSUMER)) {
+            actions.add(new EatAction(this));
+        }
+
         return actions;
     }
 

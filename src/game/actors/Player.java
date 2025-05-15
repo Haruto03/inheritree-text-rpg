@@ -36,6 +36,7 @@ public class Player extends Actor {
         super(name, displayChar, hitPoints);
         this.addCapability(GeneralCapability.HOSTILE_TO_ENEMY);
         this.addCapability(GeneralCapability.FOLLOWABLE);
+        this.addCapability(GeneralCapability.CONSUMER);
         this.setIntrinsicWeapon(new BareFist());
         // Initialize Stamina attribute
         this.addAttribute(BaseActorAttributes.STAMINA,
