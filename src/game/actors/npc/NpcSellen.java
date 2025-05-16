@@ -2,21 +2,21 @@ package game.actors.npc;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.MerchantOffer;
+import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import game.effects.DamageEffect;
 import game.effects.Effect;
 import game.effects.HealEffect;
 import game.effects.IncreaseMaxHealthEffect;
 import game.effects.IncreaseMaxStaminaEffect;
-import game.effects.DamageEffect;
-import game.effects.SpawnActorEffect;
-import game.actors.creatures.GoldenBeetle;
-import game.actors.creatures.OmenSheep;
 import game.weapons.Broadsword;
 import game.weapons.DragonslayerGreatsword;
+import game.effects.SpawnActorEffect;
+import game.actors.creatures.OmenSheep;
+import game.actors.creatures.GoldenBeetle;
 import game.weapons.Katana;
-import game.MerchantOffer;
-import game.capabilities.GeneralCapability;
 import java.util.ArrayList;
 import java.util.List;
 
