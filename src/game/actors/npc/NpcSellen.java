@@ -1,14 +1,17 @@
-package game.NPC;
+package game.actors.npc;
 
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import java.util.ArrayList;
 
 /**
  * A representation of the "Sellen" NPC in the game. Sellen is a character associated with the
  * academy and glintstone magic.
  * <p>This NPC shares philosophical thoughts and insight about the academy's ways and magic.</p>
  */
-public class NPCSellen extends NPC {
+public class NpcSellen extends Npc {
 
     /**
      * Display character representing Sellen on the game map.
@@ -29,8 +32,7 @@ public class NPCSellen extends NPC {
      * Constructor for the NPCSellen class.
      *
      * <p>This constructor sets up the Sellen NPC with its name, display character, and initial
-     * health.
-     * It also defines a set of philosophical monologues that Sellen will share with the
+     * health. It also defines a set of philosophical monologues that Sellen will share with the
      * player.</p>
      */
     public NpcSellen() {
@@ -71,7 +73,5 @@ public class NPCSellen extends NPC {
                 "You sense it too, don’t you? The Glintstone hums, even now."));
 
         return monologues;
-
-
     }
 }

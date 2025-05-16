@@ -5,13 +5,23 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.MerchantOffer;
 import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.conditions.EmptyInventoryCondition;
 import game.conditions.LowRunesCondition;
 import game.conditions.NearbyCapabilityCondition;
+import game.effects.Effect;
+import game.effects.HealEffect;
+import game.effects.IncreaseMaxHealthEffect;
+import game.effects.IncreaseMaxStaminaEffect;
+import game.effects.RestoreStaminaEffect;
+import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A representation of the "Kale" character in the game. This NPC is a merchant figure with unique
@@ -46,6 +56,24 @@ public class NpcKale extends Npc {
      */
     public NpcKale() {
         super(NpcKale.NAME, NpcKale.DISPLAY_CHAR, NpcKale.HIT_POINTS);
+        // Define offers
+        // Broadsword Offer 1
+        List<Effect> broadswordEffects1 = new ArrayList<>();
+        broadswordEffects1.add(new HealEffect(10));
+        broadswordEffects1.add(new IncreaseMaxStaminaEffect(30));
+        offers.add(new MerchantOffer(new Broadsword(), 150, broadswordEffects1));
+
+        // Broadsword Offer 2
+        List<Effect> broadswordEffects2 = new ArrayList<>();
+        broadswordEffects2.add(new HealEffect(10));
+        broadswordEffects2.add(new HealEffect(10));
+        offers.add(new MerchantOffer(new Broadsword(), 120, broadswordEffects2));
+
+        // Dragonslayer Greatsword
+        List<Effect> dragonslayerEffects = new ArrayList<>();
+        dragonslayerEffects.add(new IncreaseMaxHealthEffect(15));
+        dragonslayerEffects.add(new RestoreStaminaEffect(20));
+        offers.add(new MerchantOffer(new DragonslayerGreatsword(), 1700, dragonslayerEffects));
     }
 
     @Override
