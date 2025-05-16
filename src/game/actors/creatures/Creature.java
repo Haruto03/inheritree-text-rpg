@@ -22,7 +22,7 @@ public abstract class Creature extends Actor {
      * A map storing the behaviours assigned to this creature, keyed by priority. Lower integer
      * values indicate higher priority. Uses TreeMap to potentially iterate in priority order if
      * keys represent priority directly, otherwise HashMap is fine. Changed to protected to allow
-     * direct access in subclasses if absolutely needed, though using add/remove methods is
+     * direct access to subclasses if absolutely needed, though using add/remove methods is
      * preferred.
      */
     protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
@@ -47,7 +47,7 @@ public abstract class Creature extends Actor {
      *
      * @param actions    collection of possible Actions for this Actor (typically not used directly
      *                   here, but provided by the engine)
-     * @param lastAction The Action this Actor took last turn. Can do interesting things in
+     * @param lastAction The Action this Actor took the last turn. Can do interesting things in
      *                   conjunction with Action.getNextAction()
      * @param map        the {@link GameMap} containing the Actor
      * @param display    the {@link Display} I/O object to which messages may be written

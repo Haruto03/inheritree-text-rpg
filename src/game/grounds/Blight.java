@@ -25,7 +25,7 @@ public class Blight extends Ground implements Curable {
      */
     public Blight() {
         super('x', "Blight");
-        this.addCapability(GroundCapability.CURSED);
+        this.addCapability(GeneralCapability.CURSED);
     }
 
     @Override

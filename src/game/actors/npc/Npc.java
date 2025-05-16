@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -22,16 +22,13 @@ import java.util.*;
  * specific to NPC behavior, including handling monologues, defining NPC-specific behaviors,
  * and interacting with other actors through actions.</p>
  */
-public abstract class NPC extends Actor {
-
-    /** A pool of monologues that this NPC can say. */
-    final List<Monologue> monologuePool = new ArrayList<>();
+public abstract class Npc extends Actor {
 
     /** A map of behaviors for this NPC, keyed by their priority. */
     protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
 
     /** The priority value used for wandering behavior. */
-    private static final int PRIORITY_WANDER = 10;
+    private static final int PRIORITY_WANDER = 999;
 
     protected final List<MerchantOffer> offers = new ArrayList<>();
 
@@ -42,7 +39,7 @@ public abstract class NPC extends Actor {
      * @param displayChar the character to represent the NPC on the map
      * @param hitPoints   initial and maximum health of the NPC
      */
-    public NPC(String name, char displayChar, int hitPoints) {
+    public Npc(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }
@@ -113,23 +110,5 @@ public abstract class NPC extends Actor {
         }
     }
 
-    /**
-     * Adds a monologue to the NPC's pool.
-     *
-     * <p>Monologues are strings that the NPC can say under certain conditions.</p>
-     *
-     * @param monologue the monologue to add to the pool
-     */
-    public void addMonologue(Monologue monologue) {
-        monologuePool.add(monologue);
-    }
-
-    /**
-     * Returns the list of monologues available for this NPC.
-     *
-     * @return a list of {@link Monologue}s for this NPC
-     */
-    public List<Monologue> getMonologues() {
-        return monologuePool;
-    }
+    public abstract ArrayList<Monologue> getMonologues(Actor listener,GameMap map);
 }

@@ -1,30 +1,17 @@
-package game.NPC;
+package game.actors.npc;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import game.MerchantOffer;
-import game.actors.creatures.GoldenBeetle;
-import game.actors.creatures.OmenSheep;
-import game.capabilities.GeneralCapability;
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
-import game.effects.DamageEffect;
-import game.effects.Effect;
-import game.effects.HealEffect;
-import game.effects.IncreaseMaxHealthEffect;
-import game.effects.IncreaseMaxStaminaEffect;
-import game.effects.SpawnActorEffect;
-import game.weapons.Broadsword;
-import game.weapons.DragonslayerGreatsword;
-import game.weapons.Katana;
+import java.util.ArrayList;
 
 /**
  * A representation of the "Sellen" NPC in the game. Sellen is a character associated with the
  * academy and glintstone magic.
  * <p>This NPC shares philosophical thoughts and insight about the academy's ways and magic.</p>
  */
-public class NPCSellen extends NPC {
+public class NpcSellen extends Npc {
 
     /**
      * Display character representing Sellen on the game map.
@@ -45,23 +32,12 @@ public class NPCSellen extends NPC {
      * Constructor for the NPCSellen class.
      *
      * <p>This constructor sets up the Sellen NPC with its name, display character, and initial
-     * health.
-     * It also defines a set of philosophical monologues that Sellen will share with the
+     * health. It also defines a set of philosophical monologues that Sellen will share with the
      * player.</p>
      */
-    public NPCSellen() {
-        super(NPCSellen.NAME, NPCSellen.DISPLAY_CHAR, NPCSellen.HIT_POINTS);
-         this.addCapability(GeneralCapability.CAN_SELL);
-        // Define the default condition for triggering monologues
-        Condition defaultCondition = new DefaultCondition();
-
-        // Add monologues to Sellen's pool based on the default condition
-        addMonologue(new Monologue(defaultCondition,
-                "The academy casts out those it fears. Yet knowledge, " +
-                        "like the stars, cannot be bound forever."));
-        addMonologue(new Monologue(defaultCondition,
-                "You sense it too, don’t you? The Glintstone hums, even now."));
-
+    public NpcSellen() {
+        super(NpcSellen.NAME, NpcSellen.DISPLAY_CHAR, NpcSellen.HIT_POINTS);
+        this.addCapability(GeneralCapability.CAN_SELL);
         // Define offers
         // Broadsword
         List<Effect> broadswordEffects = new ArrayList<>();
@@ -82,5 +58,20 @@ public class NPCSellen extends NPC {
         katanaEffects.add(new IncreaseMaxStaminaEffect(20));
         // katanaEffects.add(new SpawnActorEffect(new OmenSheep(), Location location));
         offers.add(new MerchantOffer(new Katana(), 500, katanaEffects));
+    }
+
+    @Override
+    public ArrayList<Monologue> getMonologues(Actor listener, GameMap map) {
+        // Define conditions for triggering specific monologues
+        Condition defaultCondition = new DefaultCondition();
+
+        ArrayList<Monologue> monologues = new ArrayList<>();
+        monologues.add(new Monologue(defaultCondition,
+                "The academy casts out those it fears. Yet knowledge, " +
+                        "like the stars, cannot be bound forever."));
+        monologues.add(new Monologue(defaultCondition,
+                "You sense it too, don’t you? The Glintstone hums, even now."));
+
+        return monologues;
     }
 }
