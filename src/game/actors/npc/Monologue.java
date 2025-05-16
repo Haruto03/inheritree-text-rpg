@@ -1,4 +1,4 @@
-package game.NPC;
+package game.actors.npc;
 
 import game.conditions.Condition;
 

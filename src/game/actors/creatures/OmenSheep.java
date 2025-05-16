@@ -9,18 +9,15 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.ActorProducible;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.effects.Rotatable;
-import game.hatching.GoldenBeetleEgg;
 import game.hatching.OmenSheepEgg;
 import game.healing.Curable;
 import game.healing.CureAction;
 import game.plants.Inheritree;
 import game.weapons.actions.AttackAction;
-import java.util.ArrayList;
 
 /**
  * Represents an Omen Sheep monster in the game. Omen Sheep wander around the map using
@@ -205,22 +202,12 @@ public class OmenSheep extends Creature implements Curable, Rotatable, ActorProd
     @Override
     public String produceOffspring(Actor producer, GameMap map) {
         Location producerLocation = map.locationOf(producer);
-        ArrayList<Location> locations = new ArrayList<>();
-        for (Exit exit : producerLocation.getExits()) {
-            Location destination = exit.getDestination();
-            locations.add(destination);
-        }
-        locations.add(producerLocation);
 
-        for (Location destination : locations){
-            if (destination.getGround().canActorEnter(producer)) {
-                destination.addItem(new OmenSheepEgg());
-                this.turnsSinceEggProduced = 0; // Reset counter
-                return producer + " lays a OmenSheepEgg at (" + destination.x() + ","
-                        + destination.y() + ")!";
-            }
-        }
-        return producer + " couldn't find a suitable spot to lay an egg.";
+        producerLocation.addItem(new OmenSheepEgg());
+        this.turnsSinceEggProduced = 0; // Reset counter
+        return producer + " lays a OmenSheepEgg at (" + producerLocation.x() + ","
+                + producerLocation.y() + ")!";
+
     }
 
     /**

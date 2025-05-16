@@ -6,34 +6,27 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.EatAction;
-import game.Eatable;
 import game.capabilities.GeneralCapability;
-import game.conditions.Condition;
+import game.eating.EatAction;
+import game.eating.Eatable;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Supplier;
 
 
 public abstract class Egg extends Item implements Eatable {
 
-    private final ArrayList<HatchingRules> hatchingRules = new ArrayList<>();
     private static final char DISPLAY_CHAR = '0';
     private static final boolean IS_PORTABLE = true;
 
     public Egg(String name) {
         super(name, Egg.DISPLAY_CHAR, Egg.IS_PORTABLE);
-        initHatchingRules();
     }
 
-    public abstract void initHatchingRules();
+    public abstract ArrayList<HatchingRules> getHatchingRules(Location currentLocation);
 
-    public void addHatchingRules(Condition condition, Supplier<Actor> creatureSupplier) {
-        this.hatchingRules.add(new HatchingRules(condition, creatureSupplier));
-    }
 
-    public Actor tryHatch() {
-        for (HatchingRules hatchingRules : this.hatchingRules) {
+    public Actor tryHatch(Location currentLocation) {
+        for (HatchingRules hatchingRules : this.getHatchingRules(currentLocation)) {
             Actor hatchlingActor = hatchingRules.tryHatch();
             if (hatchlingActor != null) {
                 return hatchlingActor;
@@ -63,7 +56,7 @@ public abstract class Egg extends Item implements Eatable {
 
     @Override
     public void tick(Location currentLocation) {
-        Actor tryHatchlingActor = tryHatch();
+        Actor tryHatchlingActor = tryHatch(currentLocation);
         if (tryHatchlingActor != null) {
             Location produceLocation = tryProduce(currentLocation, tryHatchlingActor);
             if (produceLocation != null) {

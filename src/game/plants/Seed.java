@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.grounds.GroundCapability;
+import game.plants.actions.PlantAction;
 
 /**
  * An abstract base class for seed items in the game.

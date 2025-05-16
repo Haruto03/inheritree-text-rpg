@@ -1,22 +1,19 @@
-
 package game.conditions;
 
 
-import game.conditions.providers.TurnProvider;
-
 public class TurnBasedCondition implements Condition {
 
-    private final TurnProvider turnProvider;
+    private final int currentTurn;
     private final int specificTurn;
 
-    public TurnBasedCondition(TurnProvider turnProvider, int specificTurn) {
-        this.turnProvider = turnProvider;
+    public TurnBasedCondition(int currentTurn, int specificTurn) {
+        this.currentTurn = currentTurn;
         this.specificTurn = specificTurn;
     }
 
     @Override
     public boolean check() {
-        return turnProvider.getTurn() > specificTurn;
+        return currentTurn > specificTurn;
     }
 
 }

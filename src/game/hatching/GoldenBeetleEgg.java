@@ -8,12 +8,11 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actors.creatures.GoldenBeetle;
 import game.capabilities.GeneralCapability;
 import game.conditions.NearbyCapabilityCondition;
-import game.conditions.providers.LocationProvider;
+import java.util.ArrayList;
 
-public class GoldenBeetleEgg extends Egg implements LocationProvider {
+public class GoldenBeetleEgg extends Egg {
 
 
-    private Location currentLocationOnGround;
     private static final int STAMINA_RESTORE_ON_EAT = 20;
 
     public GoldenBeetleEgg() {
@@ -21,14 +20,19 @@ public class GoldenBeetleEgg extends Egg implements LocationProvider {
     }
 
     @Override
-    public void initHatchingRules() {
-        this.addHatchingRules(new NearbyCapabilityCondition(this, GeneralCapability.CURSED),
-                GoldenBeetle::new);
+    public ArrayList<HatchingRules> getHatchingRules(Location currentLocation) {
+        ArrayList<HatchingRules> hatchingRules = new ArrayList<>();
+        hatchingRules.add(
+                new HatchingRules(
+                        new NearbyCapabilityCondition(currentLocation, GeneralCapability.CURSED),
+                        GoldenBeetle::new));
+
+        return hatchingRules;
     }
+
 
     @Override
     public void tick(Location currentLocation) {
-        this.currentLocationOnGround = currentLocation;
         super.tick(currentLocation);
     }
 
@@ -51,8 +55,4 @@ public class GoldenBeetleEgg extends Egg implements LocationProvider {
         return actor + " eats " + this + " (Stamina +" + STAMINA_RESTORE_ON_EAT + ")";
     }
 
-    @Override
-    public Location getLocation() {
-        return currentLocationOnGround;
-    }
 }
