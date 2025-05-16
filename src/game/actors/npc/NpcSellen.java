@@ -4,7 +4,21 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import game.effects.Effect;
+import game.effects.HealEffect;
+import game.effects.IncreaseMaxHealthEffect;
+import game.effects.IncreaseMaxStaminaEffect;
+import game.effects.DamageEffect;
+import game.effects.SpawnActorEffect;
+import game.actors.creatures.GoldenBeetle;
+import game.actors.creatures.OmenSheep;
+import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
+import game.weapons.Katana;
+import game.MerchantOffer;
+import game.capabilities.GeneralCapability;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A representation of the "Sellen" NPC in the game. Sellen is a character associated with the
@@ -48,7 +62,7 @@ public class NpcSellen extends Npc {
         // Dragonslayer Greatsword
         List<Effect> dragonslayerEffects = new ArrayList<>();
         dragonslayerEffects.add(new IncreaseMaxHealthEffect(15));
-        // dragonslayerEffects.add(new SpawnActorEffect(new GoldenBeetle(), Location location));
+        dragonslayerEffects.add(new SpawnActorEffect(GoldenBeetle::new));
         offers.add(new MerchantOffer(new DragonslayerGreatsword(), 1500, dragonslayerEffects));
 
         // Katana
@@ -56,7 +70,7 @@ public class NpcSellen extends Npc {
         katanaEffects.add(new DamageEffect(25));
         katanaEffects.add(new HealEffect(10));
         katanaEffects.add(new IncreaseMaxStaminaEffect(20));
-        // katanaEffects.add(new SpawnActorEffect(new OmenSheep(), Location location));
+        katanaEffects.add(new SpawnActorEffect(OmenSheep::new, this));
         offers.add(new MerchantOffer(new Katana(), 500, katanaEffects));
     }
 
