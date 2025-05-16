@@ -56,6 +56,7 @@ public class NpcKale extends Npc {
      */
     public NpcKale() {
         super(NpcKale.NAME, NpcKale.DISPLAY_CHAR, NpcKale.HIT_POINTS);
+        this.addCapability(GeneralCapability.CAN_SELL);
         // Define offers
         // Broadsword Offer 1
         List<Effect> broadswordEffects1 = new ArrayList<>();
