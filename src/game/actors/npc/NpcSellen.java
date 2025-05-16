@@ -2,9 +2,20 @@ package game.actors.npc;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.MerchantOffer;
+import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import game.effects.DamageEffect;
+import game.effects.Effect;
+import game.effects.HealEffect;
+import game.effects.IncreaseMaxHealthEffect;
+import game.effects.IncreaseMaxStaminaEffect;
+import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
+import game.weapons.Katana;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A representation of the "Sellen" NPC in the game. Sellen is a character associated with the
