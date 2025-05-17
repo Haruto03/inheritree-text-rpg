@@ -10,6 +10,8 @@ import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.effects.Effect;
 import game.effects.IncreaseMaxHealthEffect;
+import game.effects.IncreaseMaxStaminaEffect;
+import game.effects.HealEffect;
 import game.effects.SpawnActorEffect;
 import game.weapons.Broadsword;
 import game.weapons.DragonslayerGreatsword;
@@ -75,6 +77,8 @@ public class NpcSellen extends Npc {
         ArrayList<Effect> katanaEffects = new ArrayList<>();
         // Spawns an OmenSheep near Sellen (the merchant)
         katanaEffects.add(new SpawnActorEffect(OmenSheep::new, this));
+        katanaEffects.add(new HealEffect(10)); // Buying this increases max health
+        katanaEffects.add(new IncreaseMaxStaminaEffect(20));
         offers.add(new MerchantOffer(new Katana(), 500, katanaEffects));
     }
 
