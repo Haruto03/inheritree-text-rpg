@@ -69,9 +69,9 @@ public class PurchaseAction extends Action {
      */
     @Override
     public String execute(Actor buyer, GameMap map) {
-        // Check if buyer has enough runes
+        // Check if a buyer has enough runes
         if (buyer.getBalance() < runePrice) {
-            return buyer + " does not have enough runes to buy the " + itemToPurchase.toString()
+            return buyer + " does not have enough runes to buy the " + itemToPurchase
                     + ".";
         }
 
@@ -91,7 +91,7 @@ public class PurchaseAction extends Action {
             effect.applyEffect(buyer, map);
         }
 
-        return buyer + " bought a " + itemToPurchase + " from " + merchant.toString() + " for "
+        return buyer + " bought a " + itemToPurchase + " from " + merchant + " for "
                 + runePrice + " runes.";
     }
 
