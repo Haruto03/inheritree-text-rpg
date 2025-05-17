@@ -127,7 +127,7 @@ public class NpcKale extends Npc {
         monologues.add(new Monologue(nearbyCapabilityCondition,
                 "Rest by the flame when you can, friend. These lands will wear you thin."));
         monologues.add(new Monologue(defaultCondition,
-                "A merchant’s life is a lonely one. But the roads… they whisper secrets to those who listen."));
+                "A merchant's life is a lonely one. But the roads… they whisper secrets to those who listen."));
 
         return monologues;
     }
