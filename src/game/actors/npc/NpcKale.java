@@ -47,15 +47,15 @@ public class NpcKale extends Npc {
 
     /**
      * Constructor for the NpcKale class.
-     *
-     * <p>This constructor sets up the Kale NPC with its name, display character, and initial
-     * health. It also assigns him the {@link GeneralCapability#CAN_SELL} capability and defines his
+     * <p>
+     * This constructor sets up the Kale NPC with its name, display character, and initial health.
+     * It also assigns him the {@link GeneralCapability#CAN_SELL} capability and defines his
      * merchant offers:
      * <ul>
      * <li>A {@link Broadsword} for 150 runes, which also applies an {@link IncreaseMaxStaminaEffect} of 30.</li>
      * <li>A {@link DragonslayerGreatsword} for 1700 runes, which also applies a {@link RestoreStaminaEffect} of 20.</li>
      * </ul>
-     * His monologues are set up to respond to various game conditions.</p>
+     * His monologues are set up to respond to various game conditions.
      */
     public NpcKale() {
         super(NpcKale.NAME, NpcKale.DISPLAY_CHAR, NpcKale.HIT_POINTS);

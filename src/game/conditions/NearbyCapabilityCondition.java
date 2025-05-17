@@ -20,7 +20,6 @@ import java.util.ArrayList;
  * <li>Any items on the ground at the central location and its exits.</li>
  * </ul>
  * If any of these entities have the specified capability, the condition is met.
- * </p>
  */
 public class NearbyCapabilityCondition implements Condition {
 
@@ -49,10 +48,9 @@ public class NearbyCapabilityCondition implements Condition {
 
     /**
      * Checks if the specified {@link #capability} is present in any game entity at the
-     * {@link #centerLocation} or any of its adjacent locations.
-     * <p>
-     * It iterates through the {@link #centerLocation} and all locations reachable through its
-     * {@link Exit}s. For each of these locations, it checks:
+     * {@link #centerLocation} or any of its adjacent locations. It iterates through the
+     * {@link #centerLocation} and all locations reachable through its {@link Exit}s. For each of
+     * these locations, it checks:
      * <ol>
      * <li>If the {@link edu.monash.fit2099.engine.positions.Ground} at the location has the capability.</li>
      * <li>If there is an {@link Actor} at the location, whether that actor has the capability.</li>
@@ -61,7 +59,6 @@ public class NearbyCapabilityCondition implements Condition {
      * The method returns {@code true} as soon as the first entity with the capability is found.
      * If no such entity is found after checking all relevant locations and entities,
      * it returns {@code false}.
-     * </p>
      *
      * @return {@code true} if an entity with the specified capability is found at or adjacent to
      * the center location, {@code false} otherwise.

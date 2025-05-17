@@ -36,11 +36,11 @@ public class FollowBehaviour implements Behaviour {
      * adjacent location who is conscious and has the {@link GeneralCapability#FOLLOWABLE}
      * capability, they become the {@link #currentTarget}. The first such actor found is chosen. 3.
      * Move towards the target if one exists: - Calculates the Manhattan distance to the target. -
-     * If the actor is already adjacent to the target (distance <= 1 and not on the same location),
-     * no move action is returned (returns null). - Otherwise, it evaluates all possible moves to
-     * adjacent, enterable locations. - It selects a move that strictly reduces the Manhattan
-     * distance to the target. - To avoid biased movement when multiple paths offer the same best
-     * distance, exits are shuffled. - Returns a {@link MoveActorAction} for the preferred move.
+     * If the actor is already adjacent to the target, no move action is returned (returns null). -
+     * Otherwise, it evaluates all possible moves to adjacent, enterable locations. - It selects a
+     * move that strictly reduces the Manhattan distance to the target. - To avoid biased movement
+     * when multiple paths offer the same best distance, exits are shuffled. - Returns a
+     * {@link MoveActorAction} for the preferred move.
      * <p>
      * If no target is found, or no move can reduce the distance to the current target, or the actor
      * is already adjacent, this method returns null.

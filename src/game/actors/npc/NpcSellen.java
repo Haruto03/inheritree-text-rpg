@@ -53,7 +53,7 @@ public class NpcSellen extends Npc {
      * <li>A {@link DragonslayerGreatsword} for 1500 runes, which also applies a {@link SpawnActorEffect} to spawn a {@link GoldenBeetle}.</li>
      * <li>A {@link Katana} for 500 runes, which also applies a {@link SpawnActorEffect} to spawn an {@link OmenSheep} near Sellen herself.</li>
      * </ul>
-     * Her monologues provide insight into glintstone sorcery and the academy.</p>
+     * Her monologues provide insight into glints tone sorcery and the academy.
      */
     public NpcSellen() {
         super(NpcSellen.NAME, NpcSellen.DISPLAY_CHAR, NpcSellen.HIT_POINTS);
