@@ -11,6 +11,7 @@ import game.behaviours.WanderBehaviour;
 import game.buying.MerchantOffer;
 import game.buying.PurchaseAction;
 import game.capabilities.GeneralCapability;
+import game.weapons.actions.AttackAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,10 @@ public abstract class Npc extends Actor implements Speakable {
                 actions.add(new PurchaseAction(offer.getItem(), offer.getPrice(), this,
                         offer.getEffects()));
             }
+        }
+
+        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
+            actions.add(new AttackAction(this, direction));
         }
         return actions;
     }
