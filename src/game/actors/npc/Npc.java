@@ -22,7 +22,7 @@ import java.util.TreeMap;
  * items for purchase. All NPCs are initialized with a {@link WanderBehaviour}. Concrete NPC classes
  * should define specific monologues and may add other behaviors or merchant capabilities.
  */
-public abstract class Npc extends Actor {
+public abstract class Npc extends Actor implements Speakable {
 
     /**
      * A map of behaviors for this NPC, keyed by their priority. Lower integer values indicate
@@ -125,15 +125,4 @@ public abstract class Npc extends Actor {
             behaviours.put(priority, behaviour);
         }
     }
-
-    /**
-     * Abstract method to be implemented by concrete NPC subclasses. This method should return a
-     * list of {@link Monologue}s that this NPC can say. The selection of monologues can be
-     * dependent on the {@code listener} and the current {@code map} state.
-     *
-     * @param listener The {@link Actor} who is listening to this NPC.
-     * @param map      The current {@link GameMap}.
-     * @return An {@link ArrayList} of {@link Monologue} objects.
-     */
-    public abstract ArrayList<Monologue> getMonologues(Actor listener, GameMap map);
 }
