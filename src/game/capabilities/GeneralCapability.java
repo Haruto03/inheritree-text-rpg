@@ -33,6 +33,7 @@ public enum GeneralCapability {
 
     CONSUMER,
     CURSED,
-    CAN_SELL
+    CAN_SELL,
+    CAN_BUY
 
     }

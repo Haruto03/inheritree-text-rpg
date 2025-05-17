@@ -7,27 +7,33 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.capabilities.GeneralCapability;
-import game.PurchaseAction;
-import game.MerchantOffer;
 import game.behaviours.WanderBehaviour;
-
-import java.util.*;
+import game.buying.MerchantOffer;
+import game.buying.PurchaseAction;
+import game.capabilities.GeneralCapability;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
- * An abstract class representing a Non-Player Character (NPC).
- * All NPCs in the game should inherit from this class.
+ * An abstract class representing a Non-Player Character (NPC). All NPCs in the game should inherit
+ * from this class.
  *
  * <p>The {@code NPC} class extends {@link Actor} and provides additional functionality
- * specific to NPC behavior, including handling monologues, defining NPC-specific behaviors,
- * and interacting with other actors through actions.</p>
+ * specific to NPC behavior, including handling monologues, defining NPC-specific behaviors, and
+ * interacting with other actors through actions.</p>
  */
 public abstract class Npc extends Actor {
 
-    /** A map of behaviors for this NPC, keyed by their priority. */
+    /**
+     * A map of behaviors for this NPC, keyed by their priority.
+     */
     protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
 
-    /** The priority value used for wandering behavior. */
+    /**
+     * The priority value used for wandering behavior.
+     */
     private static final int PRIORITY_WANDER = 999;
 
     protected final List<MerchantOffer> offers = new ArrayList<>();
@@ -45,8 +51,8 @@ public abstract class Npc extends Actor {
     }
 
     /**
-     * Returns the actions that other actors can do to this NPC.
-     * By default, NPCs don't offer any interactions unless overridden.
+     * Returns the actions that other actors can do to this NPC. By default, NPCs don't offer any
+     * interactions unless overridden.
      *
      * <p>This method adds the {@link ListenAction} to the list of actions available
      * to other actors interacting with the NPC.</p>
@@ -58,29 +64,32 @@ public abstract class Npc extends Actor {
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        ActionList actions = super.allowableActions(otherActor, direction, map); // Include default allowable actions if any
+        ActionList actions = super.allowableActions(otherActor, direction,
+                map); // Include default allowable actions if any
         actions.add(new ListenAction(this));
 
-        if (this.hasCapability(GeneralCapability.CAN_SELL)) {
-            for (MerchantOffer offer: offers) {
-                actions.add(new PurchaseAction(offer.getItem(), offer.getPrice(), this, offer.getEffects()));
+        if (otherActor.hasCapability(GeneralCapability.CAN_BUY) && (this.hasCapability(
+                GeneralCapability.CAN_SELL))) {
+            for (MerchantOffer offer : offers) {
+                actions.add(new PurchaseAction(offer.getItem(), offer.getPrice(), this,
+                        offer.getEffects()));
             }
         }
         return actions;
     }
 
     /**
-     * Defines the behavior of the NPC on its turn.
-     * Subclasses must implement this to define movement, attack, etc.
+     * Defines the behavior of the NPC on its turn. Subclasses must implement this to define
+     * movement, attack, etc.
      *
      * <p>The NPC chooses an action based on its behaviors, prioritizing them
-     * based on their assigned priority values. The action returned by the highest priority
-     * behavior is executed first. If no action is returned by any behavior, the NPC performs no action.</p>
+     * based on their assigned priority values. The action returned by the highest priority behavior
+     * is executed first. If no action is returned by any behavior, the NPC performs no action.</p>
      *
-     * @param actions the list of possible actions
+     * @param actions    the list of possible actions
      * @param lastAction the action the actor did last turn
-     * @param map the map the actor is on
-     * @param display the I/O object to which messages may be written
+     * @param map        the map the actor is on
+     * @param display    the I/O object to which messages may be written
      * @return the action to perform this turn
      */
     @Override
@@ -101,7 +110,7 @@ public abstract class Npc extends Actor {
      *
      * <p>Behaviors are added with a priority, where lower numbers indicate higher priority.</p>
      *
-     * @param priority the priority of the behavior
+     * @param priority  the priority of the behavior
      * @param behaviour the behavior to add
      */
     public void addBehaviour(int priority, Behaviour behaviour) {
@@ -110,5 +119,5 @@ public abstract class Npc extends Actor {
         }
     }
 
-    public abstract ArrayList<Monologue> getMonologues(Actor listener,GameMap map);
+    public abstract ArrayList<Monologue> getMonologues(Actor listener, GameMap map);
 }
