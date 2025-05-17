@@ -22,14 +22,14 @@ public class ListenAction extends Action {
     /**
      * The NPC this action is listening to.
      */
-    private final Npc target;
+    private final Speakable target;
 
     /**
      * Constructs a new {@code ListenAction} targeting the given NPC.
      *
      * @param target the NPC to listen to
      */
-    public ListenAction(Npc target) {
+    public ListenAction(Speakable target) {
         this.target = target;
     }
 
