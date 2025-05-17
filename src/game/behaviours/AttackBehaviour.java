@@ -10,21 +10,33 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.weapons.actions.AttackAction;
 
 /**
- * A behaviour that allows an actor to attack another actor if certain conditions are met.
- * <p>This behaviour checks if there are actors within the actor's current location's exits and if the actor's
- * target has health points above a certain threshold, allowing the actor to perform an attack action.</p>
+ * A behaviour that allows an {@link Actor} to attack another {@link Actor} if certain conditions
+ * are met.
+ * <p>
+ * This behaviour checks for target actors in adjacent locations (exits from the current actor's
+ * location). If a potential target is found and that target has a health attribute
+ * ({@link BaseActorAttributes#HEALTH}) greater than 50, this behaviour will return an
+ * {@link AttackAction} targeting that actor. The {@link AttackAction} will use the attacking
+ * actor's intrinsic weapon.
+ * </p>
  */
 public class AttackBehaviour implements Behaviour {
 
     /**
-     * Determines whether the actor should perform an attack action based on the presence of another actor
-     * and the health of the target actor.
-     * <p>This method checks all exits from the actor's current location. If an actor is found in an adjacent location,
-     * and the target has a health attribute above 50, the attacking actor will perform an attack action.</p>
+     * Determines and returns an {@link AttackAction} if a suitable target is found.
+     * <p>
+     * The method iterates through all exits from the actor's current location. For each exit, it
+     * checks if there is another actor at the destination. If an actor is present, is not the
+     * attacker itself, and possesses a health attribute with a value greater than 50, an
+     * {@link AttackAction} is generated against this target. The direction of the attack is based
+     * on the exit's name. If multiple targets meet the criteria, the first one encountered during
+     * the iteration is chosen.
+     * </p>
      *
-     * @param actor the actor whose behaviour is being determined
-     * @param map the current GameMap where the actor is located
-     * @return an AttackAction if the actor should attack a target, null if no attack is necessary
+     * @param actor the {@link Actor} performing the behaviour (the attacker).
+     * @param map   the {@link GameMap} where the actor is located.
+     * @return an {@link AttackAction} directed at a valid target if one is found; otherwise,
+     * {@code null}.
      */
     @Override
     public Action getAction(Actor actor, GameMap map) {
