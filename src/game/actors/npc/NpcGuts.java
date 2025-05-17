@@ -52,7 +52,7 @@ public class NpcGuts extends Npc {
         this.setIntrinsicWeapon(new BareFist());
 
         // Define and add the Attack behaviour with high priority
-        Behaviour attackBehaviour = new AttackBehaviour();
+        Behaviour attackBehaviour = new AttackBehaviour(50);
         addBehaviour(PRIORITY_ATTACK, attackBehaviour);
     }
 

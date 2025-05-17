@@ -23,6 +23,32 @@ import game.weapons.actions.AttackAction;
 public class AttackBehaviour implements Behaviour {
 
     /**
+     * The health threshold that a target's health must exceed for this actor to initiate an attack.
+     * If a target's health is not greater than this value, they will not be attacked by this
+     * behaviour.
+     */
+    private final int healthHurdle;
+
+    /**
+     * Constructs an AttackBehaviour with a specific health hurdle. The actor will only attack
+     * targets whose health is strictly greater than this hurdle.
+     *
+     * @param healthHurdle The minimum health an opponent must have (exclusive) to be considered a
+     *                     target for attack.
+     */
+    public AttackBehaviour(int healthHurdle) {
+        this.healthHurdle = healthHurdle;
+    }
+
+    /**
+     * Constructs an AttackBehaviour with a default health hurdle of 0. This means the actor will
+     * consider attacking any target with health greater than 0 (i.e., any conscious target).
+     */
+    public AttackBehaviour() {
+        this.healthHurdle = 0; // Default: will attack if target HP > 0
+    }
+
+    /**
      * Determines and returns an {@link AttackAction} if a suitable target is found.
      * <p>
      * The method iterates through all exits from the actor's current location. For each exit, it
@@ -53,7 +79,7 @@ public class AttackBehaviour implements Behaviour {
                 if (target != actor && target.hasAttribute(BaseActorAttributes.HEALTH)) {
                     int targetHp = target.getAttribute(BaseActorAttributes.HEALTH);
                     // Only attack if the target's health is greater than 50
-                    if (targetHp > 50) {
+                    if (targetHp > healthHurdle) {
                         return new AttackAction(target, exit.getName());
                     }
                 }
