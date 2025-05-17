@@ -11,30 +11,40 @@ import game.weapons.BareFist;
 import java.util.ArrayList;
 
 /**
- * A representation of the "Guts" character in the game.
- * This NPC is a powerful fighter with unique behaviors and monologues.
- * <p>The Guts character performs an attack behavior when given the chance and has specific monologues
- * triggered by certain conditions, such as low health.</p>
+ * A representation of the "Guts" character in the game. This NPC is a powerful fighter
+ * characterized by his aggressive {@link AttackBehaviour} and specific monologues, particularly
+ * when a listening actor has low health. Guts uses {@link BareFist} as his intrinsic weapon.
  */
 public class NpcGuts extends Npc {
 
-    /** Display character representing the Guts on the game map. */
+    /**
+     * Display character representing Guts on the game map.
+     */
     private final static char DISPLAY_CHAR = 'g';
 
-    /** Initial hit points (health) of the Guts. */
+    /**
+     * Initial hit points (health) of Guts.
+     */
     private final static int HIT_POINTS = 500;
 
-    /** The name of this NPC. */
+    /**
+     * The name of this NPC.
+     */
     private final static String NAME = "Guts";
 
-    /** Priority for the attack behavior. */
+    /**
+     * Priority for the {@link AttackBehaviour}. Lower numbers indicate higher priority.
+     */
     private static final int PRIORITY_ATTACK = 5;
 
     /**
-     * Constructor for the NPCGuts class.
+     * Constructor for the NpcGuts class.
      *
-     * <p>This constructor sets up the Guts NPC with its name, display character, and initial health.
-     * It also adds an attack behavior with a priority and defines a set of monologues triggered by certain conditions.</p>
+     * <p>This constructor sets up the Guts NPC with its name, display character, and initial
+     * health.
+     * It assigns {@link BareFist} as his intrinsic weapon and adds an {@link AttackBehaviour} with
+     * a defined priority. His monologues are tailored to reflect his aggressive nature, especially
+     * reacting to a low-health listener.</p>
      */
     public NpcGuts() {
         super(NpcGuts.NAME, NpcGuts.DISPLAY_CHAR, NpcGuts.HIT_POINTS);
@@ -42,15 +52,25 @@ public class NpcGuts extends Npc {
         this.setIntrinsicWeapon(new BareFist());
 
         // Define and add the Attack behaviour with high priority
-        Behaviour attackBehaviour = new AttackBehaviour();
+        Behaviour attackBehaviour = new AttackBehaviour(50);
         addBehaviour(PRIORITY_ATTACK, attackBehaviour);
     }
 
+    /**
+     * Returns a list of {@link Monologue}s that Guts can say. Guts has a specific monologue ("WEAK!
+     * TOO WEAK TO FIGHT ME!") if the {@code listener} is under a {@link LowHealthCondition}.
+     * Otherwise, he has default aggressive monologues ("RAAAAGH!", "I’LL CRUSH YOU ALL!").
+     *
+     * @param listener The {@link Actor} who is listening to Guts.
+     * @param map      The current {@link GameMap}.
+     * @return An {@link ArrayList} of {@link Monologue} objects appropriate for the situation.
+     */
     @Override
     public ArrayList<Monologue> getMonologues(Actor listener, GameMap map) {
         // Define conditions for triggering specific monologues
         Condition defaultCondition = new DefaultCondition();
-        Condition lowHealthCondition = new LowHealthCondition(listener);
+        Condition lowHealthCondition = new LowHealthCondition(
+                listener); // Condition based on listener's health
 
         ArrayList<Monologue> monologues = new ArrayList<>();
         monologues.add(new Monologue(lowHealthCondition, "WEAK! TOO WEAK TO FIGHT ME!"));

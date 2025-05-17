@@ -21,11 +21,9 @@ public abstract class Creature extends Actor {
     /**
      * A map storing the behaviours assigned to this creature, keyed by priority. Lower integer
      * values indicate higher priority. Uses TreeMap to potentially iterate in priority order if
-     * keys represent priority directly, otherwise HashMap is fine. Changed to protected to allow
-     * direct access to subclasses if absolutely needed, though using add/remove methods is
-     * preferred.
+     * keys represent priority directly, otherwise HashMap is fine.
      */
-    protected Map<Integer, Behaviour> behaviours = new TreeMap<>();
+    private final Map<Integer, Behaviour> behaviours = new TreeMap<>();
 
     /**
      * Constructor for the Creature class. Initializes basic actor properties. Calls the constructor

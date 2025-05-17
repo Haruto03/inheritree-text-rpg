@@ -37,6 +37,7 @@ public class Player extends Actor {
         this.addCapability(GeneralCapability.HOSTILE_TO_ENEMY);
         this.addCapability(GeneralCapability.FOLLOWABLE);
         this.addCapability(GeneralCapability.CONSUMER);
+        this.addCapability(GeneralCapability.CAN_LISTEN);
         this.addCapability(GeneralCapability.CAN_BUY);
         this.setIntrinsicWeapon(new BareFist());
         // Initialize Stamina attribute
