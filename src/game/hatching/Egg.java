@@ -49,9 +49,11 @@ public abstract class Egg extends Item implements Eatable {
                 locations.add(location);
             }
         }
-
-        int randomIndex = random.nextInt(locations.size());
-        return locations.get(randomIndex);
+        if (!locations.isEmpty()) {
+            int randomIndex = random.nextInt(locations.size());
+            return locations.get(randomIndex);
+        }
+        return null;
     }
 
     @Override
