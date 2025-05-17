@@ -2,8 +2,18 @@ package game.actors.npc;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.actors.creatures.GoldenBeetle;
+import game.actors.creatures.OmenSheep;
+import game.buying.MerchantOffer;
+import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import game.effects.Effect;
+import game.effects.IncreaseMaxHealthEffect;
+import game.effects.SpawnActorEffect;
+import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
+import game.weapons.Katana;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +47,22 @@ public class NpcSellen extends Npc {
      */
     public NpcSellen() {
         super(NpcSellen.NAME, NpcSellen.DISPLAY_CHAR, NpcSellen.HIT_POINTS);
+        this.addCapability(GeneralCapability.CAN_SELL);
+        // Define offers
+        // Broadsword
+        ArrayList<Effect> broadswordEffects = new ArrayList<>();
+        broadswordEffects.add(new IncreaseMaxHealthEffect(20));
+        offers.add(new MerchantOffer(new Broadsword(), 100, broadswordEffects));
+
+        // Dragonslayer Greatsword
+        ArrayList<Effect> dragonslayerEffects = new ArrayList<>();
+        dragonslayerEffects.add(new SpawnActorEffect(GoldenBeetle::new));
+        offers.add(new MerchantOffer(new DragonslayerGreatsword(), 1500, dragonslayerEffects));
+
+        // Katana
+        ArrayList<Effect> katanaEffects = new ArrayList<>();
+        katanaEffects.add(new SpawnActorEffect(OmenSheep::new, this));
+        offers.add(new MerchantOffer(new Katana(), 500, katanaEffects));
     }
 
     @Override

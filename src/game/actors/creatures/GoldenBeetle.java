@@ -66,11 +66,13 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actionsList = super.allowableActions(otherActor, direction, map);
-        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
-            actionsList.add(new AttackAction(this, direction));
-        }
+
         if (otherActor.hasCapability(GeneralCapability.CONSUMER)) {
             actionsList.add(new EatAction(this));
+        }
+        
+        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
+            actionsList.add(new AttackAction(this, direction));
         }
 
         return actionsList;

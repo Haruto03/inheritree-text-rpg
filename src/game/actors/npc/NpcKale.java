@@ -5,12 +5,18 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.buying.MerchantOffer;
 import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.conditions.EmptyInventoryCondition;
 import game.conditions.LowRunesCondition;
 import game.conditions.NearbyCapabilityCondition;
+import game.effects.Effect;
+import game.effects.IncreaseMaxStaminaEffect;
+import game.effects.RestoreStaminaEffect;
+import game.weapons.Broadsword;
+import game.weapons.DragonslayerGreatsword;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +52,17 @@ public class NpcKale extends Npc {
      */
     public NpcKale() {
         super(NpcKale.NAME, NpcKale.DISPLAY_CHAR, NpcKale.HIT_POINTS);
+        this.addCapability(GeneralCapability.CAN_SELL);
+        // Define offers
+        // Broadsword Offer 1
+        ArrayList<Effect> broadswordEffects1 = new ArrayList<>();
+        broadswordEffects1.add(new IncreaseMaxStaminaEffect(30));
+        offers.add(new MerchantOffer(new Broadsword(), 150, broadswordEffects1));
+
+        // Dragonslayer Greatsword
+        ArrayList<Effect> dragonslayerEffects = new ArrayList<>();
+        dragonslayerEffects.add(new RestoreStaminaEffect(20));
+        offers.add(new MerchantOffer(new DragonslayerGreatsword(), 1700, dragonslayerEffects));
     }
 
     @Override

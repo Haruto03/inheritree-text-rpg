@@ -120,11 +120,6 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
         ActionList actions = super.allowableActions(otherActor, direction,
                 map); // Include default allowable actions if any
 
-        // Allow attack if the other actor is hostile
-        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
-            actions.add(new AttackAction(this, direction));
-        }
-
         // Allow cure if the other actor has a curable item and the goat's rot is still active
         if (!this.isRotExpired()) { // Check if the rot timer is still running
             for (Item item : otherActor.getItemInventory()) {
@@ -134,6 +129,11 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
                     // break; // Optional: If only one cure item should grant the action
                 }
             }
+        }
+
+        // Allow attack if the other actor is hostile
+        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
+            actions.add(new AttackAction(this, direction));
         }
         return actions;
     }

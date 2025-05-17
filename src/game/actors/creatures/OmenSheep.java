@@ -124,11 +124,6 @@ public class OmenSheep extends Creature implements Curable, Rotatable, ActorProd
         ActionList actions = super.allowableActions(otherActor, direction,
                 map); // Include default allowable actions if any
 
-        // Allow attack if the other actor is hostile
-        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
-            actions.add(new AttackAction(this, direction));
-        }
-
         // Allow "cure" (Inheritree spawning) if the other actor has a curable item and the sheep is conscious
         if (this.isConscious()) {
             for (Item item : otherActor.getItemInventory()) {
@@ -139,6 +134,11 @@ public class OmenSheep extends Creature implements Curable, Rotatable, ActorProd
                 }
             }
         }
+        // Allow attack if the other actor is hostile
+        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
+                    actions.add(new AttackAction(this, direction));
+        }
+
         return actions;
     }
 

@@ -1,9 +1,13 @@
 package game.weapons;
 
+import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.*;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.capabilities.GeneralCapability;
+import game.weapons.actions.AttackAction;
 
 import java.util.Random;
 
@@ -11,7 +15,7 @@ import java.util.Random;
  * Class representing items that can be used as a weapon.
  * @author Adrian Kristanto
  */
-public class WeaponItem extends Item implements Weapon {
+public abstract class WeaponItem extends Item implements Weapon {
     private static final float DEFAULT_DAMAGE_MULTIPLIER = 1.0f;
     private int damage;
     private int hitRate;
@@ -33,6 +37,7 @@ public class WeaponItem extends Item implements Weapon {
         this.verb = verb;
         this.hitRate = hitRate;
         this.damageMultiplier = DEFAULT_DAMAGE_MULTIPLIER;
+
     }
 
     @Override
@@ -45,5 +50,13 @@ public class WeaponItem extends Item implements Weapon {
         target.hurt(Math.round(damage * damageMultiplier));
 
         return String.format("%s %s %s for %d damage", attacker, verb, target, damage);
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, Location location) {
+        ActionList actions = new ActionList();
+        actions.add(new AttackAction(otherActor, "", this));
+
+        return actions;
     }
 }

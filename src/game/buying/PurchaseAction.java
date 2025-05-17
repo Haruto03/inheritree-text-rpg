@@ -1,0 +1,54 @@
+package game.buying;
+
+import java.util.List;
+
+import edu.monash.fit2099.engine.actions.Action;
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
+import game.effects.Effect;
+
+public class PurchaseAction extends Action {
+    private final Purchasable itemToPurchase;
+    private final int runePrice;
+    private final Actor merchant;
+    private final List<Effect> purchaseEffects; 
+
+    public PurchaseAction(Purchasable itemToPurchase, int runePrice, Actor merchant, List<Effect> purchaseEffects) {
+        this.itemToPurchase = itemToPurchase;
+        this.runePrice = runePrice;
+        this.merchant = merchant;
+        this.purchaseEffects = purchaseEffects; 
+    }
+
+    @Override
+    public String execute(Actor actor, GameMap map) {
+        // Assume actor has getBalance() and removeBalance() methods
+        if (actor.getBalance() < runePrice) {
+            return actor + " does not have enough runes to buy the " + itemToPurchase.toString() + ".";
+        }
+
+        actor.deductBalance(runePrice);
+
+        // Add item to actor's inventory
+        itemToPurchase.sellTo(actor);
+
+        // Apply general purchase effects
+        for (Effect effect : itemToPurchase.getBasePurchaseEffects()) {
+            effect.applyEffect(actor, map);
+        }
+
+        // Apply all stored purchase effects
+        for (Effect effect : purchaseEffects) {
+            effect.applyEffect(actor, map); // Pass actor and map to apply method
+        }
+
+
+
+        return actor + " bought a " + itemToPurchase + " from " + merchant.toString() + " for " + runePrice + " runes.";
+    }
+
+    @Override
+    public String menuDescription(Actor actor) {
+        return actor + " buys " + itemToPurchase.toString() + " (" + runePrice + " runes) from " + merchant.toString();
+    }
+}
