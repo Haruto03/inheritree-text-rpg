@@ -60,7 +60,8 @@ public abstract class Npc extends Actor implements Speakable {
      * {@link ListenAction} allowing other actors to hear monologues. If this NPC has the
      * {@link GeneralCapability#CAN_SELL} capability and the {@code otherActor} has the
      * {@link GeneralCapability#CAN_BUY} capability, {@link PurchaseAction}s for each of the NPC's
-     * {@link #offers} are also added.
+     * {@link #offers} are also added. It also allows {@link AttackAction} if the other actor has
+     * {@link GeneralCapability#HOSTILE_TO_ENEMY}.
      *
      * @param otherActor the actor interacting with this NPC
      * @param direction  the direction of the other actor relative to this NPC
