@@ -12,7 +12,6 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
-import game.effects.Rotatable;
 import game.hatching.OmenSheepEgg;
 import game.healing.Curable;
 import game.healing.CureAction;

@@ -14,7 +14,6 @@ import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.NearbyCapabilityCondition;
-import game.effects.Rotatable;
 import game.healing.Curable;
 import game.healing.CureAction;
 import game.weapons.actions.AttackAction;
