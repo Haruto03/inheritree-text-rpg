@@ -72,7 +72,7 @@ public class Application {
         }
 
         Player player = new Player("Farmer", '@', 100);
-        world.addPlayer(player, gameMap.at(36, 12));
+        world.addPlayer(player, gameMap.at(23, 10));
 
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());
