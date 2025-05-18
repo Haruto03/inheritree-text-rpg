@@ -41,10 +41,9 @@ public class NpcGuts extends Npc {
      * Constructor for the NpcGuts class.
      *
      * <p>This constructor sets up the Guts NPC with its name, display character, and initial
-     * health.
-     * It assigns {@link BareFist} as his intrinsic weapon and adds an {@link AttackBehaviour} with
-     * a defined priority. His monologues are tailored to reflect his aggressive nature, especially
-     * reacting to a low-health listener.</p>
+     * health. It assigns {@link BareFist} as his intrinsic weapon and adds an
+     * {@link AttackBehaviour} with a defined priority. His monologues are tailored to reflect his
+     * aggressive nature, especially reacting to a low-health listener.</p>
      */
     public NpcGuts() {
         super(NpcGuts.NAME, NpcGuts.DISPLAY_CHAR, NpcGuts.HIT_POINTS);

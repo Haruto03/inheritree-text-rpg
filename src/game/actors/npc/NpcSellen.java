@@ -9,9 +9,9 @@ import game.capabilities.GeneralCapability;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.effects.Effect;
+import game.effects.HealEffect;
 import game.effects.IncreaseMaxHealthEffect;
 import game.effects.IncreaseMaxStaminaEffect;
-import game.effects.HealEffect;
 import game.effects.SpawnActorEffect;
 import game.weapons.Broadsword;
 import game.weapons.DragonslayerGreatsword;
@@ -53,7 +53,8 @@ public class NpcSellen extends Npc {
      * <ul>
      * <li>A {@link Broadsword} for 100 runes, which also applies an {@link IncreaseMaxHealthEffect} of 20.</li>
      * <li>A {@link DragonslayerGreatsword} for 1500 runes, which also applies a {@link SpawnActorEffect} to spawn a {@link GoldenBeetle}.</li>
-     * <li>A {@link Katana} for 500 runes, which also applies a {@link SpawnActorEffect} to spawn an {@link OmenSheep} near Sellen herself.</li>
+     * <li>A {@link Katana} for 500 runes, which also applies a {@link SpawnActorEffect} to spawn an {@link OmenSheep} near Sellen herself,
+     * a {@link HealEffect} of 10, and an {@link IncreaseMaxStaminaEffect} of 20.</li>
      * </ul>
      * Her monologues provide insight into glints tone sorcery and the academy.
      */
