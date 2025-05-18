@@ -1,4 +1,4 @@
-package game.effects;
+package game.actors.creatures;
 
 import edu.monash.fit2099.engine.positions.GameMap;
 
