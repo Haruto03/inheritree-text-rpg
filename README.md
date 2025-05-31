@@ -29,6 +29,8 @@ PoisonSpell: Extend SpellBook, damages a target Actor for a few turns in the gam
 The spell will be executed by getting the actor, location and map. 
 HealSpell: Extend SpellBook, heals a target Actor with a HealEffect. Cost 30 mana
 
+[Approved by Mogana and Chong (31/05/2025)]
+
 Requirement 4: Fishing System
 Design: 
 
@@ -42,3 +44,5 @@ FreshFish: This fish will extend item and implement fishable. It can be eaten by
 RottenFish: This fish will extend item and implement fishable. It will decrease health if player eat it. There will be a 70% chance of fishing
 Shovel: This shovel extends item. It will use DigAction, where its able to remove the plants in the map and return back into a soil ground.
 FishingRod: This FishingRod extends Item, where it enables fishing function with a capability of CAN_FISH. 
+
+[Needs further changes and discussion - (31/05/2025)]
