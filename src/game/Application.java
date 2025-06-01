@@ -16,6 +16,9 @@ import game.actors.creatures.SpiritGoat;
 import game.actors.npc.NpcGuts;
 import game.actors.npc.NpcKale;
 import game.actors.npc.NpcSellen;
+import game.behaviours.behaviourSelector.BehaviourSelector;
+import game.behaviours.behaviourSelector.PriorityBehaviourSelector;
+import game.behaviours.behaviourSelector.RandomBehaviourSelector;
 import game.grounds.Blight;
 import game.grounds.Floor;
 import game.grounds.Soil;
@@ -109,10 +112,29 @@ public class Application {
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());
 
-        // Initialize the Creatures
-        SpiritGoat spiritGoat = new SpiritGoat();
-        OmenSheep omenSheep = new OmenSheep();
-        GoldenBeetle goldenBeetle = new GoldenBeetle();
+        // Create BehaviourSelector
+        BehaviourSelector prioritySelector = new PriorityBehaviourSelector();
+        BehaviourSelector randomSelector = new RandomBehaviourSelector();
+
+        // Create instances of creatures using different BehaviourSelector
+        // Creatures with prioritySelector
+        SpiritGoat spiritGoatPriority = new SpiritGoat(prioritySelector);
+        OmenSheep omenSheepPriority = new OmenSheep(prioritySelector);
+        GoldenBeetle goldenBeetlePriority = new GoldenBeetle(prioritySelector);
+
+        // Creatures with randomSelector
+        SpiritGoat spiritGoatRandom = new SpiritGoat(randomSelector);
+        OmenSheep omenSheepRandom = new OmenSheep(randomSelector);
+        GoldenBeetle goldenBeetleRandom = new GoldenBeetle(randomSelector);
+
+        // Place creatures on the map
+        gameMap.addActor(spiritGoatPriority, gameMap.at(20, 10));
+        gameMap.addActor(omenSheepPriority, gameMap.at(20, 6));
+        gameMap.addActor(goldenBeetlePriority, gameMap.at(18, 10));
+
+        limveldGameMap.addActor(spiritGoatRandom, limveldGameMap.at(5, 5));
+        limveldGameMap.addActor(omenSheepRandom, limveldGameMap.at(6, 5));
+        limveldGameMap.addActor(goldenBeetleRandom, limveldGameMap.at(7, 5));
 
         // Initialize the NPCs
         NpcSellen NPCSellen = new NpcSellen();
@@ -120,10 +142,6 @@ public class Application {
         NpcGuts NPCGuts = new NpcGuts();
 
         // game setup
-        gameMap.addActor(spiritGoat, gameMap.at(24, 13));
-        gameMap.addActor(omenSheep, gameMap.at(24, 12));
-        gameMap.addActor(goldenBeetle, gameMap.at(24, 14));
-
         gameMap.addActor(NPCSellen, gameMap.at(10, 5));
         gameMap.addActor(NPCKale, gameMap.at(35, 12));
         gameMap.addActor(NPCGuts, gameMap.at(5, 13));
