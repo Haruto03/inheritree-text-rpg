@@ -45,4 +45,4 @@ RottenFish: This fish will extend item and implement fishable. It will decrease 
 Shovel: This shovel extends item. It will use DigAction, where its able to remove the plants in the map and return back into a soil ground.
 FishingRod: This FishingRod extends Item, where it enables fishing function with a capability of CAN_FISH. 
 
-[Needs further changes and discussion - (31/05/2025)]
+[Approved by Mogana and Chong  - (1/06/2025)]
