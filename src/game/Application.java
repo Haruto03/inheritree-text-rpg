@@ -23,6 +23,7 @@ import game.grounds.Wall;
 import game.healing.items.Talisman;
 import game.plants.BloodroseSeed;
 import game.plants.InheritreeSeed;
+import game.teleport.TeleportationGate;
 import game.ui.FancyMessage;
 import java.util.Arrays;
 import java.util.List;
@@ -61,6 +62,25 @@ public class Application {
         GameMap gameMap = new GameMap("Valley of the Inheritree", groundFactory, map);
         world.addGameMap(gameMap); //
 
+        // Create and add a second map - Limveld
+        List<String> limveldMap = Arrays.asList(
+                ".............xxxx",
+                "..............xxx",
+                "................x",
+                ".................",
+                "................x",
+                "...............xx",
+                "..............xxx",
+                "..............xxx",
+                "..............xxx",
+                ".............xxxx",
+                ".............xxxx",
+                "....xxx.....xxxxx",
+                "....xxxx...xxxxxx"
+        );
+        GameMap limveldGameMap = new GameMap("Limveld", groundFactory, limveldMap);
+        world.addGameMap(limveldGameMap); // Add to the same world
+
         // BEHOLD, ELDEN THING!
         for (String line : FancyMessage.TITLE.split("\n")) {
             new Display().println(line); //
@@ -70,6 +90,18 @@ public class Application {
                 exception.printStackTrace();
             }
         }
+
+        //Create TeleportationGate
+        TeleportationGate gateInValley = new TeleportationGate();
+        TeleportationGate gateInLimveld = new TeleportationGate();
+
+        // Set Teleportation destination
+        gateInValley.addDestination(limveldGameMap, limveldGameMap.at(8, 6));
+        gateInLimveld.addDestination(gameMap, gameMap.at(15, 8));
+
+        // Place the TeleportationGate on the map
+        gameMap.at(23, 14).setGround(gateInValley);
+        limveldGameMap.at(8, 6).setGround(gateInLimveld);
 
         Player player = new Player("Farmer", '@', 100);
         world.addPlayer(player, gameMap.at(23, 10));
