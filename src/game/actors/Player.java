@@ -39,6 +39,7 @@ public class Player extends Actor {
         this.addCapability(GeneralCapability.CONSUMER);
         this.addCapability(GeneralCapability.CAN_LISTEN);
         this.addCapability(GeneralCapability.CAN_BUY);
+        this.addCapability(GeneralCapability.CAN_TELEPORT);
         this.setIntrinsicWeapon(new BareFist());
         // Initialize Stamina attribute
         this.addAttribute(BaseActorAttributes.STAMINA,
@@ -63,7 +64,7 @@ public class Player extends Actor {
         display.print(this + " Health: (" + this.getAttribute(BaseActorAttributes.HEALTH) + "/"
                 + this.getAttributeMaximum(BaseActorAttributes.HEALTH) + ")" + " Stamina: ("
                 + this.getAttribute(BaseActorAttributes.STAMINA) + "/" + this.getAttributeMaximum(
-                BaseActorAttributes.STAMINA) + ")" + " Runes: " + this.getBalance() + " ");
+                BaseActorAttributes.STAMINA) + ")" + " Runes: " + this.getBalance() + "\n");
         // Handle multi-turn Actions first
         if (lastAction.getNextAction() != null) {
             return lastAction.getNextAction();

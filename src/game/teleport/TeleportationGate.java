@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.capabilities.GeneralCapability;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,14 +47,16 @@ public class TeleportationGate extends Ground {
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
-
-        // Only allow teleportation if the actor is standing ON this teleportation gate
-        if (location.getGround() == this && location.containsAnActor() && location.getActor() == actor) {
-            // Add teleport actions for each destination
-            for (TeleportDestination destination : destinations) {
-                // Only add teleport action if the destination is different from current location
-                if (!isSameLocation(location, destination)) {
-                    actions.add(new TeleportAction(destination));
+        if(actor.hasCapability(GeneralCapability.CAN_TELEPORT)){
+            // Only allow teleportation if the actor is standing ON this teleportation gate
+            if (location.getGround() == this && location.containsAnActor()
+                    && location.getActor() == actor) {
+                // Add teleport actions for each destination
+                for (TeleportDestination destination : destinations) {
+                    // Only add teleport action if the destination is different from current location
+                    if (!isSameLocation(location, destination)) {
+                        actions.add(new TeleportAction(destination));
+                    }
                 }
             }
         }
