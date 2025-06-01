@@ -1,11 +1,11 @@
 package game.actors.npc;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.behaviours.AttackBehaviour;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
+import game.conditions.DynamicTargetHealthCondition;
 import game.conditions.LowHealthCondition;
 import game.weapons.BareFist;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * characterized by his aggressive {@link AttackBehaviour} and specific monologues, particularly
  * when a listening actor has low health. Guts uses {@link BareFist} as his intrinsic weapon.
  */
-public class NpcGuts extends Npc {
+public class NpcGuts extends Npc implements AttackConditionEvaluator{
 
     /**
      * Display character representing Guts on the game map.
@@ -37,6 +37,8 @@ public class NpcGuts extends Npc {
      */
     private static final int PRIORITY_ATTACK = 5;
 
+    private static final int ATTACK_HEALTH_THRESHOLD = 50;
+
     /**
      * Constructor for the NpcGuts class.
      *
@@ -51,8 +53,20 @@ public class NpcGuts extends Npc {
         this.setIntrinsicWeapon(new BareFist());
 
         // Define and add the Attack behaviour with high priority
-        Behaviour attackBehaviour = new AttackBehaviour(50);
+        AttackBehaviour attackBehaviour = new AttackBehaviour(this);
         addBehaviour(PRIORITY_ATTACK, attackBehaviour);
+    }
+    /**
+     * Implementation of the AttackConditionEvaluator interface.
+     * Guts will decide to attack if the potential target's health is above his threshold.
+     * This method now uses DynamicTargetHealthCondition for the check.
+     */
+    @Override
+    public boolean evaluate(Actor attacker, Actor potentialTarget, GameMap map) {
+        // 'attacker' is this NpcGuts instance.
+        // The core logic is about the potentialTarget's health.
+        Condition condition = new DynamicTargetHealthCondition(potentialTarget, ATTACK_HEALTH_THRESHOLD);
+        return condition.check();
     }
 
     /**
