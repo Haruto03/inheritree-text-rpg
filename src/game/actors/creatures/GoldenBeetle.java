@@ -6,7 +6,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.behaviours.behaviourSelector.BehaviourSelector;
+import game.behaviours.behaviourselectors.BehaviourSelector;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
@@ -85,7 +85,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
      * Priority order: Reproduce -> Wander
      */
     @Override
-    protected void initializeBehaviours() {
+    public void initializeBehaviours() {
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_FOLLOW, new FollowBehaviour());
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());

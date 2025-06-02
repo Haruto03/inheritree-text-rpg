@@ -7,8 +7,8 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.behaviours.behaviourSelector.BehaviourSelector;
-import game.behaviours.behaviourSelector.PriorityBehaviourSelector;
+import game.behaviours.behaviourselectors.BehaviourSelector;
+import game.behaviours.behaviourselectors.PriorityBehaviourSelector;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,12 +26,12 @@ public abstract class Creature extends Actor {
      * values indicate higher priority. Uses TreeMap to potentially iterate in priority order if
      * keys represent priority directly, otherwise HashMap is fine.
      */
-    protected Map<Integer, Behaviour> behaviours;
+    private final Map<Integer, Behaviour> behaviours;
 
     /**
      * The strategy used to select which behaviour to execute from the available behaviours.
      */
-    protected BehaviourSelector behaviourSelector;
+    private final BehaviourSelector behaviourSelector;
 
     /**
      * Constructor for the Creature class. Initializes basic actor properties. Calls the constructor
@@ -68,14 +68,14 @@ public abstract class Creature extends Actor {
      * This method should be implemented by each creature type to add their
      * specific behaviours to the behaviours list.
      */
-    protected abstract void initializeBehaviours();
+    public abstract void initializeBehaviours();
 
     /**
      * Add a behaviour to this creature's behaviour list.
      *
      * @param behaviour the behaviour to add
      */
-    protected void addBehaviour(int priority, Behaviour behaviour) {
+    public void addBehaviour(int priority, Behaviour behaviour) {
         behaviours.put(priority, behaviour);
     }
 

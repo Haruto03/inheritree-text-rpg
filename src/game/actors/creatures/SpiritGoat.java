@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.behaviours.behaviourSelector.BehaviourSelector;
+import game.behaviours.behaviourselectors.BehaviourSelector;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
@@ -89,7 +89,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      * Priority order: Reproduce -> Wander
      */
     @Override
-    protected void initializeBehaviours() {
+    public void initializeBehaviours() {
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }
