@@ -1,4 +1,4 @@
-package game.spell; // Ensure this matches your package structure
+package game.spell;
 
 import edu.monash.fit2099.engine.actions.ActionList; //
 import edu.monash.fit2099.engine.actors.Actor; //
