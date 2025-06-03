@@ -19,6 +19,7 @@ import game.actors.npc.NpcSellen;
 import game.behaviours.behaviourSelector.BehaviourSelector;
 import game.behaviours.behaviourSelector.PriorityBehaviourSelector;
 import game.behaviours.behaviourSelector.RandomBehaviourSelector;
+import game.fishing.Pond;
 import game.grounds.Blight;
 import game.grounds.Floor;
 import game.grounds.Soil;
@@ -106,8 +107,10 @@ public class Application {
         gameMap.at(23, 14).setGround(gateInValley);
         limveldGameMap.at(8, 6).setGround(gateInLimveld);
 
+        gameMap.at(22, 12).setGround(new Pond());
+
         Player player = new Player("Farmer", '@', 100);
-        world.addPlayer(player, gameMap.at(23, 10));
+        world.addPlayer(player, gameMap.at(22, 13));
 
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());

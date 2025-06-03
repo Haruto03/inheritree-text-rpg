@@ -33,4 +33,9 @@ public class Pond extends Ground {
     public ArrayList<Fishable> getFishableItems() {
         return new ArrayList<>(fishableItems);
     }
+
+    @Override
+    public boolean canActorEnter(Actor actor) {
+        return false;
+    }
 }

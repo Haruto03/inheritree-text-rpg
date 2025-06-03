@@ -9,9 +9,9 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
+import game.fishing.FishingRod;
 import game.spell.HealSpell;
 import game.spell.PoisonSpell;
-import game.spell.SpellBook;
 import game.spell.TeleportSpell;
 import game.weapons.BareFist;
 
@@ -28,6 +28,7 @@ public class Player extends Actor {
      */
     private static final int MAXIMUM_STAMINA_POINT = 200;
     private static final int MAXIMUM_MANA_POINT = 200;
+
     /**
      * Constructor. Initializes the player with a name, display character, hit points, sets them as
      * hostile to enemies, gives them a BareFist intrinsic weapon, and adds a Stamina attribute.
@@ -55,6 +56,8 @@ public class Player extends Actor {
         this.addItemToInventory(new PoisonSpell());
         this.addItemToInventory(new HealSpell());
         this.addItemToInventory(new TeleportSpell());
+
+        this.addItemToInventory(new FishingRod());
     }
 
     /**
