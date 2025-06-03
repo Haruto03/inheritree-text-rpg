@@ -2,7 +2,7 @@ package game.fishing;
 
 import edu.monash.fit2099.engine.actors.Actor;
 
-public interface Fishable{
+public interface Fishable {
 
     double getCatchChance();
 
