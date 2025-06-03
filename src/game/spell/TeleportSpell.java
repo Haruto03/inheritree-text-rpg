@@ -1,4 +1,4 @@
-package game.spell; // Ensure this matches your package structure
+package game.spell;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -79,7 +79,6 @@ public class TeleportSpell extends SpellBook {
         ActionList actions = super.allowableActions(caster, map); // Gets DropItemAction etc. from Item class
 
 
-        // For self-cast spells, the 'target' in CastSpellAction constructor is the caster.
         actions.add(new CastSpellAction(this, caster));
         return actions;
     }
