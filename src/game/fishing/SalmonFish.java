@@ -8,7 +8,7 @@ import game.eating.Eatable;
 
 public class SalmonFish extends PondItem implements Eatable {
 
-    private static final double catchChance = 0.6;
+    private static final double catchChance = 0.3;
 
     public SalmonFish() {
         super("Salmon Fish", 'S', catchChance);

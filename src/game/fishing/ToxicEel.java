@@ -9,12 +9,12 @@ import game.eating.Eatable;
 
 public class ToxicEel extends PondItem implements Eatable{
     
-    private static final double catchChance = 0.3;
+    private static final double catchChance = 0.5;
 
     public ToxicEel() {
         super("Toxic Eel", 'C', catchChance);
     }
-    
+
     @Override
     public ActionList allowableActions(Actor owner, GameMap map) {
         ActionList actions = super.allowableActions(owner, map); // Includes DropAction if portable
