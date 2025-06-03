@@ -19,7 +19,7 @@ public class TemporyGround extends Ground {
 
     @Override
     public void tick(Location location) {
-        // If there are actors on this tile, you might apply damage per turn here
+
         temporaryground.tick(location);
 
         if (this.duration > 0) {
