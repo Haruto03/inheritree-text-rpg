@@ -32,7 +32,7 @@ public class FireSpell extends SpellBook {
             Location tileToBurn = effectExit.getDestination();
             Ground originalGround = tileToBurn.getGround(); //
 
-            // 2a.  instant burn damage to actors on this tile (except caster)
+            //  burn damage to actors on this tile (except caster)
             if (tileToBurn.containsAnActor()) {
                 Actor victim = tileToBurn.getActor();
                 if (victim != caster) { // AoE doesn't harm caster unless specified
