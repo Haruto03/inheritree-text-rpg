@@ -1,4 +1,4 @@
-package game.spell; // Or game.items
+package game.spell;
 
 import edu.monash.fit2099.engine.actors.Actor;
 
