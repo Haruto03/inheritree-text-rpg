@@ -39,11 +39,6 @@ public class BurningGround extends Ground {
 
                 victim.hurt(DAMAGE_PER_TURN_FROM_FIRE);
                 if (!victim.isConscious()) {
-                    // Handle unconsciousness/death from per-turn damage
-                    // e.g., map.actorDied(victim); or victim.unconscious(map);
-                    // Ensure the unconscious method is called correctly, it might need just the map
-                    // or also the actor responsible if applicable.
-                    // Based on FireSpell, unconscious(map) seems to be the way
                     victim.unconscious(currentLocation.map());
 
                 }
