@@ -29,7 +29,7 @@ public class HealSpell extends SpellBook {
 
 
     public ActionList allowableActions(Actor caster, GameMap map) {
-        ActionList actions = super.allowableActions(caster, map); // From Item, e.g., DropAction
+        ActionList actions = super.allowableActions(caster, map);
          actions.add(new CastSpellAction(this, caster));
         return actions;
 
