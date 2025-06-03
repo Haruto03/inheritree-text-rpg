@@ -1,16 +1,16 @@
 package game.fishing;
+
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import edu.monash.fit2099.engine.items.Item;
 import game.capabilities.GeneralCapability;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Pond extends Ground{
+public class Pond extends Ground {
 
-    private List<PondItem> fishableItems;
+    private final ArrayList<Fishable> fishableItems;
 
     public Pond() {
         super('~', "Pond");
@@ -22,7 +22,7 @@ public class Pond extends Ground{
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = super.allowableActions(actor, location, direction);
-        for (Item item: actor.getItemInventory()) {
+        for (Item item : actor.getItemInventory()) {
             if (item.hasCapability(GeneralCapability.CAN_FISH)) {
                 actions.add(new FishAction(item, this, location));
             }
@@ -30,7 +30,7 @@ public class Pond extends Ground{
         return actions;
     }
 
-    public List<PondItem> getFishableItems() {
+    public ArrayList<Fishable> getFishableItems() {
         return new ArrayList<>(fishableItems);
     }
 }
