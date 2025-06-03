@@ -1,10 +1,16 @@
 package game.plants;
 
+import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.attributes.ActorAttributeOperations;
 import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
+import game.capabilities.GeneralCapability;
+import game.fishing.DigAction;
+import game.grounds.Blight;
+import game.grounds.Soil;
 
 /**
  * Represents a Bloodrose plant, a type of {@link Plant} grown from a {@link Seed}. Bloodroses have
@@ -83,5 +89,16 @@ public class Bloodrose extends Plant {
                 }
             }
         }
+    }
+
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        ActionList actions = new ActionList();
+        for (Item item : actor.getItemInventory()) {
+            if(item.hasCapability(GeneralCapability.CAN_DIG)) {
+                actions.add(new DigAction(location,new Blight()));
+            }
+        }
+        return new ActionList();
     }
 }

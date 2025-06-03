@@ -79,5 +79,7 @@ public enum GeneralCapability {
      */
     CAN_LISTEN,
     CAN_TELEPORT,
-    CAN_FISH
+    CAN_FISH,
+
+    CAN_DIG
 }
