@@ -1,17 +1,19 @@
 package game.fishing;
+
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
 import game.eating.EatAction;
 import game.eating.Eatable;
 
-public class SalmonFish extends PondItem implements Eatable {
+public class SalmonFish extends Item implements Eatable, Fishable {
 
-    private static final double catchChance = 0.3;
+    private static final double CATCH_RATE = 0.3;
 
     public SalmonFish() {
-        super("Salmon Fish", 'S', catchChance);
+        super("Salmon Fish", 'S', true);
     }
 
     @Override
@@ -25,13 +27,18 @@ public class SalmonFish extends PondItem implements Eatable {
 
     @Override
     public double getCatchChance() {
-        return catchChance;
+        return CATCH_RATE;
+    }
+
+    @Override
+    public void catchBy(Actor actor) {
+        actor.addItemToInventory(this);
     }
 
     @Override
     public String eatenBy(Actor eater, GameMap map) {
         eater.removeItemFromInventory(this);
-
+        eater.heal(10);
         return eater + " eats " + this + ".";
     }
 
