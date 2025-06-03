@@ -40,7 +40,7 @@ public class Continuousdamage extends StatusEffect {
                 // If the actor becomes unconscious, handle it.
                 // The map can be retrieved from the actor's location if needed by unconscious()
                 GameMap map = location.map();
-                actor.unconscious(map); // Or actor.unconscious(actor, map) if a perpetrator is conceptualized
+                actor.unconscious(map);
                 actor.removeStatusEffect(this);
                 // Once unconscious, the effect might be implicitly removed or should be explicitly removed here.
                 // For now, let it try to remove itself when duration hits 0.
