@@ -9,6 +9,10 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
+import game.spell.HealSpell;
+import game.spell.PoisonSpell;
+import game.spell.SpellBook;
+import game.spell.TeleportSpell;
 import game.weapons.BareFist;
 
 /**
@@ -23,7 +27,7 @@ public class Player extends Actor {
      * Maximum stamina point the player can have.
      */
     private static final int MAXIMUM_STAMINA_POINT = 200;
-
+    private static final int MAXIMUM_MANA_POINT = 200;
     /**
      * Constructor. Initializes the player with a name, display character, hit points, sets them as
      * hostile to enemies, gives them a BareFist intrinsic weapon, and adds a Stamina attribute.
@@ -39,12 +43,18 @@ public class Player extends Actor {
         this.addCapability(GeneralCapability.CONSUMER);
         this.addCapability(GeneralCapability.CAN_LISTEN);
         this.addCapability(GeneralCapability.CAN_BUY);
+        this.addCapability(GeneralCapability.CAN_TELEPORT);
         this.setIntrinsicWeapon(new BareFist());
         // Initialize Stamina attribute
         this.addAttribute(BaseActorAttributes.STAMINA,
                 new BaseActorAttribute(Player.MAXIMUM_STAMINA_POINT)); // Example starting stamina
+        this.addAttribute(BaseActorAttributes.MANA,
+                new BaseActorAttribute(Player.MAXIMUM_MANA_POINT)); // Added mana attribute
 
         this.addBalance(10000);
+        this.addItemToInventory(new PoisonSpell());
+        this.addItemToInventory(new HealSpell());
+        this.addItemToInventory(new TeleportSpell());
     }
 
     /**
@@ -63,7 +73,9 @@ public class Player extends Actor {
         display.print(this + " Health: (" + this.getAttribute(BaseActorAttributes.HEALTH) + "/"
                 + this.getAttributeMaximum(BaseActorAttributes.HEALTH) + ")" + " Stamina: ("
                 + this.getAttribute(BaseActorAttributes.STAMINA) + "/" + this.getAttributeMaximum(
-                BaseActorAttributes.STAMINA) + ")" + " Runes: " + this.getBalance() + " ");
+                BaseActorAttributes.STAMINA) + ")" + " Mana: (" // Added Mana display
+                + this.getAttribute(BaseActorAttributes.MANA) + "/" + this.getAttributeMaximum(
+                BaseActorAttributes.MANA) + ")" + " Runes: " + this.getBalance() + "\n");
         // Handle multi-turn Actions first
         if (lastAction.getNextAction() != null) {
             return lastAction.getNextAction();

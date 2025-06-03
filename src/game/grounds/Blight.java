@@ -26,7 +26,8 @@ public class Blight extends Ground implements Curable {
     public Blight() {
         super('x', "Blight");
         this.addCapability(GeneralCapability.CURSED);
-    }
+        this.addCapability(GroundCapability.CanBurned);
+     }
 
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {

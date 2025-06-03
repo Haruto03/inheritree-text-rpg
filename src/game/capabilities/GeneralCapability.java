@@ -78,6 +78,6 @@ public enum GeneralCapability {
      * Capability indicating an actor (usually the player) can listen from NPCs
      */
     CAN_LISTEN,
-
+    CAN_TELEPORT,
     CAN_FISH
 }
