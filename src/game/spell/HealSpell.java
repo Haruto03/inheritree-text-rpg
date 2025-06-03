@@ -3,7 +3,7 @@ package game.spell;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.effects.HealEffect; // Assuming HealEffect is in game.effects
+import game.effects.HealEffect;
 
 
 
