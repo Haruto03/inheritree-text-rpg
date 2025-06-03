@@ -63,4 +63,5 @@ public class PoisonSpell extends SpellBook {
         }
         return actions;
     }
+
 }
