@@ -27,7 +27,7 @@ public class CastSpellAction extends Action {
     }
 
     @Override
-    public String execute(Actor caster, GameMap map) { // 'actor' is the one performing the action, which is the caster.
+    public String execute(Actor caster, GameMap map) {
         if (!caster.hasAttribute(BaseActorAttributes.MANA) || caster.getAttribute(BaseActorAttributes.MANA) < spellbook.getManaCost()) {
             return caster + " does not have enough mana to cast " + spellbook.getClass() + ". (Required: " + spellbook.getManaCost() + ")";
         }
