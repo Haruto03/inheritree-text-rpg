@@ -5,7 +5,6 @@ import edu.monash.fit2099.engine.actors.Actor;
 
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.teleport.TeleportDestination;
 
 import game.teleport.TeleportAction;
 
@@ -63,8 +62,7 @@ public class TeleportSpell extends SpellBook {
         Location randomDestinationLocation = validTeleportLocations.get(random.nextInt(validTeleportLocations.size()));
 
         // Then proceed to teleport to randomDestinationLocation
-        TeleportDestination dynamicDestination = new TeleportDestination(currentMap, randomDestinationLocation);
-        TeleportAction internalTeleportAction = new TeleportAction(dynamicDestination);
+        TeleportAction internalTeleportAction = new TeleportAction(randomDestinationLocation);
         return internalTeleportAction.execute(target, currentMap);}
 
     /**

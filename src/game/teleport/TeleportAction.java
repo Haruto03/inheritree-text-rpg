@@ -9,15 +9,15 @@ import edu.monash.fit2099.engine.positions.Location;
  * Action to teleport an actor to a different location/map.
  */
 public class TeleportAction extends Action {
-    private final TeleportDestination destination;
+    private final Location location;
 
     /**
      * Constructor for TeleportAction.
      *
-     * @param destination the destination to teleport to
+     * @param location the destination to teleport to
      */
-    public TeleportAction(TeleportDestination destination) {
-        this.destination = destination;
+    public TeleportAction(Location location) {
+        this.location = location;
     }
 
     /**
@@ -29,11 +29,11 @@ public class TeleportAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        Location targetLocation = destination.getTargetLocation();
-        GameMap targetMap = destination.getTargetMap();
+        Location targetLocation = location;
+        GameMap targetMap = location.map();
 
-        // Check if target location is valid
-        if (targetLocation == null || targetMap == null) {
+        // Check if target map is valid
+        if (targetMap == null) {
             return actor + " failed to teleport - invalid destination!";
         }
 
@@ -51,7 +51,7 @@ public class TeleportAction extends Action {
         map.removeActor(actor);
         targetMap.addActor(actor, targetLocation);
 
-        return actor + " teleports to " + destination.getTargetLocation();
+        return actor + " teleports to " + targetLocation;
     }
 
     /**
@@ -62,6 +62,6 @@ public class TeleportAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " teleports to " + destination.getTargetLocation();
+        return actor + " teleports to " + location;
     }
 }

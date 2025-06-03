@@ -99,8 +99,8 @@ public class Application {
         TeleportationGate gateInLimveld = new TeleportationGate();
 
         // Set Teleportation destination
-        gateInValley.addDestination(limveldGameMap, limveldGameMap.at(8, 6));
-        gateInLimveld.addDestination(gameMap, gameMap.at(15, 8));
+        gateInValley.addDestination(limveldGameMap.at(8, 6));
+        gateInLimveld.addDestination(gameMap.at(15, 8));
 
         // Place the TeleportationGate on the map
         gameMap.at(23, 14).setGround(gateInValley);
