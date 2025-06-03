@@ -17,6 +17,7 @@ public class Pond extends Ground {
         this.fishableItems = new ArrayList<>();
         fishableItems.add(new SalmonFish());
         fishableItems.add(new ToxicEel());
+        fishableItems.add(new Showel());
     }
 
     @Override

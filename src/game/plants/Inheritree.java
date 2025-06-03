@@ -41,7 +41,6 @@ public class Inheritree extends Plant {
     }
 
 
-
     /**
      * Executes the instant effects that occur when the Inheritree is planted. It checks all
      * adjacent ground tiles. If any adjacent ground has the {@link GroundCapability#CURSED}
@@ -105,10 +104,10 @@ public class Inheritree extends Plant {
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
         for (Item item : actor.getItemInventory()) {
-            if(item.hasCapability(GeneralCapability.CAN_DIG)) {
-                actions.add(new DigAction(location,new Soil()));
+            if (item.hasCapability(GeneralCapability.CAN_DIG)) {
+                actions.add(new DigAction(item,location, new Soil()));
             }
         }
-        return new ActionList();
+        return actions;
     }
 }
