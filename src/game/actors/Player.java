@@ -9,10 +9,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
-import game.spell.HealSpell;
-import game.spell.PoisonSpell;
-import game.spell.SpellBook;
-import game.spell.TeleportSpell;
+import game.spell.*;
 import game.weapons.BareFist;
 
 /**
@@ -55,6 +52,7 @@ public class Player extends Actor {
         this.addItemToInventory(new PoisonSpell());
         this.addItemToInventory(new HealSpell());
         this.addItemToInventory(new TeleportSpell());
+        this.addItemToInventory(new FireSpell());
     }
 
     /**

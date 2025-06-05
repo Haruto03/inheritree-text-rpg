@@ -1,7 +1,6 @@
-package game.grounds; // Assuming this is the correct package
+package game.grounds;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
@@ -12,17 +11,16 @@ import edu.monash.fit2099.engine.positions.Location;
  */
 public class BurningGround extends Ground {
 
-    private static final char FIRE_DISPLAY_CHAR = '^'; // Or your preferred character for fire
-    private static final int DAMAGE_PER_TURN_FROM_FIRE = 5; // Example damage per turn
+    private static final char FIRE_DISPLAY_CHAR = '^';
+    private static final int DAMAGE_PER_TURN_FROM_FIRE = 5;
 
     /**
      * Constructor for BurningEffectProperties.
      */
     public BurningGround() {
-        // Corrected super constructor call
-        super(FIRE_DISPLAY_CHAR, "Burning Ground"); // Provide a name for the ground type
-        // You might add specific capabilities here if your Ground system uses them
-        // e.g., this.addCapability(SpecificGameCapability.IS_FIRE_EFFECT);
+
+        super(FIRE_DISPLAY_CHAR, "Burning Ground");
+
     }
 
     /**
@@ -35,7 +33,6 @@ public class BurningGround extends Ground {
         if (currentLocation.containsAnActor()) {
             Actor victim = currentLocation.getActor();
             if (victim != null) {
-                // It's good practice to have a distinct message or source for tick damage
 
                 victim.hurt(DAMAGE_PER_TURN_FROM_FIRE);
                 if (!victim.isConscious()) {

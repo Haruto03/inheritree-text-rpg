@@ -29,7 +29,7 @@ public class CastSpellAction extends Action {
     @Override
     public String execute(Actor caster, GameMap map) {
         if (!caster.hasAttribute(BaseActorAttributes.MANA) || caster.getAttribute(BaseActorAttributes.MANA) < spellbook.getManaCost()) {
-            return caster + " does not have enough mana to cast " + spellbook.getClass() + ". (Required: " + spellbook.getManaCost() + ")";
+            return caster + " does not have enough mana to cast " + spellbook.toString() + ". (Required: " + spellbook.getManaCost() + ")";
         }
 
         // Deduct mana
@@ -43,7 +43,7 @@ public class CastSpellAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) { // 'actor' is the one performing the action
-        String description = actor + " casts " + spellbook.getClass();
+        String description = actor + " casts " + spellbook.toString();
 
         description += " (Cost: " + spellbook.getManaCost() + " Mana)";
         return description;

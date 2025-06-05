@@ -1,6 +1,5 @@
 package game.grounds;
 
-
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
@@ -25,7 +24,6 @@ public class TemporyGround extends Ground {
         if (this.duration > 0) {
             this.duration--;
             if (this.duration <= 0) {
-                // Duration has expired, revert to the original ground
                 location.setGround(this.originalGround);
             }
         }

@@ -1,4 +1,4 @@
-package game.spell; // Ensure this matches your package structure
+package game.spell;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -28,32 +28,32 @@ public class FireSpell extends SpellBook {
 
         Location casterLocation = map.locationOf(caster);
 
-        for (Exit effectExit : casterLocation.getExits()) { // Iterate again for actual effect application
+        for (Exit effectExit : casterLocation.getExits()) {
             Location tileToBurn = effectExit.getDestination();
             Ground originalGround = tileToBurn.getGround(); //
 
-            //  burn damage to actors on this tile (except caster)
+
             if (tileToBurn.containsAnActor()) {
                 Actor victim = tileToBurn.getActor();
-                if (victim != caster) { // AoE doesn't harm caster unless specified
+                if (victim != caster) {
                     victim.hurt(INSTANT_AREA_DAMAGE); //
                     if (!victim.isConscious()) {
-                        victim.unconscious(map); // Assuming this method handles necessary map updates
+                        victim.unconscious(map);
                     }
                 }
             }
-            if (originalGround.hasCapability(GroundCapability.CanBurned)) { // Corrected: removed semicolon here
+            if (originalGround.hasCapability(GroundCapability.CanBurned)) {
                 tileToBurn.setGround(new TemporyGround(originalGround,new BurningGround(), BurnDuration));
             }
     }
-        // Construct the return string with the caster's name
-        String casterName = caster.toString(); // Or caster.getName() if you have such a method
+
+        String casterName = caster.toString();
         return "The surrounding of " + casterName + " has been burned";
     }
 
             @Override
     public ActionList allowableActions (Actor otherActor, Location location){
-        ActionList actions = super.allowableActions(otherActor, location); // Gets base actions from Item if any
+        ActionList actions = super.allowableActions(otherActor, location);
         if (otherActor != null && otherActor.isConscious() && otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
             actions.add(new CastSpellAction(this, otherActor));
         }

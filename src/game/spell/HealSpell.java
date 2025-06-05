@@ -22,9 +22,9 @@ public class HealSpell extends SpellBook {
     public String activate(Actor caster, GameMap map,Actor targetActor){
         if (caster == targetActor) {
             new HealEffect(HEAL_AMOUNT).applyEffect(targetActor, map); // Using your existing HealEffect
-            return caster + " casts " + this.getClass() + " on " + targetActor + ", healing for " + HEAL_AMOUNT + " HP.";
+            return caster + " casts " + this.toString() + " on " + targetActor + ", healing for " + HEAL_AMOUNT + " HP.";
         }
-        return caster + " fails to cast " + this.getClass() + ": No valid target specified for activation.";
+        return caster + " fails to cast " + this.toString() + ": No valid target specified for activation.";
     }
 
 
