@@ -40,9 +40,8 @@ public class CastSpellAction extends Action {
                 manaCost);
 
         // Activate the spell by calling the spellbook's activate method
-        String result = spellbook.activate(caster, map, target);
+        return spellbook.activate(caster, map, target);
 
-        return result;
     }
 
     @Override
