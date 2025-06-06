@@ -6,23 +6,26 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.effects.HealEffect;
 
 
-
 public class HealSpell extends SpellBook {
+
+    private static final String NAME = "Heal Spell";
     private static final int HEAL_AMOUNT = 25;
     private static final int MANA_COST = 30;
     private static final String DESCRIPTION = "Heals a target actor for " + HEAL_AMOUNT + " HP.";
 
 
     public HealSpell() {
-        super("Heal", 'h', MANA_COST, DESCRIPTION);
+        super(NAME, 'h', MANA_COST, DESCRIPTION);
     }
 
 
     @Override
-    public String activate(Actor caster, GameMap map,Actor targetActor){
+    public String activate(Actor caster, GameMap map, Actor targetActor) {
         if (caster == targetActor) {
-            new HealEffect(HEAL_AMOUNT).applyEffect(targetActor, map); // Using your existing HealEffect
-            return caster + " casts " + this + " on " + targetActor + ", healing for " + HEAL_AMOUNT + " HP.";
+            new HealEffect(HEAL_AMOUNT).applyEffect(targetActor,
+                    map); // Using your existing HealEffect
+            return caster + " casts " + this + " on " + targetActor + ", healing for " + HEAL_AMOUNT
+                    + " HP.";
         }
         return caster + " fails to cast " + this + ": No valid target specified for activation.";
     }
@@ -30,7 +33,7 @@ public class HealSpell extends SpellBook {
 
     public ActionList allowableActions(Actor caster, GameMap map) {
         ActionList actions = super.allowableActions(caster, map);
-         actions.add(new CastSpellAction(this, caster));
+        actions.add(new CastSpellAction(this, caster));
         return actions;
 
     }
