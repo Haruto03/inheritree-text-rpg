@@ -6,10 +6,10 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.behaviours.behaviourSelector.BehaviourSelector;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.behaviours.behaviourselectors.BehaviourSelector;
 import game.capabilities.GeneralCapability;
 import game.eating.EatAction;
 import game.eating.Eatable;
@@ -62,8 +62,8 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
     private static final int PRIORITY_WANDER = 999;
 
     /**
-     * Constructor for GoldenBeetle with default priority behaviour selector.
-     * Initializes the Golden Beetle with its name, display character, hit points, and adds its capabilities.
+     * Constructor for GoldenBeetle with default priority behaviour selector. Initializes the Golden
+     * Beetle with its name, display character, hit points, and adds its capabilities.
      */
     public GoldenBeetle() {
         super(NAME, DISPLAY_CHAR, HIT_POINTS);
@@ -81,8 +81,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
     }
 
     /**
-     * Initialize the behaviours for Golden Beetle.
-     * Priority order: Reproduce -> Wander
+     * Initialize the behaviours for Golden Beetle. Priority order: Reproduce -> Wander
      */
     @Override
     protected void initializeBehaviours() {

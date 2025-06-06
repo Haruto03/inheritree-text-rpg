@@ -1,20 +1,20 @@
-package game.behaviours.behaviourSelector;
+package game.behaviours.behaviourselectors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.GameMap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 /**
- * A behaviour selector that randomly picks one behaviour to try.
- * If the selected behaviour is not valid, the actor does nothing.
+ * A behaviour selector that randomly picks one behaviour to try. If the selected behaviour is not
+ * valid, the actor does nothing.
  */
 public class RandomBehaviourSelector implements BehaviourSelector {
+
     private final Random random;
 
     /**
@@ -25,13 +25,12 @@ public class RandomBehaviourSelector implements BehaviourSelector {
     }
 
     /**
-     * Select behaviour randomly.
-     * Picks one behaviour at random and tries it. If it's not valid,
+     * Select behaviour randomly. Picks one behaviour at random and tries it. If it's not valid,
      * returns null (creature does nothing this turn).
      *
      * @param behaviours the list of available behaviours
-     * @param actor the actor performing the behaviour
-     * @param map the current game map
+     * @param actor      the actor performing the behaviour
+     * @param map        the current game map
      * @return the Action from the randomly selected behaviour, or null
      */
     @Override

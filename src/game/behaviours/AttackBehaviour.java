@@ -7,13 +7,12 @@ import edu.monash.fit2099.engine.actors.Behaviour;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.actors.npc.AttackConditionEvaluator; // Import the new interface
+import game.actors.npc.AttackConditionEvaluator;
 import game.weapons.actions.AttackAction;
 
 /**
- * A behaviour that allows an NPC {@link Actor} to attack another {@link Actor}.
- * The decision to attack is delegated to the NPC itself via the
- * {@link AttackConditionEvaluator} interface.
+ * A behaviour that allows an NPC {@link Actor} to attack another {@link Actor}. The decision to
+ * attack is delegated to the NPC itself via the {@link AttackConditionEvaluator} interface.
  */
 public class AttackBehaviour implements Behaviour {
 
@@ -22,20 +21,20 @@ public class AttackBehaviour implements Behaviour {
     /**
      * Constructs an AttackBehaviour.
      *
-     * @param conditionEvaluator The object (typically an NPC implementing {@link AttackConditionEvaluator})
-     * that will provide the decision logic for attacking.
+     * @param conditionEvaluator The object (typically an NPC implementing
+     *                           {@link AttackConditionEvaluator}) that will provide the decision
+     *                           logic for attacking.
      */
     public AttackBehaviour(AttackConditionEvaluator conditionEvaluator) {
         this.conditionEvaluator = conditionEvaluator;
     }
 
     /**
-     * Determines and returns an {@link AttackAction} if a suitable target is found
-     * and the {@link AttackConditionEvaluator} permits the attack.
+     * Determines and returns an {@link AttackAction} if a suitable target is found and the
+     * {@link AttackConditionEvaluator} permits the attack.
      *
-     * @param actor The {@link Actor} performing this behaviour (this should be the NPC
-     * that implements {@link AttackConditionEvaluator} and was passed
-     * to the constructor).
+     * @param actor The {@link Actor} performing this behaviour (this should be the NPC that
+     *              implements {@link AttackConditionEvaluator} and was passed to the constructor).
      * @param map   The {@link GameMap} where the actor is located.
      * @return an {@link AttackAction} directed at a valid target if the NPC decides to attack;
      * otherwise, {@code null}.

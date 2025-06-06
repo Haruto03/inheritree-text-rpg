@@ -20,5 +20,7 @@ public class Soil extends Ground {
     public Soil() {
         super('.', "Soil");
         this.addCapability(GroundCapability.CAN_PLANT_SEED);
+        this.addCapability(GroundCapability.CAN_BURNED);
+
     }
 }

@@ -10,31 +10,31 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * A behaviour that allows an Actor to wander randomly around the map.
- * It selects a random valid exit from the actor's current location and returns
- * a MoveActorAction to move there.
- *
+ * A behaviour that allows an Actor to wander randomly around the map. It selects a random valid
+ * exit from the actor's current location and returns a MoveActorAction to move there.
+ * <p>
  * Created by the FIT2099 Teaching Team.
  *
- * @author Riordan D. Alfredo
- * Modified by: GoeyQiHang
- *
+ * @author Riordan D. Alfredo Modified by: GoeyQiHang
  */
 public class WanderBehaviour implements Behaviour {
 
-    /** Random number generator for selecting exits. */
+    /**
+     * Random number generator for selecting exits.
+     */
     private final Random random = new Random();
 
     /**
-     * Returns a MoveAction to wander to a random adjacent location, if possible.
-     * It checks all exits from the actor's current location. If an exit leads to a
-     * location the actor can enter, a corresponding MoveActorAction is added to a list.
-     * If the list of possible move actions is not empty, one is chosen randomly and returned.
-     * If no movement is possible (e.g., actor is surrounded by walls or other actors), returns null.
+     * Returns a MoveAction to wander to a random adjacent location, if possible. It checks all
+     * exits from the actor's current location. If an exit leads to a location the actor can enter,
+     * a corresponding MoveActorAction is added to a list. If the list of possible move actions is
+     * not empty, one is chosen randomly and returned. If no movement is possible (e.g., actor is
+     * surrounded by walls or other actors), returns null.
      *
      * @param actor the Actor enacting the behaviour
-     * @param map the map that actor is currently on
-     * @return a MoveActorAction to a random valid destination, or null if no valid move is possible.
+     * @param map   the map that actor is currently on
+     * @return a MoveActorAction to a random valid destination, or null if no valid move is
+     * possible.
      */
     @Override
     public Action getAction(Actor actor, GameMap map) {

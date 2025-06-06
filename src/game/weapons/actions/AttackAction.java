@@ -56,8 +56,8 @@ public class AttackAction extends Action {
      * @param direction The direction from which the attack originates (for display).
      */
     public AttackAction(Actor target, String direction) {
-        this.target = target; 
-        this.direction = direction; 
+        this.target = target;
+        this.direction = direction;
         // weapon is implicitly null, will use intrinsic weapon in execute()
     }
 

@@ -16,5 +16,6 @@ public enum GroundCapability {
      * Indicates that the ground is cursed or blighted. Entities with this capability might have
      * negative effects or be targets for purification actions. Found on {@link Blight}.
      */
-    CURSED
+    CURSED,
+    CAN_BURNED
 }
