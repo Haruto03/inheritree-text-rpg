@@ -11,13 +11,14 @@ import game.actors.npc.AttackConditionEvaluator;
 import game.behaviours.AttackBehaviour;
 import game.growingPart.GrowPartBehaviour;
 import game.capabilities.GeneralCapability;
+import game.growingPart.Growable;
 import game.weapons.BedOfChaosClaw;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BedOfChaos extends Creature implements AttackConditionEvaluator {
+public class BedOfChaos extends Creature implements AttackConditionEvaluator, Growable {
 
     private final List<BossPart> directParts = new ArrayList<>();
     private static final int BASE_DAMAGE = 25;
@@ -34,7 +35,7 @@ public class BedOfChaos extends Creature implements AttackConditionEvaluator {
     @Override
     protected void initializeBehaviours() {
         this.addBehaviour(PRIORITY_ATTACK, new AttackBehaviour(this));
-        this.addBehaviour(PRIORITY_GROW, new GrowPartBehaviour());
+        this.addBehaviour(PRIORITY_GROW, new GrowPartBehaviour(this));
     }
 
     @Override
