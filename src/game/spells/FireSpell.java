@@ -13,7 +13,7 @@ import game.grounds.TemporaryGround;
 public class FireSpell extends SpellBook {
 
     private static final int MANA_COST = 25;
-    private static final String NAME = "Conflagration"; // Yet another name
+    private static final String NAME = "Fire Spell";
     private static final char DISPLAY_CHAR = 'f';
     private static final int INSTANT_AREA_DAMAGE = 10;
     private static final String DESCRIPTION = "If an enemy is nearby, ignites surrounding tiles. Instantly burns occupants, and tiles remain burning for 3 turns, damaging those on them.";

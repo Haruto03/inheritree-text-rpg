@@ -1,8 +1,7 @@
 package game.actors.creatures.boss.parts;
 
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.GameMap;
-import game.growingPart.Growable;
+import java.util.List;
 
 public class Leaf implements BossPart {
 
@@ -12,16 +11,8 @@ public class Leaf implements BossPart {
     }
 
     @Override
-    public int getHealingContribution() {
-        return 5;
+    public String grow(Actor actor, List<BossPart> directParts) {
+        actor.heal(5);
+        return actor + "is healed\n";
     }
-
-    @Override
-    public boolean isProductive() {
-        return false;
-    }
-
-    @Override
-    public String grow(Growable boss, GameMap map) {
-    return "";}
 }
