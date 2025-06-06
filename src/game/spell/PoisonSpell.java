@@ -1,14 +1,14 @@
 package game.spell;
 
-import edu.monash.fit2099.engine.actions.ActionList; //
-import edu.monash.fit2099.engine.actors.Actor; //
-import edu.monash.fit2099.engine.positions.GameMap; //
-import edu.monash.fit2099.engine.positions.Location; //
-import game.capabilities.GeneralCapability;
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import game.effects.Continuousdamage;
 
 
 public class PoisonSpell extends SpellBook {
+
     private static final int MANA_COST = 40;
     private static final String NAME = "Poison Spell";
     private static final char DISPLAY_CHAR = 'p';
@@ -21,8 +21,7 @@ public class PoisonSpell extends SpellBook {
     }
 
     /**
-     * Activates the PoisonSpell on a target Actor.
-     * Applies a PoisonStatusEffect to the target.
+     * Activates the PoisonSpell on a target Actor. Applies a PoisonStatusEffect to the target.
      *
      * @param caster The actor casting the spell.
      * @param map    The map the actors are on.
@@ -34,30 +33,27 @@ public class PoisonSpell extends SpellBook {
         if (target == null) {
             return caster + "'s " + NAME + " dissipates, no target found.";
         }
-        Continuousdamage poisonEffect = new Continuousdamage(
-                "Poisoned by " + NAME,
-                POISON_DURATION,
-                POISON_DAMAGE_PER_TURN
-        );
+        Continuousdamage poisonEffect = new Continuousdamage("Poisoned by " + NAME, POISON_DURATION,
+                POISON_DAMAGE_PER_TURN);
         target.addStatusEffect(poisonEffect); //
         return target + " is engulfed in a " + NAME + " and becomes poisoned!";
     }
 
     /**
-     * Returns a list of allowable actions that the owner of this spell (the caster)
-     * can perform ON the 'otherActor' at the given 'location' using this spell.
-     * This method is called by the game engine when iterating through the caster's inventory
-     * for each adjacent actor.
+     * Returns a list of allowable actions that the owner of this spell (the caster) can perform ON
+     * the 'otherActor' at the given 'location' using this spell. This method is called by the game
+     * engine when iterating through the caster's inventory for each adjacent actor.
      *
      * @param otherActor The potential target actor.
      * @param location   The location of the otherActor.
-     * @return An ActionList containing CastSpellAction if the target is valid.
-     * The CastSpellAction itself will handle mana and hostility checks.
+     * @return An ActionList containing CastSpellAction if the target is valid. The CastSpellAction
+     * itself will handle mana and hostility checks.
      */
     @Override
     public ActionList allowableActions(Actor otherActor, Location location) {
-        ActionList actions = super.allowableActions(otherActor, location); // Gets base actions from Item if any
-        if (otherActor != null && otherActor.isConscious() && otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
+        ActionList actions = super.allowableActions(otherActor,
+                location); // Gets base actions from Item if any
+        if (otherActor != null && otherActor.isConscious()) {
             actions.add(new CastSpellAction(this, otherActor));
         }
         return actions;

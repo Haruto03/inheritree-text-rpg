@@ -6,7 +6,6 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import game.capabilities.GeneralCapability;
 import game.grounds.BurningGround;
 import game.grounds.GroundCapability;
 import game.grounds.TemporaryGround;
@@ -56,8 +55,7 @@ public class FireSpell extends SpellBook {
     @Override
     public ActionList allowableActions(Actor otherActor, Location location) {
         ActionList actions = super.allowableActions(otherActor, location);
-        if (otherActor != null && otherActor.isConscious() && otherActor.hasCapability(
-                GeneralCapability.HOSTILE_TO_ENEMY)) {
+        if (otherActor != null && otherActor.isConscious()) {
             actions.add(new CastSpellAction(this, otherActor));
         }
         return actions;
