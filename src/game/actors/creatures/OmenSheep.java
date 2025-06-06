@@ -96,7 +96,7 @@ public class OmenSheep extends Creature implements Curable, Rotatable, ActorProd
      * Priority order: Reproduce -> Wander
      */
     @Override
-    public void initializeBehaviours() {
+    protected void initializeBehaviours() {
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }

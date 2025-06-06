@@ -85,7 +85,7 @@ public class GoldenBeetle extends Creature implements ActorProducible, Eatable {
      * Priority order: Reproduce -> Wander
      */
     @Override
-    public void initializeBehaviours() {
+    protected void initializeBehaviours() {
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_FOLLOW, new FollowBehaviour());
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());

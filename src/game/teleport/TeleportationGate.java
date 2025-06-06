@@ -4,7 +4,6 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * The gate is represented by the character 'A' and can have multiple destinations.
  */
 public class TeleportationGate extends Ground {
-    private final List<TeleportDestination> destinations;
+    private final List<Location> locations;
 
     /**
      * Constructor for TeleportationGate.
@@ -22,17 +21,16 @@ public class TeleportationGate extends Ground {
      */
     public TeleportationGate() {
         super('A', "TeleportationGate");
-        this.destinations = new ArrayList<>();
+        this.locations = new ArrayList<>();
     }
 
     /**
      * Add a destination to this teleportation gate.
      *
-     * @param targetMap      the destination game map
      * @param targetLocation the destination location
      */
-    public void addDestination(GameMap targetMap, Location targetLocation) {
-        destinations.add(new TeleportDestination(targetMap, targetLocation));
+    public void addDestination(Location targetLocation) {
+        locations.add(targetLocation);
     }
 
     /**
@@ -52,10 +50,10 @@ public class TeleportationGate extends Ground {
             if (location.getGround() == this && location.containsAnActor()
                     && location.getActor() == actor) {
                 // Add teleport actions for each destination
-                for (TeleportDestination destination : destinations) {
+                for (Location targetLocation : locations) {
                     // Only add teleport action if the destination is different from current location
-                    if (!isSameLocation(location, destination)) {
-                        actions.add(new TeleportAction(destination));
+                    if (!isSameLocation(location, targetLocation)) {
+                        actions.add(new TeleportAction(targetLocation));
                     }
                 }
             }
@@ -64,16 +62,16 @@ public class TeleportationGate extends Ground {
     }
 
     /**
-     * Check if the current location is the same as the destination.
+     * Check if the current location is the same as the target location.
      *
      * @param currentLocation the current location
-     * @param destination     the destination to check
+     * @param targetLocation  the target location to check
      * @return true if locations are the same, false otherwise
      */
-    private boolean isSameLocation(Location currentLocation, TeleportDestination destination) {
-        return currentLocation.map() == destination.getTargetMap() &&
-                currentLocation.x() == destination.getTargetLocation().x() &&
-                currentLocation.y() == destination.getTargetLocation().y();
+    private boolean isSameLocation(Location currentLocation, Location targetLocation) {
+        return currentLocation.map() == targetLocation.map() &&
+                currentLocation.x() == targetLocation.x() &&
+                currentLocation.y() == targetLocation.y();
     }
 
     /**

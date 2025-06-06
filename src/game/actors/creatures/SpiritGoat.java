@@ -65,6 +65,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      */
     private static final int PRIORITY_WANDER = 999;
 
+
     /**
      * Constructor for the SpiritGoat with default priority behaviour selector.
      * Initializes the goat with its name, display character, hit points and sets the initial rot countdown.
@@ -89,7 +90,7 @@ public class SpiritGoat extends Creature implements Curable, Rotatable, ActorPro
      * Priority order: Reproduce -> Wander
      */
     @Override
-    public void initializeBehaviours() {
+    protected void initializeBehaviours() {
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }

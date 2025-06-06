@@ -142,6 +142,7 @@ public class Application {
         NpcGuts NPCGuts = new NpcGuts();
 
         // game setup
+
         gameMap.addActor(NPCSellen, gameMap.at(10, 5));
         gameMap.addActor(NPCKale, gameMap.at(35, 12));
         gameMap.addActor(NPCGuts, gameMap.at(5, 13));

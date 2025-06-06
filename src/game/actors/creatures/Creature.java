@@ -63,19 +63,24 @@ public abstract class Creature extends Actor {
         initializeBehaviours(); // Template method - subclasses implement this
     }
 
+
+
     /**
+     * Selects and returns an action to perform on the current turn based on assigned behaviours
+     * and the configured behaviour selection strategy. The BehaviourSelector determines which
+     * behaviour to execute from the available behaviours.
      * Template method for subclasses to initialize their specific behaviours.
      * This method should be implemented by each creature type to add their
      * specific behaviours to the behaviours list.
      */
-    public abstract void initializeBehaviours();
+    protected abstract void initializeBehaviours();
 
     /**
      * Add a behaviour to this creature's behaviour list.
      *
      * @param behaviour the behaviour to add
      */
-    public void addBehaviour(int priority, Behaviour behaviour) {
+    protected void addBehaviour(int priority, Behaviour behaviour) {
         behaviours.put(priority, behaviour);
     }
 
