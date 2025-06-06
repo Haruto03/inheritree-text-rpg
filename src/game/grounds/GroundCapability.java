@@ -17,5 +17,5 @@ public enum GroundCapability {
      * negative effects or be targets for purification actions. Found on {@link Blight}.
      */
     CURSED,
-    CanBurned
+    CAN_BURNED
 }
