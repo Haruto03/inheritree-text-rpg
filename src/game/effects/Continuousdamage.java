@@ -34,7 +34,7 @@ public class Continuousdamage extends StatusEffect {
     public void tick(Location location, Actor actor) {
         if (duration > 0) {
             actor.hurt(damagePerTurn);
-             System.out.println(actor + " takes " + damagePerTurn + " damage from " + this.toString() + ". " + (duration-1) + " turns remaining.");
+             System.out.println(actor + " takes " + damagePerTurn + " damage from " + this + ". " + (duration-1) + " turns remaining.");
 
             if (!actor.isConscious()) {
                 // If the actor becomes unconscious, handle it.

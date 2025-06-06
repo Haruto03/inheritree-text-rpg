@@ -9,7 +9,6 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.behaviours.behaviourselectors.BehaviourSelector;
 import game.behaviours.behaviourselectors.PriorityBehaviourSelector;
-
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -51,12 +50,13 @@ public abstract class Creature extends Actor {
     /**
      * Constructor with custom behaviour selector.
      *
-     * @param name the name of the creature
-     * @param displayChar the character used to represent the creature
-     * @param hitPoints the creature's hit points
+     * @param name              the name of the creature
+     * @param displayChar       the character used to represent the creature
+     * @param hitPoints         the creature's hit points
      * @param behaviourSelector the strategy for selecting behaviours
      */
-    public Creature(String name, char displayChar, int hitPoints, BehaviourSelector behaviourSelector) {
+    public Creature(String name, char displayChar, int hitPoints,
+            BehaviourSelector behaviourSelector) {
         super(name, displayChar, hitPoints);
         this.behaviours = new TreeMap<>();
         this.behaviourSelector = behaviourSelector;
@@ -64,13 +64,11 @@ public abstract class Creature extends Actor {
     }
 
 
-
     /**
-     * Selects and returns an action to perform on the current turn based on assigned behaviours
-     * and the configured behaviour selection strategy. The BehaviourSelector determines which
-     * behaviour to execute from the available behaviours.
-     * Template method for subclasses to initialize their specific behaviours.
-     * This method should be implemented by each creature type to add their
+     * Selects and returns an action to perform on the current turn based on assigned behaviours and
+     * the configured behaviour selection strategy. The BehaviourSelector determines which behaviour
+     * to execute from the available behaviours. Template method for subclasses to initialize their
+     * specific behaviours. This method should be implemented by each creature type to add their
      * specific behaviours to the behaviours list.
      */
     protected abstract void initializeBehaviours();
@@ -85,9 +83,9 @@ public abstract class Creature extends Actor {
     }
 
     /**
-     * Selects and returns an action to perform on the current turn based on assigned behaviours
-     * and the configured behaviour selection strategy. The BehaviourSelector determines which
-     * behaviour to execute from the available behaviours.
+     * Selects and returns an action to perform on the current turn based on assigned behaviours and
+     * the configured behaviour selection strategy. The BehaviourSelector determines which behaviour
+     * to execute from the available behaviours.
      *
      * @param actions    collection of possible Actions for this Actor (typically not used directly
      *                   here, but provided by the engine)

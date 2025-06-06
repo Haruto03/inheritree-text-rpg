@@ -3,12 +3,12 @@ package game.grounds;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
-public class TemporyGround extends Ground {
+public class TemporaryGround extends Ground {
     private final Ground originalGround;
     private final Ground temporaryground;
     private int duration;
 
-    public TemporyGround(Ground originalGround, Ground temporaryground, int duration) {
+    public TemporaryGround(Ground originalGround, Ground temporaryground, int duration) {
         super(temporaryground.getDisplayChar(), temporaryground.toString());
         this.originalGround = originalGround;
         this.temporaryground = temporaryground;

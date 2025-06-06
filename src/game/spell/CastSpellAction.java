@@ -7,8 +7,8 @@ import edu.monash.fit2099.engine.actors.attributes.BaseActorAttributes;
 import edu.monash.fit2099.engine.positions.GameMap;
 
 
-
 public class CastSpellAction extends Action {
+
     private final SpellBook spellbook;
     private final Actor target;
 
@@ -17,26 +17,28 @@ public class CastSpellAction extends Action {
      * Constructor for CastSpellAction.
      *
      * @param spellbook The spellbook item being cast.
-     * @param target  The actor performing the cast.
-.
+     * @param target    The actor performing the cast. .
      */
     public CastSpellAction(SpellBook spellbook, Actor target) {
         this.spellbook = spellbook;
-        this.target =target;
+        this.target = target;
 
     }
 
     @Override
     public String execute(Actor caster, GameMap map) {
-        if (!caster.hasAttribute(BaseActorAttributes.MANA) || caster.getAttribute(BaseActorAttributes.MANA) < spellbook.getManaCost()) {
-            return caster + " does not have enough mana to cast " + spellbook.toString() + ". (Required: " + spellbook.getManaCost() + ")";
+        if (!caster.hasAttribute(BaseActorAttributes.MANA)
+                || caster.getAttribute(BaseActorAttributes.MANA) < spellbook.getManaCost()) {
+            return caster + " does not have enough mana to cast " + spellbook.toString()
+                    + ". (Required: " + spellbook.getManaCost() + ")";
         }
 
         // Deduct mana
-        caster.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.DECREASE, spellbook.getManaCost());
+        caster.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.DECREASE,
+                spellbook.getManaCost());
 
         // Activate the spell by calling the spellbook's activate method
-        String result = spellbook.activate(caster, map,target);
+        String result = spellbook.activate(caster, map, target);
 
         return result;
     }

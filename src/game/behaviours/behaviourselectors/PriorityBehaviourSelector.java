@@ -7,19 +7,18 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import java.util.Map;
 
 /**
- * A behaviour selector that tries behaviours in priority order.
- * This is the traditional approach - try each behaviour in sequence
- * until one returns a valid action.
+ * A behaviour selector that tries behaviours in priority order. This is the traditional approach -
+ * try each behaviour in sequence until one returns a valid action.
  */
 public class PriorityBehaviourSelector implements BehaviourSelector {
 
     /**
-     * Select behaviour by priority order.
-     * Goes through the behaviour list in order and returns the first valid action.
+     * Select behaviour by priority order. Goes through the behaviour list in order and returns the
+     * first valid action.
      *
      * @param behaviours the list of behaviours in priority order
-     * @param actor the actor performing the behaviour
-     * @param map the current game map
+     * @param actor      the actor performing the behaviour
+     * @param map        the current game map
      * @return the first valid Action found, or null if none are valid
      */
     @Override

@@ -53,10 +53,8 @@ public class FollowBehaviour implements Behaviour {
     @Override
     public Action getAction(Actor actor, GameMap map) {
         // 1. Validate current target
-        if (currentTarget != null &&
-                (!map.contains(currentTarget) ||
-                        !currentTarget.isConscious() ||
-                        !currentTarget.hasCapability(GeneralCapability.FOLLOWABLE))) {
+        if (currentTarget != null && (!map.contains(currentTarget) || !currentTarget.isConscious()
+                || !currentTarget.hasCapability(GeneralCapability.FOLLOWABLE))) {
             currentTarget = null; // Invalidate target
         }
 
