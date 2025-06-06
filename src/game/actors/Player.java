@@ -11,6 +11,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
 import game.fishing.FishingRod;
 import game.fishing.Showel;
+import game.spell.FireSpell;
 import game.spell.HealSpell;
 import game.spell.PoisonSpell;
 import game.spell.TeleportSpell;
@@ -57,6 +58,7 @@ public class Player extends Actor {
         this.addItemToInventory(new PoisonSpell());
         this.addItemToInventory(new HealSpell());
         this.addItemToInventory(new TeleportSpell());
+        this.addItemToInventory(new FireSpell());
 
         this.addItemToInventory(new FishingRod());
         this.addItemToInventory(new Showel());

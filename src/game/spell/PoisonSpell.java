@@ -46,7 +46,6 @@ public class PoisonSpell extends SpellBook {
     /**
      * Returns a list of allowable actions that the owner of this spell (the caster)
      * can perform ON the 'otherActor' at the given 'location' using this spell.
-     *
      * This method is called by the game engine when iterating through the caster's inventory
      * for each adjacent actor.
      *
