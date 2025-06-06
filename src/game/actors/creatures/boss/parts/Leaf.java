@@ -22,6 +22,6 @@ public class Leaf implements BossPart {
     }
 
     @Override
-    public void grow(Growable boss, GameMap map) {
-    }
+    public String grow(Growable boss, GameMap map) {
+    return "";}
 }

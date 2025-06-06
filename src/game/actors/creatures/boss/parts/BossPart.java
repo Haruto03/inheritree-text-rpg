@@ -15,7 +15,7 @@ public interface BossPart {
 
     boolean isProductive();
 
-    void grow(Growable boss, GameMap map);
+    String grow(Growable boss, GameMap map);
 
     default List<BossPart> getSubParts() {
         return Collections.emptyList();

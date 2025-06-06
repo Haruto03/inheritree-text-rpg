@@ -13,6 +13,7 @@ import game.growingPart.GrowPartBehaviour;
 import game.capabilities.GeneralCapability;
 import game.growingPart.Growable;
 import game.weapons.BedOfChaosClaw;
+import game.weapons.actions.AttackAction;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +26,11 @@ public class BedOfChaos extends Creature implements AttackConditionEvaluator, Gr
     private static final int HIT_RATE = 75;
     private static final int PRIORITY_ATTACK = 1;
     private static final int PRIORITY_GROW = 5;
+    private final BedOfChaosClaw bossWeapon= new BedOfChaosClaw(BASE_DAMAGE, "strikes", HIT_RATE);
 
     public BedOfChaos() {
         super("Bed of Chaos", 'T', 1000);
-        this.setIntrinsicWeapon(new BedOfChaosClaw(BASE_DAMAGE, "strikes", HIT_RATE));
+        this.setIntrinsicWeapon(bossWeapon);
 
     }
 
@@ -51,12 +53,13 @@ public class BedOfChaos extends Creature implements AttackConditionEvaluator, Gr
                     .sum();
             int totalDamage = BASE_DAMAGE + accumulatedDamage;
 
-            BedOfChaosClaw weapon = (BedOfChaosClaw) getIntrinsicWeapon();
-            weapon.setDamage(totalDamage);
+            bossWeapon.setDamage(totalDamage);
             return true;
         }
         return false;
     }
+
+
 
     public void addDirectPart(BossPart part) {
         this.directParts.add(part);
@@ -77,6 +80,10 @@ public class BedOfChaos extends Creature implements AttackConditionEvaluator, Gr
 
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        return super.allowableActions(otherActor, direction, map);
+        ActionList actions = super.allowableActions(otherActor, direction, map);
+        if (otherActor.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
+            actions.add(new AttackAction(this, direction));
+        }
+        return actions;
     }
 }
