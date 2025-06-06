@@ -16,9 +16,10 @@ import game.actors.creatures.SpiritGoat;
 import game.actors.npc.NpcGuts;
 import game.actors.npc.NpcKale;
 import game.actors.npc.NpcSellen;
-import game.behaviours.behaviourselectors.BehaviourSelector;
-import game.behaviours.behaviourselectors.PriorityBehaviourSelector;
-import game.behaviours.behaviourselectors.RandomBehaviourSelector;
+import game.behaviours.behaviourSelector.BehaviourSelector;
+import game.behaviours.behaviourSelector.PriorityBehaviourSelector;
+import game.behaviours.behaviourSelector.RandomBehaviourSelector;
+import game.fishing.Pond;
 import game.grounds.Blight;
 import game.grounds.Floor;
 import game.grounds.Soil;
@@ -99,15 +100,17 @@ public class Application {
         TeleportationGate gateInLimveld = new TeleportationGate();
 
         // Set Teleportation destination
-        gateInValley.addDestination(limveldGameMap, limveldGameMap.at(8, 6));
-        gateInLimveld.addDestination(gameMap, gameMap.at(15, 8));
+        gateInValley.addDestination(limveldGameMap.at(8, 6));
+        gateInLimveld.addDestination(gameMap.at(15, 8));
 
         // Place the TeleportationGate on the map
         gameMap.at(23, 14).setGround(gateInValley);
         limveldGameMap.at(8, 6).setGround(gateInLimveld);
 
+        gameMap.at(22, 12).setGround(new Pond());
+
         Player player = new Player("Farmer", '@', 100);
-        world.addPlayer(player, gameMap.at(23, 10));
+        world.addPlayer(player, gameMap.at(22, 13));
 
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());

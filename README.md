@@ -13,7 +13,7 @@
 [Contribution Log](https://docs.google.com/spreadsheets/d/1gKEzBsCYIDqmTIBYuMdgHVlxKsTblQpj1Mp7jnL7QN4/edit?usp=sharing)
 
 
-Requirement 3 and 4 checking: [](https://docs.google.com/document/d/1YSkGT26D4_QkVSjapRd8jFQSzq5kpSmDq_fLxjvh4HM/edit?usp=sharing)
+[Requirement 3 and 4 checking:](https://docs.google.com/document/d/1YSkGT26D4_QkVSjapRd8jFQSzq5kpSmDq_fLxjvh4HM/edit?usp=sharing)
 Requirement 3: Spells Casting
 Design: 
 Players cast spells in game, managed by a Spellbook that consist of spells like FireSpell, HealSpell, and TeleportSpell. Spells apply effects to Actors or Locations through SpellEffects interfaces in the effects package. We will add mana to the farmer.
