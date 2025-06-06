@@ -11,10 +11,10 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
 import game.fishing.FishingRod;
 import game.fishing.Showel;
-import game.spell.FireSpell;
-import game.spell.HealSpell;
-import game.spell.PoisonSpell;
-import game.spell.TeleportSpell;
+import game.spells.FireSpell;
+import game.spells.HealSpell;
+import game.spells.PoisonSpell;
+import game.spells.TeleportSpell;
 import game.weapons.BareFist;
 
 /**
