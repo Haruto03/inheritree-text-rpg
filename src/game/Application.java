@@ -13,6 +13,7 @@ import game.actors.Player;
 import game.actors.creatures.GoldenBeetle;
 import game.actors.creatures.OmenSheep;
 import game.actors.creatures.SpiritGoat;
+import game.actors.creatures.boss.BedOfChaos;
 import game.actors.npc.NpcGuts;
 import game.actors.npc.NpcKale;
 import game.actors.npc.NpcSellen;
@@ -149,6 +150,9 @@ public class Application {
         gameMap.addActor(NPCSellen, gameMap.at(10, 5));
         gameMap.addActor(NPCKale, gameMap.at(35, 12));
         gameMap.addActor(NPCGuts, gameMap.at(5, 13));
+
+        BedOfChaos bedOfChaos = new BedOfChaos();
+        limveldGameMap.addActor(bedOfChaos, limveldGameMap.at(9,6 ));
 
         gameMap.at(24, 11).addItem(new Talisman()); //
         world.run();
