@@ -24,19 +24,31 @@ public class FishAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
         ArrayList<Fishable> fishableItems = pond.getFishableItems();
+        ArrayList<Fishable> potentialCatches = new ArrayList<>();
         // Roll for each fishable item independently
         for (Fishable fishableItem : fishableItems) {
             if (random.nextDouble() < fishableItem.getCatchChance()) {
-                fishableItem.catchBy(actor);// Add fish to actor's inventory
-                return "You caught " + fishableItem + " from the pond with " + fishingItem + "!";
+                potentialCatches.add(fishableItem);
             }
         }
-        return "You are unlucky! Nothing catched...";
+
+        if (potentialCatches.isEmpty()) {
+            return "You are unlucky! Nothing was caught...";
+        } else {
+            // If there are potential catches, pick one at random from the list.
+            Fishable caughtItem = potentialCatches.get(random.nextInt(potentialCatches.size()));
+
+            // Add the single, randomly selected caught item to the actor's inventory.
+            caughtItem.catchBy(actor);
+
+            // Return a success message for the caught item.
+            return "You caught " + caughtItem + " from the pond with " + fishingItem + "!";
+        }
+
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        // This method returns a description of the action for the menu.
-        return actor + " fishes at the Pond " + pondLocation + " with " + fishingItem + ".";
+        return actor + " fishes at the Pond at (" + pondLocation.x() + ", " + pondLocation.y() + ") with " + fishingItem + ".";
     }
 }
