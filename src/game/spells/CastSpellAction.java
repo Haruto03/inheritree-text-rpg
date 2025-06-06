@@ -27,15 +27,17 @@ public class CastSpellAction extends Action {
 
     @Override
     public String execute(Actor caster, GameMap map) {
+        int manaCost = spellbook.getManaCost();
+
         if (!caster.hasAttribute(BaseActorAttributes.MANA)
-                || caster.getAttribute(BaseActorAttributes.MANA) < spellbook.getManaCost()) {
-            return caster + " does not have enough mana to cast " + spellbook.toString()
-                    + ". (Required: " + spellbook.getManaCost() + ")";
+                || caster.getAttribute(BaseActorAttributes.MANA) < manaCost) {
+            return caster + " does not have enough mana to cast " + spellbook
+                    + ". (Required: " + manaCost + ")";
         }
 
         // Deduct mana
         caster.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.DECREASE,
-                spellbook.getManaCost());
+                manaCost);
 
         // Activate the spell by calling the spellbook's activate method
         String result = spellbook.activate(caster, map, target);

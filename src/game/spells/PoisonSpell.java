@@ -17,7 +17,7 @@ public class PoisonSpell extends SpellBook {
     private static final int POISON_DAMAGE_PER_TURN = 25;
 
     public PoisonSpell() {
-        super(NAME, DISPLAY_CHAR, MANA_COST, DESCRIPTION); //
+        super(NAME, DISPLAY_CHAR, MANA_COST, DESCRIPTION);
     }
 
     /**
@@ -29,13 +29,11 @@ public class PoisonSpell extends SpellBook {
      * @return A string describing that the target has been poisoned.
      */
     @Override
-    public String activate(Actor caster, GameMap map, Actor target) { //
-        if (target == null) {
-            return caster + "'s " + NAME + " dissipates, no target found.";
-        }
+    public String activate(Actor caster, GameMap map, Actor target) {
+
         Continuousdamage poisonEffect = new Continuousdamage("Poisoned by " + NAME, POISON_DURATION,
                 POISON_DAMAGE_PER_TURN);
-        target.addStatusEffect(poisonEffect); //
+        target.addStatusEffect(poisonEffect);
         return target + " is engulfed in a " + NAME + " and becomes poisoned!";
     }
 
