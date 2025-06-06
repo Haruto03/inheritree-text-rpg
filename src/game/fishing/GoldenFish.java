@@ -8,23 +8,24 @@ import game.capabilities.GeneralCapability;
 import game.eating.EatAction;
 import game.eating.Eatable;
 
-public class ToxicEel extends Item implements Eatable, Fishable {
+public class GoldenFish extends Item implements Eatable, Fishable {
 
-    private static final double CATCH_RATE = 0.5;
+    private static final double CATCH_RATE = 0.05;
 
-    public ToxicEel() {
-        super("Toxic Eel", 'C', true);
+    public GoldenFish() {
+        super("Golden Fish", 'G', true);
     }
 
     @Override
     public ActionList allowableActions(Actor owner, GameMap map) {
-        ActionList actions = super.allowableActions(owner, map); // Includes DropAction if portable
+        ActionList actions = super.allowableActions(owner, map);
         if (owner.hasCapability(GeneralCapability.CONSUMER)) {
-            actions.add(new EatAction(this)); // Allow eating if owner is a consumer
+            actions.add(new EatAction(this));
         }
         return actions;
     }
 
+    @Override
     public double getCatchChance() {
         return CATCH_RATE;
     }
@@ -34,20 +35,20 @@ public class ToxicEel extends Item implements Eatable, Fishable {
         actor.addItemToInventory(this);
     }
 
-    @Override
+    @Override 
     public void fishedEffect(Actor actor) {
-
+        actor.addBalance(500);
     }
 
     @Override
     public String eatenBy(Actor eater, GameMap map) {
         eater.removeItemFromInventory(this);
-        eater.hurt(10);
-        return eater + " eats " + this + ".";
+        eater.heal(50); // A very powerful heal
+        return eater + " eats the shimmering Golden Fish. It feels invigorating!";
     }
 
     @Override
     public String getEatMenuDescription(Actor actor) {
-        return actor + " eat " + this;
+        return actor + " eats the Golden Fish";
     }
 }

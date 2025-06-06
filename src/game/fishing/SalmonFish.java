@@ -30,6 +30,11 @@ public class SalmonFish extends Item implements Eatable, Fishable {
         return CATCH_RATE;
     }
 
+    @Override 
+    public void fishedEffect(Actor actor) {
+        actor.addBalance(10);
+    }
+
     @Override
     public void catchBy(Actor actor) {
         actor.addItemToInventory(this);

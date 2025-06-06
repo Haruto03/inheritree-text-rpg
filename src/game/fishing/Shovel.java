@@ -4,12 +4,12 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import game.capabilities.GeneralCapability;
 
-public class Showel extends Item implements Fishable {
+public class Shovel extends Item implements Fishable {
 
     private static final double CATCH_RATE = 0.8;
 
-    public Showel() {
-        super("Showel", 'S', true);
+    public Shovel() {
+        super("Shovel", 'S', true);
         this.addCapability(GeneralCapability.CAN_DIG);
 
     }
@@ -22,5 +22,10 @@ public class Showel extends Item implements Fishable {
     @Override
     public void catchBy(Actor actor) {
         actor.addItemToInventory(this);
+    }
+
+    @Override
+    public void fishedEffect(Actor actor) {
+        // Shovel has no special effect when caught
     }
 }
