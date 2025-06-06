@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.behaviours.behaviourselectors.BehaviourSelector;
 import game.behaviours.ProduceBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.capabilities.GeneralCapability;
@@ -72,14 +73,30 @@ public class OmenSheep extends Creature implements Curable, Rotatable, ActorProd
     private static final int PRIORITY_WANDER = 999; // Lower priority
 
     /**
-     * Constructor for the OmenSheep. Initializes the sheep with its name, display character, hit
-     * points, adds {@link WanderBehaviour} and {@link ProduceBehaviour} , and sets the initial rot
-     * countdown.
+     * Constructor for the OmenSheep with default priority behaviour selector.
+     * Initializes the sheep with its name, display character, hit points, and sets the initial rot countdown.
      */
     public OmenSheep() {
         super(OmenSheep.NAME, OmenSheep.DISPLAY_CHAR, OmenSheep.HIT_POINTS);
         this.currentRotCountdown = this.getInitialRotCountdown();
+    }
 
+    /**
+     * Constructor with custom behaviour selector.
+     *
+     * @param behaviourSelector the strategy for selecting behaviours
+     */
+    public OmenSheep(BehaviourSelector behaviourSelector) {
+        super(OmenSheep.NAME, OmenSheep.DISPLAY_CHAR, OmenSheep.HIT_POINTS, behaviourSelector);
+        this.currentRotCountdown = this.getInitialRotCountdown();
+    }
+
+    /**
+     * Initialize the behaviours for Omen Sheep.
+     * Priority order: Reproduce -> Wander
+     */
+    @Override
+    public void initializeBehaviours() {
         this.addBehaviour(PRIORITY_PRODUCE, new ProduceBehaviour(this));
         this.addBehaviour(PRIORITY_WANDER, new WanderBehaviour());
     }
