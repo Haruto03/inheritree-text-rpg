@@ -2,6 +2,7 @@ package game.actors.creatures.boss.parts;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.growingPart.Growable;
 
 public class Leaf implements BossPart {
 
@@ -21,6 +22,6 @@ public class Leaf implements BossPart {
     }
 
     @Override
-    public void grow(Actor boss, GameMap map) {
+    public void grow(Growable boss, GameMap map) {
     }
 }

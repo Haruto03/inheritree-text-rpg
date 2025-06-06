@@ -2,6 +2,8 @@ package game.actors.creatures.boss.parts;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.growingPart.Growable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -38,7 +40,7 @@ public class Branch implements BossPart {
     }
 
     @Override
-    public void grow(Actor boss, GameMap map) {
+    public void grow(Growable boss, GameMap map) {
         if (!isProductive) {
             return;
         }
