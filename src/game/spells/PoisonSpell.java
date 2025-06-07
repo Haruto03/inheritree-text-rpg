@@ -4,7 +4,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.effects.ContinuousDamage;
+import game.effects.ContinuousDamageEffect;
 
 
 public class PoisonSpell extends SpellBook {
@@ -31,7 +31,7 @@ public class PoisonSpell extends SpellBook {
     @Override
     public String activate(Actor caster, GameMap map, Actor target) {
 
-        ContinuousDamage poisonEffect = new ContinuousDamage("Poisoned by " + NAME, POISON_DURATION,
+        ContinuousDamageEffect poisonEffect = new ContinuousDamageEffect("Poisoned by " + NAME, POISON_DURATION,
                 POISON_DAMAGE_PER_TURN);
         target.addStatusEffect(poisonEffect);
         return target + " is engulfed in a " + NAME + " and becomes poisoned!";

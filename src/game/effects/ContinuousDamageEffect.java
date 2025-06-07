@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.actors.StatusEffect;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 
-public class ContinuousDamage extends StatusEffect {
+public class ContinuousDamageEffect extends StatusEffect {
     private int duration;
     private final int damagePerTurn;
 
@@ -16,7 +16,7 @@ public class ContinuousDamage extends StatusEffect {
      * @param duration      How many turns the poison effect lasts.
      * @param damagePerTurn The damage inflicted each turn.
      */
-    public ContinuousDamage(String name, int duration, int damagePerTurn) {
+    public ContinuousDamageEffect(String name, int duration, int damagePerTurn) {
         super(name);
         this.duration = duration;
         this.damagePerTurn = damagePerTurn;
