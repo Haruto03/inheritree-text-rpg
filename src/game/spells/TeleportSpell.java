@@ -77,8 +77,6 @@ public class TeleportSpell extends SpellBook {
     @Override
     public ActionList allowableActions(Actor caster, GameMap map) {
         ActionList actions = super.allowableActions(caster, map); // Gets DropItemAction etc. from Item class
-
-
         actions.add(new CastSpellAction(this, caster));
         return actions;
     }

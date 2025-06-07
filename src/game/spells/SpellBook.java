@@ -7,8 +7,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 
 public abstract class SpellBook extends Item {
 
-    protected int manaCost;
-    protected String description;
+    private final int manaCost;
+    private final String description;
 
     public SpellBook(String name, char displayChar, int manaCost, String description) {
         super(name, displayChar, true);
