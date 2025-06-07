@@ -95,7 +95,7 @@ public class FireSpell extends SpellBook {
             }
             if (originalGround.hasCapability(GroundCapability.CAN_BURNED)) {
                 tileToBurn.setGround(
-                        new TemporaryGround(originalGround, new BurningGround(), BurnDuration));
+                        new TemporaryGround(originalGround, new BurningGround(), BURN_DURATION));
             }
         }
 
