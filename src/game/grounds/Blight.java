@@ -19,9 +19,10 @@ import game.healing.CureAction;
 public class Blight extends Ground implements Curable {
 
     /**
-     * Constructor for Blight. Initializes the ground with display character 'x', name "Blight", and
-     * adds the {@link GroundCapability#CURSED}
-     * capabilities.
+     * Constructor for the Blight class.
+     * <p>
+     * Sets the display character to 'X' and adds the capabilities indicating that seeds can
+     * be planted here and that the ground can be burned.
      */
     public Blight() {
         super('x', "Blight");
