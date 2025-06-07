@@ -15,7 +15,7 @@ public class OldBoot extends Item implements Fishable {
      * Constructor.
      */
     public OldBoot() {
-        super("Old Boot", 'b', true);
+        super("Old Boot", '&', true);
     }
 
     @Override
