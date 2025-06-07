@@ -56,8 +56,7 @@ public class CastSpellAction extends Action {
         }
 
         // Deduct mana
-        caster.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.DECREASE,
-                manaCost);
+        caster.modifyAttribute(BaseActorAttributes.MANA, ActorAttributeOperations.DECREASE, manaCost);
 
         // Activate the spell by calling the spellbook's activate method
         return spellbook.activate(caster, map, target);
