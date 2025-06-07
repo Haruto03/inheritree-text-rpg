@@ -1,21 +1,29 @@
 package game.grounds;
 
+import edu.monash.fit2099.engine.positions.Ground;
+
 /**
  * An enumeration representing capabilities specific to ground types
- * ({@link edu.monash.fit2099.engine.positions.Ground}). These capabilities define specific
- * properties or interactions related to the terrain itself, such as whether seeds can be planted on
- * it or if it has a detrimental effect.
+ * ({@link Ground}). These capabilities define specific
+ * properties or interactions related to the terrain itself, such as whether it can be
+ * planted on or set on fire.
  */
 public enum GroundCapability {
     /**
-     * Indicates that an actor can perform a planting action (e.g., using a
-     * {@link game.plants.Seed}) on this ground. Typically found on {@link Soil}.
+     * Indicates that an actor can perform a planting action on this ground.
      */
     CAN_PLANT_SEED,
+
     /**
-     * Indicates that the ground is cursed or blighted. Entities with this capability might have
-     * negative effects or be targets for purification actions. Found on {@link Blight}.
+     * Indicates that the ground is cursed or blighted, which may have
+     * negative effects or allow for specific interactions.
      */
     CURSED,
+
+    /**
+     * Indicates that the ground can be set on fire by spells or other effects.
+     * For example, a fire spell would check for this capability before replacing
+     * the ground with {@link BurningGround}.
+     */
     CAN_BURNED
 }
