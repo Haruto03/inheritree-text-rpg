@@ -39,10 +39,7 @@ public class FishAction extends Action {
             Fishable caughtItem = potentialCatches.get(random.nextInt(potentialCatches.size()));
 
             // Add the single, randomly selected caught item to the actor's inventory.
-            caughtItem.catchBy(actor);
-
-            // Return a success message for the caught item.
-            return "You caught " + caughtItem + " from the pond with " + fishingItem + "!";
+            return caughtItem.catchBy(actor);
         }
 
     }

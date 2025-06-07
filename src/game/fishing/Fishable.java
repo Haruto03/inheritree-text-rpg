@@ -6,7 +6,6 @@ public interface Fishable {
 
     double getCatchChance();
 
-    void catchBy(Actor actor);
+    String catchBy(Actor actor);
 
-    void fishedEffect(Actor actor);
 }

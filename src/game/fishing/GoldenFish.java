@@ -31,13 +31,12 @@ public class GoldenFish extends Item implements Eatable, Fishable {
     }
 
     @Override
-    public void catchBy(Actor actor) {
+    public String catchBy(Actor actor) {
         actor.addItemToInventory(this);
-    }
 
-    @Override 
-    public void fishedEffect(Actor actor) {
-        actor.addBalance(500);
+        actor.addBalance(1000);
+        
+        return actor + " catches a shimmering Golden Fish! It feels like a stroke of luck. 1000 coins added to balance!";
     }
 
     @Override

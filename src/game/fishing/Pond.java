@@ -18,6 +18,8 @@ public class Pond extends Ground {
         fishableItems.add(new SalmonFish());
         fishableItems.add(new ToxicEel());
         fishableItems.add(new Shovel());
+        fishableItems.add(new GoldenFish());
+        fishableItems.add(new OldBoot());
     }
 
     @Override

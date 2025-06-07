@@ -24,13 +24,10 @@ public class OldBoot extends Item implements Fishable {
     }
 
     @Override
-    public void catchBy(Actor actor) {
+    public String catchBy(Actor actor) {
         actor.addItemToInventory(this);
-    }
 
-    @Override 
-    public void fishedEffect(Actor actor) {
-        // OldBoot has no special effect when caught
+        return actor + " catches an old boot. It seems useless...";
     }
 
 }

@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.capabilities.GeneralCapability;
 import game.eating.EatAction;
 import game.eating.Eatable;
+import game.effects.ContinuousDamage;
 
 public class ToxicEel extends Item implements Eatable, Fishable {
 
@@ -30,13 +31,12 @@ public class ToxicEel extends Item implements Eatable, Fishable {
     }
 
     @Override
-    public void catchBy(Actor actor) {
+    public String catchBy(Actor actor) {
         actor.addItemToInventory(this);
-    }
 
-    @Override
-    public void fishedEffect(Actor actor) {
-
+        actor.addStatusEffect(new ContinuousDamage("Shocked by Toxic Eel", 2, 5));
+        
+        return actor + " catches a Toxic Eel. It feels like a shocking experience! Ouch! ";
     }
 
     @Override

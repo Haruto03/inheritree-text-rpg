@@ -6,7 +6,7 @@ import game.capabilities.GeneralCapability;
 
 public class Shovel extends Item implements Fishable {
 
-    private static final double CATCH_RATE = 0.8;
+    private static final double CATCH_RATE = 0.6;
 
     public Shovel() {
         super("Shovel", 'S', true);
@@ -20,12 +20,8 @@ public class Shovel extends Item implements Fishable {
     }
 
     @Override
-    public void catchBy(Actor actor) {
+    public String catchBy(Actor actor) {
         actor.addItemToInventory(this);
-    }
-
-    @Override
-    public void fishedEffect(Actor actor) {
-        // Shovel has no special effect when caught
+        return actor + " catches a Shovel. It seems like a lucky day... or not. What can it do?";
     }
 }
