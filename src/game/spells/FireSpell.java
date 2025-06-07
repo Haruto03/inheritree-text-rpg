@@ -53,10 +53,23 @@ public class FireSpell extends SpellBook {
     }
 
     @Override
-    public ActionList allowableActions(Actor otherActor, Location location) {
-        ActionList actions = super.allowableActions(otherActor, location);
-        if (otherActor != null && otherActor.isConscious()) {
-            actions.add(new CastSpellAction(this, otherActor));
+    public ActionList allowableActions(Actor caster, GameMap map) {
+        ActionList actions = super.allowableActions(caster, map); // Gets default actions like Drop
+        boolean enemyNearby = false;
+        Location ownerLocation = map.locationOf(caster);
+
+        // Check surrounding tiles for any actor that isn't the caster themselves.
+        for (Exit exit : ownerLocation.getExits()) {
+            if (exit.getDestination().containsAnActor() && exit.getDestination().getActor() != caster) {
+                enemyNearby = true;
+                break; // Found an enemy, no need to check further.
+            }
+        }
+
+        // Only add the spell action if an enemy is present, as per the description.
+        if (enemyNearby) {
+            // Pass null for the target, as this AOE spell doesn't have one.
+            actions.add(new CastSpellAction(this, null));
         }
         return actions;
     }

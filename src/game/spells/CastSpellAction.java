@@ -48,6 +48,11 @@ public class CastSpellAction extends Action {
     public String menuDescription(Actor actor) { // 'actor' is the one performing the action
         String description = actor + " casts " + spellbook.toString();
 
+        // If the target is not null, it's a targeted spell, so add the target's name.
+        if (this.target != null) {
+            description += " on " + target;
+        }
+        
         description += " (Cost: " + spellbook.getManaCost() + " Mana)";
         return description;
     }
