@@ -14,8 +14,10 @@ import edu.monash.fit2099.engine.positions.Ground;
 public class Soil extends Ground {
 
     /**
-     * Constructor for the Soil class. Sets the display character to '.', the name to "Soil", and
-     * adds the capability indicating that seeds can be planted here.
+     * Constructor for the Soil class.
+     * <p>
+     * Sets the display character to '.' and adds the capabilities indicating that seeds can
+     * be planted here and that the ground can be burned.
      */
     public Soil() {
         super('.', "Soil");
