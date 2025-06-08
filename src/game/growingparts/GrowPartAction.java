@@ -15,7 +15,7 @@ public class GrowPartAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
         if (actor != grower) {
-            return null;
+            return actor + " must be same with " + grower;
         }
         return actor + " is growing...\n" + grower.attemptGrow();
     }
