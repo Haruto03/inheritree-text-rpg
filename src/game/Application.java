@@ -111,7 +111,7 @@ public class Application {
         gameMap.at(22, 12).setGround(new Pond());
 
         Player player = new Player("Farmer", '@', 100);
-        world.addPlayer(player, gameMap.at(22, 13));
+        world.addPlayer(player, limveldGameMap.at(9, 5));
 
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());

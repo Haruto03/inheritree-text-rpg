@@ -7,26 +7,28 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.actors.creatures.Creature;
 import game.actors.creatures.boss.parts.BossPart;
-import game.actors.npc.AttackConditionEvaluator;
+import game.actors.creatures.boss.parts.Branch;
+import game.actors.creatures.boss.parts.Leaf;
+import game.behaviours.AttackConditionEvaluator;
 import game.behaviours.AttackBehaviour;
-import game.growingPart.GrowPartBehaviour;
 import game.capabilities.GeneralCapability;
-import game.growingPart.Growable;
+import game.growingparts.GrowPartBehaviour;
+import game.growingparts.Growable;
 import game.weapons.BedOfChaosClaw;
 import game.weapons.actions.AttackAction;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class BedOfChaos extends Creature implements AttackConditionEvaluator, Growable {
 
-    private final List<BossPart> directParts = new ArrayList<>();
     private static final int BASE_DAMAGE = 25;
     private static final int HIT_RATE = 75;
     private static final int PRIORITY_ATTACK = 1;
     private static final int PRIORITY_GROW = 5;
-    private final BedOfChaosClaw bossWeapon= new BedOfChaosClaw(BASE_DAMAGE, "strikes", HIT_RATE);
+    private final Random random = new Random();
+    private final List<BossPart> directParts = new ArrayList<>();
+    private final BedOfChaosClaw bossWeapon = new BedOfChaosClaw(BASE_DAMAGE, "strikes", HIT_RATE);
 
     public BedOfChaos() {
         super("Bed of Chaos", 'T', 1000);
@@ -47,35 +49,36 @@ public class BedOfChaos extends Creature implements AttackConditionEvaluator, Gr
 
     @Override
     public boolean evaluate(Actor attacker, Actor potentialTarget, GameMap map) {
-        if (potentialTarget.hasCapability(GeneralCapability.HOSTILE_TO_ENEMY)) {
-            int accumulatedDamage = directParts.stream()
-                    .mapToInt(BossPart::getDamageContribution)
-                    .sum();
-            int totalDamage = BASE_DAMAGE + accumulatedDamage;
-
-            bossWeapon.setDamage(totalDamage);
-            return true;
-        }
-        return false;
+        int totalAdditionalDamage = this.getDamageContribution();
+        bossWeapon.setDamage(BASE_DAMAGE + totalAdditionalDamage);
+        return true;
     }
 
-
-
-    public void addDirectPart(BossPart part) {
-        this.directParts.add(part);
+    @Override
+    public String attemptGrow() {
+        StringBuilder growMessage = new StringBuilder();
+        if (random.nextBoolean()) {
+            directParts.add(new Branch());
+            growMessage.append("It grows a Branch...\n");
+        } else {
+            directParts.add(new Leaf());
+            growMessage.append("It grows a Leaf...\n");
+        }
+        int index = 0;
+        while (index < directParts.size()) {
+            BossPart bossPart = directParts.get(index);
+            growMessage.append(bossPart.grow(this, directParts));
+            index++;
+        }
+        return growMessage.toString();
     }
 
-    public List<BossPart> getDirectParts() {
-        return Collections.unmodifiableList(directParts);
-    }
-
-    public void collectProductiveParts(BossPart part, List<BossPart> productiveParts) {
-        if (part.isProductive()) {
-            productiveParts.add(part);
+    public int getDamageContribution() {
+        int totalAdditionalDamage = 0;
+        for (BossPart bossPart : directParts) {
+            totalAdditionalDamage += bossPart.getDamageContribution();
         }
-        for (BossPart subPart : part.getSubParts()) {
-            collectProductiveParts(subPart, productiveParts);
-        }
+        return totalAdditionalDamage;
     }
 
     @Override

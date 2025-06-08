@@ -13,12 +13,14 @@ import java.util.List;
 import java.util.Random;
 
 public class TeleportSpell extends SpellBook {
+
+    private static final String NAME = "Teleport Spell";
     private static final int MANA_COST = 20;
     private static final String DESCRIPTION = "Teleports the caster to a random valid location on the current map.";
     private static final Random random = new Random();
 
     public TeleportSpell() {
-        super("Teleport", 't', MANA_COST, DESCRIPTION);
+        super(NAME, 't', MANA_COST, DESCRIPTION);
     }
 
 

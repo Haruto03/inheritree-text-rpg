@@ -3,6 +3,7 @@ package game.actors.npc;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.behaviours.AttackBehaviour;
+import game.behaviours.AttackConditionEvaluator;
 import game.conditions.Condition;
 import game.conditions.DefaultCondition;
 import game.conditions.DynamicTargetHealthCondition;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * characterized by his aggressive {@link AttackBehaviour} and specific monologues, particularly
  * when a listening actor has low health. Guts uses {@link BareFist} as his intrinsic weapon.
  */
-public class NpcGuts extends Npc implements AttackConditionEvaluator{
+public class NpcGuts extends Npc implements AttackConditionEvaluator {
 
     /**
      * Display character representing Guts on the game map.

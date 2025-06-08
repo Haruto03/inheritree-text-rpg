@@ -1,19 +1,19 @@
-// Suggested location: game.actors.npc.AttackConditionEvaluator.java
-package game.actors.npc; // Or a more general package like game.combat if you have one
+package game.behaviours;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 
 /**
- * Defines a contract for entities (typically NPCs) that can evaluate
- * whether an attack should be executed against a potential target.
- * An NPC implementing this can provide its specific attack decision logic.
+ * Defines a contract for entities (typically NPCs) that can evaluate whether an attack should be
+ * executed against a potential target. An NPC implementing this can provide its specific attack
+ * decision logic.
  */
 @FunctionalInterface // Good practice if it's intended to have only one abstract method
 public interface AttackConditionEvaluator {
+
     /**
-     * Evaluates if the attacker should proceed with an attack against the potentialTarget.
-     * This method encapsulates the NPC's specific attack conditions.
+     * Evaluates if the attacker should proceed with an attack against the potentialTarget. This
+     * method encapsulates the NPC's specific attack conditions.
      *
      * @param attacker        The actor considering the attack (typically the NPC itself).
      * @param potentialTarget The actor being considered as a target.
