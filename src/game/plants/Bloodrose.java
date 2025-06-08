@@ -12,10 +12,10 @@ import game.fishing.DigAction;
 import game.grounds.Blight;
 
 /**
- * Represents a Bloodrose plant, a type of {@link Plant} grown from a {@link Seed}. Bloodroses have
- * harmful effects both instantly upon planting and periodically each turn. They drain health and
- * stamina from the planter instantly and damage adjacent actors each turn. Represented by 'w' on
- * the map.
+ * Represents a Bloodrose plant, a type of harmful {@link Plant} grown from a {@link Seed}.
+ * Bloodroses have detrimental effects, including draining health and stamina from the planter
+ * instantly and periodically damaging adjacent actors. It is represented by 'w' on the map.
+ * It can be dug up, turning the ground into Blight.
  */
 public class Bloodrose extends Plant {
 
@@ -33,17 +33,17 @@ public class Bloodrose extends Plant {
     private static final int STAMINA_COST_WHEN_PLANT = 5;
 
     /**
-     * Constructor for the Bloodrose. Initializes the plant with display character 'w' and name
-     * "Blood rose".
+     * Constructor for the Bloodrose.
+     * Initializes the plant with display character 'w' and name "Blood rose".
      */
     public Bloodrose() {
         super('w', "Blood rose");
     }
 
     /**
-     * Executes the instant effects that occur when the Bloodrose is planted. This includes
-     * decreasing the planter's stamina by {@value #STAMINA_COST_WHEN_PLANT} and hurting the planter
-     * for {@value #DAMAGE_TO_PLANTER} health points.
+     * Executes the instant effects that occur when the Bloodrose is planted.
+     * This includes decreasing the planter's stamina and health. If the planter
+     * becomes unconscious, this method handles it.
      *
      * @param planter  The actor who planted the Bloodrose.
      * @param location The location where the Bloodrose was planted.
@@ -66,9 +66,9 @@ public class Bloodrose extends Plant {
     }
 
     /**
-     * Called once per turn, allowing the Bloodrose to perform its periodic actions. The Bloodrose
-     * damages any actors present in adjacent squares by {@value #DAMAGE_TO_SURROUNDING}. If an
-     * adjacent actor becomes unconscious due to this damage, their unconscious state is handled.
+     * Called once per turn, allowing the Bloodrose to perform its periodic actions.
+     * The Bloodrose damages any actors present in adjacent squares by {@value #DAMAGE_TO_SURROUNDING}.
+     * If an adjacent actor becomes unconscious due to this damage, their state is handled.
      *
      * @param location The current location of this Bloodrose on the map.
      */
@@ -90,6 +90,16 @@ public class Bloodrose extends Plant {
         }
     }
 
+    /**
+     * Returns a list of allowable actions an actor can perform on this Bloodrose ground.
+     * If the actor has an item with the {@link GeneralCapability#CAN_DIG} capability,
+     * a {@link DigAction} is made available to dig up the Bloodrose and replace it with Blight.
+     *
+     * @param actor     The actor interacting with the ground.
+     * @param location  The location of the ground.
+     * @param direction The direction of the ground from the actor.
+     * @return A list of allowable actions.
+     */
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
