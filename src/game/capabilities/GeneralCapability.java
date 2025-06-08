@@ -75,11 +75,20 @@ public enum GeneralCapability {
      */
     CAN_BUY,
     /**
-     * Capability indicating an actor (usually the player) can listen from NPCs
+     * Capability indicating an actor (usually the player) can listen to monologues from NPCs.
      */
     CAN_LISTEN,
+    /**
+     * Capability indicating an actor can use teleportation, such as through a gate or spell.
+     */
     CAN_TELEPORT,
+    /**
+     * Capability indicating an item or actor enables fishing actions.
+     */
     CAN_FISH,
 
+    /**
+     * Capability indicating an item or actor enables digging actions.
+     */
     CAN_DIG
 }
