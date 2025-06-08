@@ -76,7 +76,8 @@ public abstract class Creature extends Actor {
     /**
      * Add a behaviour to this creature's behaviour list.
      *
-     * @param behaviour the behaviour to add
+     * @param priority the priority of behavior
+     * @param behaviour the behavior to add
      */
     protected void addBehaviour(int priority, Behaviour behaviour) {
         behaviours.put(priority, behaviour);
