@@ -102,7 +102,7 @@ public class Application {
 
         // Set Teleportation destination
         gateInValley.addDestination(limveldGameMap.at(8, 6));
-        gateInLimveld.addDestination(gameMap.at(15, 8));
+        gateInLimveld.addDestination(gameMap.at(23, 14));
 
         // Place the TeleportationGate on the map
         gameMap.at(23, 14).setGround(gateInValley);
