@@ -68,7 +68,7 @@ public class DigAction extends Action {
     public String execute(Actor actor, GameMap map) {
         Ground orginalGround = digLocation.getGround();
         digLocation.setGround(newGround);
-        return orginalGround + "has been dig and replaced to" + newGround;
+        return orginalGround + " has been dig and replaced to " + newGround;
     }
 
     /**
@@ -79,6 +79,6 @@ public class DigAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return "Using " + digItem + " to dig" + digLocation;
+        return "Using " + digItem + " to dig " + digLocation.getGround();
     }
 }

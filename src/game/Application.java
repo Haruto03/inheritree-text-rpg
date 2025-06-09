@@ -108,10 +108,10 @@ public class Application {
         gameMap.at(23, 14).setGround(gateInValley);
         limveldGameMap.at(8, 6).setGround(gateInLimveld);
 
-        gameMap.at(22, 12).setGround(new Pond());
+        gameMap.at(22, 13).setGround(new Pond());
 
         Player player = new Player("Farmer", '@', 100);
-        world.addPlayer(player, limveldGameMap.at(9, 5));
+        world.addPlayer(player, gameMap.at(23, 11));
 
         player.addItemToInventory(new BloodroseSeed());
         player.addItemToInventory(new InheritreeSeed());
