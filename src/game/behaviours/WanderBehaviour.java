@@ -13,9 +13,9 @@ import java.util.Random;
  * A behaviour that allows an Actor to wander randomly around the map. It selects a random valid
  * exit from the actor's current location and returns a MoveActorAction to move there.
  * <p>
- * Created by the FIT2099 Teaching Team.
+ * Provided with the game engine starter code.
  *
- * @author Riordan D. Alfredo Modified by: GoeyQiHang
+ * @author Riordan D. Alfredo
  */
 public class WanderBehaviour implements Behaviour {
 

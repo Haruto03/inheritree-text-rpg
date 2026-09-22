@@ -14,7 +14,7 @@ import game.healing.CureAction;
  * by 'x', is considered cursed, and can be cured (transformed into Soil). It implements the
  * {@link Curable} interface to define its curing behavior.
  *
- * @author Adrian Kristanto Modified by: Goey Qi Hang
+ * @author Adrian Kristanto
  */
 public class Blight extends Ground implements Curable {
 

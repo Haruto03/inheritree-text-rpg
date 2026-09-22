@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.positions.Ground;
  * {@link game.plants.Seed} items on it. It inherits other default behaviors from the {@link Ground}
  * class.
  *
- * @author Adrian Kristanto Modified by: Goey Qi Hang
+ * @author Adrian Kristanto
  */
 public class Soil extends Ground {
 

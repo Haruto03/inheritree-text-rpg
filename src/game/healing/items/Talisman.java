@@ -11,7 +11,7 @@ import game.healing.CureAction;
  * {@link GeneralCapability#CAN_CURED} capability and implement the {@link Curable} interface. It
  * grants the {@link CureAction} to its owner. Represented by 'o' on the map.
  *
- * @author Adrian Kristanto Modified by: Goey Qi Hang
+ * @author Adrian Kristanto
  */
 public class Talisman extends Item {
 

@@ -24,7 +24,7 @@ package game.capabilities;
  * production behaviours (e.g., {@link game.actors.creatures.SpiritGoat}).</li>
  * </ul>
  *
- * @author Riordan D. Alfredo Modified by: GoeyQiHang
+ * @author Riordan D. Alfredo
  */
 public enum GeneralCapability {
     /**

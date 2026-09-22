@@ -1,48 +1,57 @@
-# FIT2099 Assignment (Semester 1, 2025)
+# Inheritree — a text-based RPG in Java
 
+A turn-based, text-rendered role-playing game inspired by *Elden Ring*, built
+in Java on top of a small object-oriented game engine. The player is a Farmer
+exploring two maps — the *Valley of the Inheritree* and *Limveld* — where the
+land is cursed with Blight. Plant sacred trees to cure the ground, fight
+creatures and a growing boss, cast spells, fish, trade with merchants and
+talk to NPCs.
+
+Developed by Haruto Iriyama as part of a five-person team over two design
+iterations. The engine (`src/edu/…/engine`) was provided; everything under
+`src/game` is the team's own code.
+
+## Features
+
+| Area | What's there |
+|---|---|
+| **World** | Two maps linked by teleportation gates; ground types with capabilities (Blight, Soil, Floor, Wall, Pond, burning / temporary ground) |
+| **Creatures** | Spirit Goat, Omen Sheep, Golden Beetle — each with priority- or random-based behaviour selection (wander, follow, attack, produce) |
+| **Bed of Chaos boss** | A boss that *grows* every turn: branches and leaves are recursively spawned as `BossPart`s, and its attack power scales with the parts it has grown |
+| **Eggs & hatching** | Creatures lay eggs; eggs hatch under rule-based conditions (timed, cursed-environment) and can be eaten for buffs |
+| **Plants** | Inheritree and Bloodrose seeds; planting cures Blight, trees heal nearby actors, Bloodrose damages them |
+| **Combat** | Weapon items (Broadsword, Katana, Dragonslayer Greatsword) and intrinsic weapons; attack actions driven by capabilities |
+| **NPCs & trade** | Sellen, Kale and Guts with monologues that change with game state; merchants sell weapons whose purchase applies effects (heal, max-HP/stamina, spawn a creature) |
+| **Spells** | Spellbook with Fire, Heal, Poison and Teleport spells that cost mana and apply effects to actors or ground |
+| **Fishing** | Fishing rod and pond with weighted catch table (salmon, golden fish, toxic eel, old boot) plus a shovel to dig up plants |
+| **Healing** | Talisman that cures cursed actors and ground |
+
+### Design highlights
+
+- **Composition over inheritance.** Behaviours (`AttackBehaviour`, `FollowBehaviour`, `WanderBehaviour`, `ProduceBehaviour`, `GrowPartBehaviour`) are plugged into actors through a `BehaviourSelector`, so a new creature is a configuration rather than a class hierarchy.
+- **Conditions and effects as first-class objects.** `Condition` (low health, low runes, nearby capability, turn-based, …) and `Effect` (damage, heal, continuous damage, spawn actor, …) are small composable interfaces; NPC dialogue, merchant offers and spells all reuse them.
+- **Capabilities, not `instanceof`.** Ground, items and actors advertise `GeneralCapability` / `GroundCapability` enums, and actions check capabilities, which keeps the engine and game decoupled.
+- **Recursive boss growth.** `BedOfChaos` holds a tree of `Branch`/`Leaf` parts; growth is a recursive walk that lets branches sprout further branches or leaves, and damage is summed over the tree.
+
+My own contributions were centred on the creature/egg/hatching system, the
+`Produce` behaviour and the Bed of Chaos boss (the recursive `BossPart`
+design, `GrowPartAction` / `GrowPartBehaviour` and its weapon).
+
+## Running
+
+Requires JDK 17+.
+
+```bash
+javac -d out $(find src -name "*.java")
+java -cp out game.Application
 ```
-`7MM"""YMM  `7MMF'      `7MM"""Yb. `7MM"""YMM  `7MN.   `7MF'    MMP""MM""YMM `7MMF'  `7MMF'`7MMF'`7MN.   `7MF' .g8"""bgd  
-  MM    `7    MM          MM    `Yb. MM    `7    MMN.    M      P'   MM   `7   MM      MM    MM    MMN.    M .dP'     `M  
-  MM   d      MM          MM     `Mb MM   d      M YMb   M           MM        MM      MM    MM    M YMb   M dM'       `  
-  MMmmMM      MM          MM      MM MMmmMM      M  `MN. M           MM        MMmmmmmmMM    MM    M  `MN. M MM           
-  MM   Y  ,   MM      ,   MM     ,MP MM   Y  ,   M   `MM.M           MM        MM      MM    MM    M   `MM.M MM.    `7MMF'
-  MM     ,M   MM     ,M   MM    ,dP' MM     ,M   M     YMM           MM        MM      MM    MM    M     YMM `Mb.     MM  
-.JMMmmmmMMM .JMMmmmmMMM .JMMmmmdP' .JMMmmmmMMM .JML.    YM         .JMML.    .JMML.  .JMML..JMML..JML.    YM   `"bmmmdPY  
-```
 
-[Contribution Log](https://docs.google.com/spreadsheets/d/1gKEzBsCYIDqmTIBYuMdgHVlxKsTblQpj1Mp7jnL7QN4/edit?usp=sharing)
+Or open the project in IntelliJ IDEA and run `game.Application`. The game is
+played in the terminal: each turn lists the available actions and you type
+the key of the one you want.
 
+## Documentation
 
-[Requirement 3 and 4 checking:](https://docs.google.com/document/d/1YSkGT26D4_QkVSjapRd8jFQSzq5kpSmDq_fLxjvh4HM/edit?usp=sharing)
-Requirement 3: Spells Casting
-Design: 
-Players cast spells in game, managed by a Spellbook that consist of spells like FireSpell, HealSpell, and TeleportSpell. Spells apply effects to Actors or Locations through SpellEffects interfaces in the effects package. We will add mana to the farmer.
-
-Higher-level class
-CastSpellAction: This CastSpellAction will extend Action, check casting condition and execute spells via action menu. 
-Abstract/interface class
-Spellbook (Item): This abstract class spellbook act as an applycastingeffect to the effects. Then the allowableactions will be checking if the spell is for self or opponent. 
-Lower-level classes
-FireSpell: Extend SpellBook. Check if surrounding has enemy, then surrounding 8 tiles will burn, and tiles will change to a different character for 1 turn. It will have a FireEffect.
-TeleportSpell:Extend SpellBook, teleports the caster randomly. Using allowableActions for self. Cost 20 mana. It will have a TeleportEffect. 
-PoisonSpell: Extend SpellBook, damages a target Actor for a few turns in the game.. Cost 40 mana. We will have a PoisonStatusEffect extending StatusEffect
-The spell will be executed by getting the actor, location and map. 
-HealSpell: Extend SpellBook, heals a target Actor with a HealEffect. Cost 30 mana
-
-[Approved by Mogana and Chong (31/05/2025)]
-
-Requirement 4: Fishing System
-Design: 
-
-Higher level class
-FishingAction: This will extend Action, when near pond player will be able to fish from the pond. 
-Pond: this is a ground type, where it takes an area in the map. There will be fishable items in the pond. 
-Abstract/interface class
-Fishable: This will be an interface, that shows what items are fishable in the pond area. 
-Lower level classes
-FreshFish: This fish will extend item and implement fishable. It can be eaten by the player and increase certain health. There is a 50% chance of fishing it. 
-RottenFish: This fish will extend item and implement fishable. It will decrease health if player eat it. There will be a 70% chance of fishing
-Shovel: This shovel extends item. It will use DigAction, where its able to remove the plants in the map and return back into a soil ground.
-FishingRod: This FishingRod extends Item, where it enables fishing function with a capability of CAN_FISH. 
-
-[Approved by Mogana and Chong  - (1/06/2025)]
+- `docs/design/game.png`, `docs/design/engine.png` — class diagrams of the game and engine packages
+- `docs/design/uml_spells_and_fishing.png` — UML for the spell and fishing systems
+- `docs/design/iteration-1/`, `docs/design/iteration-2/` — design rationale, UML and sequence diagrams for each feature in the two iterations

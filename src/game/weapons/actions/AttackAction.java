@@ -12,9 +12,9 @@ import edu.monash.fit2099.engine.weapons.Weapon;
  * It handles the execution of the attack via the weapon's logic and processes
  * the target becoming unconscious if their health drops to zero or below.
  * <p>
- * Created by the FIT2099 Teaching Team.
+ * Provided with the game engine starter code.
  * @author Adrian Kristanto
- * Modified by: GoeyQiHang
+ *
  */
 public class AttackAction extends Action {
 

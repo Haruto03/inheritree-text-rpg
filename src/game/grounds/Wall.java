@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.Ground;
  * A class representing a wall, an impassable type of terrain. Walls are represented by '#' and
  * named "Wall". Actors cannot enter locations containing a Wall.
  *
- * @author Riordan D. Alfredo Modified by: Goey Qi Hang
+ * @author Riordan D. Alfredo
  */
 public class Wall extends Ground {
 

@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.Ground;
  * named "Floor". This ground type uses the default behaviors inherited from {@link Ground},
  * typically meaning it is passable by actors and does not block thrown objects.
  *
- * @author Riordan D. Alfredo Modified by: GoeyQiHang
+ * @author Riordan D. Alfredo
  */
 public class Floor extends Ground {
 
