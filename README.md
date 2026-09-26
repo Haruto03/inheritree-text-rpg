@@ -13,6 +13,11 @@ Developed by Haruto Iriyama as part of a five-person team over two design
 iterations. The engine (`src/edu/…/engine`) was provided; everything under
 `src/game` is the team's own code.
 
+<img src="docs/screenshot-gameplay.png" alt="The game running in a terminal: the map of the Valley of the Inheritree, the Farmer's health, stamina, mana and runes, the action menu with spells, fishing and planting, and the turn log" width="560">
+
+<sub>One turn: the map, the Farmer's status, the available actions, and the
+turn log — a Golden Beetle laying an egg and the Bed of Chaos swinging at it.</sub>
+
 ## Features
 
 | Area | What's there |

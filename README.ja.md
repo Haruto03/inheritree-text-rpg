@@ -11,6 +11,11 @@ NPC と会話します。
 Haruto Iriyama が 5 人チームの一員として、2 回の設計イテレーションを通じて開発しました。
 エンジン(`src/edu/…/engine`)は提供されたもので、`src/game` 配下はすべてチームの自作コードです。
 
+<img src="docs/screenshot-gameplay.png" alt="ターミナルで動作中のゲーム画面。Valley of the Inheritree のマップ、農夫の体力・スタミナ・マナ・ルーン、呪文や釣り・種まきを含む行動メニュー、そしてターンのログ" width="560">
+
+<sub>1 ターン分の画面です。マップ、農夫のステータス、選択可能な行動、そしてターンログ
+(Golden Beetle の産卵と、Bed of Chaos の攻撃)が表示されています。</sub>
+
 ## 機能
 
 | 領域 | 内容 |
