@@ -1,5 +1,7 @@
 # Inheritree — a text-based RPG in Java
 
+English | [日本語](README.ja.md)
+
 A turn-based, text-rendered role-playing game inspired by *Elden Ring*, built
 in Java on top of a small object-oriented game engine. The player is a Farmer
 exploring two maps — the *Valley of the Inheritree* and *Limveld* — where the
