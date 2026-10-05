@@ -110,6 +110,24 @@ same object can be picked up, dropped or eaten for a buff.
 I also wrote `FollowBehaviour`, the `GeneralCapability` enum the conditions
 above query, and the boss's weapon and attack action.
 
+## Scope and process
+
+A team of five, about a month (May–June 2025), delivered in two iterations.
+The engine under `src/edu` (62 classes) was provided; the team wrote the 100
+classes under `src/game`, and **26 of those were mine**.
+
+| Phase | What it involved here |
+|---|---|
+| Requirements | Four feature specs per iteration, handed to us. We worked from them rather than defining them. |
+| Design | For every requirement: a UML class diagram, a sequence diagram and a written design rationale, produced *before* the code. All of it is in [`docs/design/`](docs/design). |
+| Implementation | The classes described above, in Java. |
+| Extension | Iteration 2 added features on top of iteration 1's codebase, so it meant refactoring our own earlier design rather than starting from a clean sheet. |
+| Testing | Manual only — playing each path through the terminal. **This project has no automated test suite.** |
+
+The design-before-code order was enforced: each requirement's rationale had
+to be written and reviewed before implementation began, which is why the
+repository carries as many diagrams as it does classes.
+
 ## Running
 
 Requires JDK 17+.
