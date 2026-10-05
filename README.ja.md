@@ -38,9 +38,68 @@ Haruto Iriyama が 5 人チームの一員として、2 回の設計イテレー
 - **`instanceof` ではなく capability。** 地形・アイテム・アクターは `GeneralCapability` / `GroundCapability` の enum を公開し、アクション側は capability を確認します。これによりエンジンとゲームの結合を避けています。
 - **再帰的に成長するボス。** `BedOfChaos` は `Branch` / `Leaf` のツリーを保持します。成長は再帰的な走査として実装され、枝がさらに枝や葉を伸ばせるようになっており、ダメージはツリー全体の合計として計算されます。
 
-私自身が主に担当したのは、クリーチャー・卵・孵化のシステム、`Produce` 行動、そして
-Bed of Chaos ボス(再帰的な `BossPart` の設計、`GrowPartAction` / `GrowPartBehaviour`、
-および専用武器)です。
+## 担当した部分
+
+チーム内では、クリーチャー関連 — 繁殖のしかた、卵の孵化、そして自ら成長するボス
+Bed of Chaos — を担当しました。
+
+**Bed of Chaos — 木構造としてのボス。** カウンタで強さを上げるのではなく、`BossPart` の
+リストを持ち、毎ターン 1 つずつ部位を増やしていきます。インターフェースは
+`getDamageContribution()` と `grow(actor, directParts)` の 2 つだけですが、実装の意味は
+大きく異なります。
+
+| 部位 | ダメージ | `grow()` の動作 |
+|---|---|---|
+| `Branch` | 3 | 50% の確率で `Branch` か `Leaf` を追加 |
+| `Leaf` | 1 | 何も追加せず、代わりにボスを 5 回復させる |
+
+`Leaf` に同じ `grow()` を持たせつつ意味を変えたことで、ボス側に型判定が一切要らなく
+なっています。また `Branch` は `Leaf` を生やした時点で `isProductive = false` になるため、
+成長は指数的に発散せず自然に収束します。攻撃力は保持せず、攻撃の直前に部位を再集計して
+武器へ書き込みます(`BASE_DAMAGE + getDamageContribution()`)。値が木の状態とずれることが
+原理的に起きません。
+
+実装上の細部をひとつ挙げると、`attemptGrow()` は拡張 for ではなく添字による `while` で
+リストを走査しています。ループ本体が走査中のリストに要素を追加するため、拡張 for では
+枝が伸びた瞬間に `ConcurrentModificationException` になるからです。
+
+**成長を特別扱いせず「行動」として実装。** ボス自身は*いつ*成長するかを知りません。
+`GrowPartBehaviour` が周囲のマスを調べ、隣接マスにアクターがいれば `null` を返します。
+すると `BehaviourSelector` の中で攻撃行動に順番が渡ります。結果として「手が届く相手が
+いないときだけ成長する」という規則が 1 箇所に収まりました。この行動が依存しているのは
+`BedOfChaos` ではなく `Growable`(`attemptGrow()`)インターフェースなので、他のものも
+同じ仕組みで成長させられます。
+
+**繁殖条件はクリーチャーごとに持たせる。** `ActorProducible`(`canProduceOffspring` /
+`produceOffspring`)により、1 つの `ProduceBehaviour` が条件の異なる 3 種類に対応します。
+
+| クリーチャー | 産出する条件 |
+|---|---|
+| Golden Beetle | 一定ターン経過 |
+| Omen Sheep | 一定ターン経過 |
+| Spirit Goat | 隣接マスに `BLESSED` の capability がある |
+
+Spirit Goat の条件は `NearbyCapabilityCondition` を再利用しているため、「周囲に X があるか
+調べる」処理をクリーチャーごとに書き直してはいません。
+
+**孵化は分岐ではなくデータとして表現。** 卵は `HatchingRules` のリストを公開し、各ルールは
+`Condition` と `Supplier<Actor>` の組になっています。
+
+```java
+new HatchingRules(new NearbyCapabilityCondition(location, GeneralCapability.CURSED),
+                  GoldenBeetle::new)   // 黄金虫の卵:呪われた地面の近くで孵化
+new HatchingRules(new TurnBasedCondition(turnOnGround, HATCH_DURATION),
+                  OmenSheep::new)      // 羊の卵:一定ターン経過で孵化
+```
+
+`Supplier` にしている点が重要で、条件を満たしたときに初めてクリーチャーが生成されます。
+生まれるかもしれないアクターを作らずにルールだけ宣言できるということです。新しい卵を
+追加する作業は、`if` の連鎖を書き足すことではなくルールを 1 つ足すことになります。さらに
+卵は `Item` かつ `Eatable` でもあるため、同じオブジェクトを拾う・捨てる・食べてバフを得る、
+といった扱いができます。
+
+このほか `FollowBehaviour`、上記の条件群が参照する `GeneralCapability` enum、ボス専用の
+武器と攻撃アクションも担当しました。
 
 ## 実行方法
 

@@ -40,9 +40,75 @@ turn log — a Golden Beetle laying an egg and the Bed of Chaos swinging at it.<
 - **Capabilities, not `instanceof`.** Ground, items and actors advertise `GeneralCapability` / `GroundCapability` enums, and actions check capabilities, which keeps the engine and game decoupled.
 - **Recursive boss growth.** `BedOfChaos` holds a tree of `Branch`/`Leaf` parts; growth is a recursive walk that lets branches sprout further branches or leaves, and damage is summed over the tree.
 
-My own contributions were centred on the creature/egg/hatching system, the
-`Produce` behaviour and the Bed of Chaos boss (the recursive `BossPart`
-design, `GrowPartAction` / `GrowPartBehaviour` and its weapon).
+## What I built
+
+Within the team I owned the creatures: how they reproduce, how their eggs
+hatch, and the Bed of Chaos boss that grows itself.
+
+**The Bed of Chaos — a boss that is a tree.** Rather than scaling the boss
+with a counter, it holds a list of `BossPart`s and grows one more each turn.
+The interface is two methods — `getDamageContribution()` and
+`grow(actor, directParts)` — and the two implementations read very
+differently through it:
+
+| Part | Damage | What `grow()` does |
+|---|---|---|
+| `Branch` | 3 | Adds another `Branch` or a `Leaf` (50/50) |
+| `Leaf` | 1 | Adds nothing — heals the boss by 5 instead |
+
+Giving `Leaf` the same `grow()` method but a different meaning is what keeps
+the boss from needing a type check anywhere. A `Branch` also sets
+`isProductive = false` once it has sprouted a `Leaf`, so growth is
+self-limiting instead of exponential. Attack power is never stored: before
+each swing the boss re-sums its parts and writes the total into its weapon
+(`BASE_DAMAGE + getDamageContribution()`), so the number can never drift
+from the tree it describes.
+
+One detail worth calling out: `attemptGrow()` walks the part list with an
+index-based `while` loop rather than a for-each, because the loop body adds
+to the very list it is iterating — a for-each would throw
+`ConcurrentModificationException` the moment a branch sprouted.
+
+**Growth as a behaviour, not a special case.** The boss does not know *when*
+to grow. `GrowPartBehaviour` checks the surrounding tiles and returns `null`
+if any adjacent square holds an actor, which hands the turn to the attack
+behaviour in the `BehaviourSelector`. The boss therefore only grows while
+nothing is in reach, and that rule lives in one place. The behaviour depends
+on a `Growable` interface (`attemptGrow()`), not on `BedOfChaos`, so anything
+else in the game could grow the same way.
+
+**Reproduction driven by each creature's own rule.** `ActorProducible`
+(`canProduceOffspring` / `produceOffspring`) lets one `ProduceBehaviour`
+serve three creatures with completely different conditions:
+
+| Creature | Produces when |
+|---|---|
+| Golden Beetle | A fixed number of turns has passed |
+| Omen Sheep | A fixed number of turns has passed |
+| Spirit Goat | A `BLESSED` capability is on an adjacent tile |
+
+The Spirit Goat's condition reuses `NearbyCapabilityCondition`, so "look
+around for X" is not re-implemented per creature.
+
+**Hatching as data instead of branches.** An egg exposes a list of
+`HatchingRules`, each a pairing of a `Condition` with a
+`Supplier<Actor>`:
+
+```java
+new HatchingRules(new NearbyCapabilityCondition(location, GeneralCapability.CURSED),
+                  GoldenBeetle::new)   // Golden Beetle egg: hatches on cursed ground
+new HatchingRules(new TurnBasedCondition(turnOnGround, HATCH_DURATION),
+                  OmenSheep::new)      // Omen Sheep egg: hatches after N turns
+```
+
+The `Supplier` matters: the creature is only constructed if the condition
+passes, so a rule can be declared without building the actor it might one
+day produce. Adding a new egg means adding a rule, not editing a chain of
+`if` statements — and because an egg is also an `Item` and `Eatable`, the
+same object can be picked up, dropped or eaten for a buff.
+
+I also wrote `FollowBehaviour`, the `GeneralCapability` enum the conditions
+above query, and the boss's weapon and attack action.
 
 ## Running
 
